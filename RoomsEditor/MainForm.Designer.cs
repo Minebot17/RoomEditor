@@ -31,14 +31,14 @@
 			this.создатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.сохранитьКакToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.tabControl1 = new System.Windows.Forms.TabControl();
+			this.MainTab = new System.Windows.Forms.TabControl();
 			this.roomsMode = new System.Windows.Forms.TabPage();
 			this.hideMode = new System.Windows.Forms.TabPage();
 			this.createMode = new System.Windows.Forms.TabPage();
 			this.editMode = new System.Windows.Forms.TabPage();
 			DrawTimer = new System.Windows.Forms.Timer(this.components);
 			this.menuStrip1.SuspendLayout();
-			this.tabControl1.SuspendLayout();
+			this.MainTab.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// DrawTimer
@@ -63,6 +63,12 @@
 			this.viewPort.Size = new System.Drawing.Size(992, 558);
 			this.viewPort.StencilBits = ((byte)(0));
 			this.viewPort.TabIndex = 0;
+			this.viewPort.MouseDown += new System.Windows.Forms.MouseEventHandler(this.viewPort_MouseDown);
+			this.viewPort.MouseEnter += new System.EventHandler(this.viewPort_MouseEnter);
+			this.viewPort.MouseLeave += new System.EventHandler(this.viewPort_MouseLeave);
+			this.viewPort.MouseMove += new System.Windows.Forms.MouseEventHandler(this.viewPort_MouseMove);
+			this.viewPort.MouseUp += new System.Windows.Forms.MouseEventHandler(this.viewPort_MouseUp);
+			this.viewPort.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.viewPort_MouseWheel);
 			// 
 			// menuStrip1
 			// 
@@ -102,21 +108,21 @@
 			this.сохранитьКакToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
 			this.сохранитьКакToolStripMenuItem.Text = "Сохранить как...";
 			// 
-			// tabControl1
+			// MainTab
 			// 
-			this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Right;
-			this.tabControl1.Controls.Add(this.roomsMode);
-			this.tabControl1.Controls.Add(this.hideMode);
-			this.tabControl1.Controls.Add(this.createMode);
-			this.tabControl1.Controls.Add(this.editMode);
-			this.tabControl1.Location = new System.Drawing.Point(0, 27);
-			this.tabControl1.Margin = new System.Windows.Forms.Padding(0);
-			this.tabControl1.Multiline = true;
-			this.tabControl1.Name = "tabControl1";
-			this.tabControl1.Padding = new System.Drawing.Point(0, 0);
-			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(275, 531);
-			this.tabControl1.TabIndex = 2;
+			this.MainTab.Alignment = System.Windows.Forms.TabAlignment.Right;
+			this.MainTab.Controls.Add(this.roomsMode);
+			this.MainTab.Controls.Add(this.hideMode);
+			this.MainTab.Controls.Add(this.createMode);
+			this.MainTab.Controls.Add(this.editMode);
+			this.MainTab.Location = new System.Drawing.Point(0, 27);
+			this.MainTab.Margin = new System.Windows.Forms.Padding(0);
+			this.MainTab.Multiline = true;
+			this.MainTab.Name = "MainTab";
+			this.MainTab.Padding = new System.Drawing.Point(0, 0);
+			this.MainTab.SelectedIndex = 0;
+			this.MainTab.Size = new System.Drawing.Size(275, 531);
+			this.MainTab.TabIndex = 2;
 			// 
 			// roomsMode
 			// 
@@ -135,7 +141,7 @@
 			this.hideMode.Name = "hideMode";
 			this.hideMode.Size = new System.Drawing.Size(248, 523);
 			this.hideMode.TabIndex = 1;
-			this.hideMode.Text = "Проходы";
+			this.hideMode.Text = "Тайники";
 			this.hideMode.UseVisualStyleBackColor = true;
 			// 
 			// createMode
@@ -163,34 +169,36 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1272, 556);
-			this.Controls.Add(this.tabControl1);
+			this.Controls.Add(this.MainTab);
 			this.Controls.Add(this.viewPort);
 			this.Controls.Add(this.menuStrip1);
+			this.KeyPreview = true;
 			this.MainMenuStrip = this.menuStrip1;
 			this.Name = "MainForm";
 			this.Text = "Rooms Editor [0.1]";
 			this.Load += new System.EventHandler(this.MainForm_Load);
+			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
+			this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
-			this.tabControl1.ResumeLayout(false);
+			this.MainTab.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
 		}
 
 		#endregion
-
-		private Tao.Platform.Windows.SimpleOpenGlControl viewPort;
 		private System.Windows.Forms.MenuStrip menuStrip1;
 		private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem создатьToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem сохранитьКакToolStripMenuItem;
-		private System.Windows.Forms.TabControl tabControl1;
+		private System.Windows.Forms.TabControl MainTab;
 		private System.Windows.Forms.TabPage roomsMode;
 		private System.Windows.Forms.TabPage hideMode;
 		private System.Windows.Forms.TabPage createMode;
 		private System.Windows.Forms.TabPage editMode;
+		public Tao.Platform.Windows.SimpleOpenGlControl viewPort;
 	}
 }
 

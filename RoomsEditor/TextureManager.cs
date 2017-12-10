@@ -38,18 +38,18 @@ namespace RoomsEditor {
 				uint finishID = 0;
 				switch (bitspp) {
 					case 24:
-						finishID = MakeGlTexture(Gl.GL_RGB, ilGetData(), width, height);
+						finishID = MakeGlTexture(GL_RGB, ilGetData(), width, height);
 						break;
 					case 32:
-						finishID = MakeGlTexture(Gl.GL_RGBA, ilGetData(), width, height);
+						finishID = MakeGlTexture(GL_RGBA, ilGetData(), width, height);
 						break;
 				}
 				ilDeleteImages(1, ref id);
-				string name = path.Substring(path.LastIndexOf("/") + 1);
+				string name = path.Substring(path.LastIndexOf("\\") + 1);
 				textureMap.Add(name, finishID);
 			}
 			else
-				Console.WriteLine(path + " doesn't load");
+				Console.WriteLine(ilGetError());
 		}
 
 		private static uint MakeGlTexture(int Format, IntPtr pixels, int w, int h) {
@@ -62,10 +62,10 @@ namespace RoomsEditor {
 			// создаем привязку к только что созданной текстуре 
 			Gl.glBindTexture( Gl.GL_TEXTURE_2D, texObject);
 			// устанавливаем режим фильтрации и повторения текстуры 
+			Gl.glTexParameteri( Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MAG_FILTER, Gl.GL_NEAREST);
 			Gl.glTexParameteri( Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_WRAP_S, Gl.GL_REPEAT);
 			Gl.glTexParameteri( Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_WRAP_T, Gl.GL_REPEAT);
-			Gl.glTexParameteri( Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MAG_FILTER, Gl.GL_LINEAR);
-			Gl.glTexParameteri( Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MIN_FILTER, Gl.GL_LINEAR);
+			Gl.glTexParameteri( Gl.GL_TEXTURE_2D, Gl.GL_TEXTURE_MIN_FILTER, Gl.GL_NEAREST);
 			Gl.glTexEnvf( Gl.GL_TEXTURE_ENV, Gl.GL_TEXTURE_ENV_MODE, Gl.GL_REPLACE);
 			// создаем RGB или RGBA текстуру 
 			switch (Format) {
