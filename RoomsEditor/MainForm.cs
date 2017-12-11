@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
+using System.Windows.Input;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,6 +12,7 @@ using System.Windows;
 using Tao.FreeGlut;
 using Tao.OpenGl;
 using Tao.Platform.Windows;
+using RoomsEditor.Tools;
 using static Tao.OpenGl.Gl;
 using static Tao.OpenGl.Glu;
 using static Tao.FreeGlut.Glut;
@@ -21,16 +22,19 @@ using static RoomsEditor.InputManager;
 
 namespace RoomsEditor {
 	public partial class MainForm : Form {
+		public const float scaleForGrid = 3;
 		public static Random rnd = new Random();
 		public static MainForm form;
 		public RoomMatrix matrix;
+		public List<RoomObject> objects;
+		public Tool oldTool;
+		public Tool activeTool;
 		bool isLoaded;
 
 		public MainForm() {
 			InitializeComponent();
 			viewPort.InitializeContexts();
 		}
-		private RoomObject testObj;
 
 		private void MainForm_Load(object sender, EventArgs e) {
 			glutInit();
@@ -51,16 +55,14 @@ namespace RoomsEditor {
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 			TextureManager.LoadAllTextures();
-			testObj = new RoomObject("asd", "Obj.png", 26, 30, new Vec<int>(147, 144));
-			matrix = new RoomMatrix(1, 1);
-			matrix.CompileList(true);
+			activeTool = new CreateWallTool();
 			form = this;
 			InputManager.scaleFactor = 1;
 			isLoaded = true;
 		}
 
 		private void DrawViewPort(object sender, EventArgs e) {
-			if (!isLoaded)
+			if (!isLoaded || matrix == null)
 				return;
 
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -69,25 +71,31 @@ namespace RoomsEditor {
 			glColor3f(1.0f, 1.0f, 1.0f);
 			glLoadIdentity();
 
-			Console.WriteLine(mouseWorldPosition);
 			if (wheel != 0) {
+				float oldScale = scaleFactor;
 				ScaleMatrix(GetWheelDelta() > 0 ? 1.1f : 0.9f);
+				if (oldScale < scaleForGrid && scaleFactor > scaleForGrid || oldScale > scaleForGrid && scaleFactor < scaleForGrid)
+					matrix.CompileList();
 			}
 
-			if (IsKeyDown(Keys.Space)) {
-				float xTranslate = deltaWindowVector.x / scaleFactor;
-				float yTranslate = deltaWindowVector.y / scaleFactor;
-				if (GetMouseWindowDelta() > 2 && IsMouseButtonDown(MouseButtons.Left))
-					TranslateMatrix((int)xTranslate, (int)yTranslate);
+			if (IsKeyDown(Keys.Space) && !(activeTool is MoveTool)) {
+				oldTool = activeTool;
+				activeTool = new MoveTool();
+			}
+			else if (!IsKeyDown(Keys.Space) && activeTool is MoveTool) {
+				activeTool.Disponse();
+				activeTool = oldTool;
 			}
 
 			glScalef(scaleFactor, scaleFactor, 1);
 			glTranslatef(translate.x, translate.y, 0);
-			matrix.Draw();
 
+			matrix.Draw();
 			glEnable(GL_TEXTURE_2D);
-			testObj.Draw();
+			for (int i = 0; i < objects.Count; i++)
+				objects[i].Draw();
 			glDisable(GL_TEXTURE_2D);
+			activeTool.Draw();
 
 			glFlush();
 			viewPort.Invalidate();
@@ -100,35 +108,50 @@ namespace RoomsEditor {
 
 		private void viewPort_MouseMove(object sender, MouseEventArgs e) {
 			InputManager.MouseMoveHandle(e);
+			activeTool.MouseMove();
 		}
 
 		private void viewPort_MouseDown(object sender, MouseEventArgs e) {
 			InputManager.MouseDownHandle(e);
+			activeTool.MouseDown();
 		}
 
 		private void viewPort_MouseUp(object sender, MouseEventArgs e) {
 			InputManager.MouseUpHandle(e);
+			activeTool.MouseUp();
 		}
 
 		private void MainForm_KeyDown(object sender, KeyEventArgs e) {
 			InputManager.KeyDownHandle(e);
-			if (e.KeyCode == Keys.Space)
-				viewPort.Cursor = Cursors.Hand;
+			activeTool.KeyDown();
 		}
 
 		private void MainForm_KeyUp(object sender, KeyEventArgs e) {
 			InputManager.KeyUpHandle(e);
-			if (e.KeyCode == Keys.Space)
-				viewPort.Cursor = Cursors.Default;
+			activeTool.KeyUp();
 		}
 
 		private void viewPort_MouseLeave(object sender, EventArgs e) {
 			InputManager.MouseLeaveHandle();
+			activeTool.MouseLeave();
 		}
-		#endregion
 
 		private void viewPort_MouseEnter(object sender, EventArgs e) {
 			InputManager.MouseLeaveHandle();
+			activeTool.MouseEnter();
+		}
+		#endregion
+
+		private void сброситьТрансформациюToolStripMenuItem_Click(object sender, EventArgs e) {
+			ResetTransformation();
+		}
+
+		private void оКToolStripMenuItem_Click(object sender, EventArgs e) {
+			string text = toolStripComboBox1.Text;
+			Vec<int> size = new Vec<int>(int.Parse(text[0]+""), int.Parse(text[2]+""));
+			matrix = new RoomMatrix(size.x, size.y);
+			objects = new List<RoomObject>();
+			ResetTransformation();
 		}
 	}
 }

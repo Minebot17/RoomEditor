@@ -23,6 +23,7 @@ namespace RoomsEditor {
 				this.y = y;
 			}
 
+			public bool isZero() => x.Equals(0) && y.Equals(0);
 			public override String ToString() => "X: " + x.ToString() + " Y: " + y.ToString();
 			public override int GetHashCode() => x.GetHashCode() + y.GetHashCode();
 			public override bool Equals(object obj) => x.Equals(((Vec<T>)obj).x) && y.Equals(((Vec<T>)obj).y);
@@ -41,6 +42,13 @@ namespace RoomsEditor {
 				this.a = a;
 			}
 
+			public Color(uint argb) {
+				this.a = ((argb & -16777216) >> 0x18) / 255f;
+				this.r = ((argb & 0xff0000) >> 0x10) / 255f;
+				this.g = ((argb & 0xff00) >> 8) / 255f;
+				this.b = (argb & 0xff) / 255f;
+			}
+
 			public override String ToString() => "R: " + r.ToString() + " G: " + g.ToString() + " B: " + b.ToString() + " A: " + a.ToString();
 			public override int GetHashCode() => a.GetHashCode() + r.GetHashCode() + b.GetHashCode() + a.GetHashCode();
 			public override bool Equals(object obj) => r == ((Color)obj).r && g == ((Color)obj).g && b == ((Color)obj).b && a == ((Color)obj).a;
@@ -49,6 +57,18 @@ namespace RoomsEditor {
 		public static Bitmap LoadBitmap(string fileName) {
 			using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
 				return new Bitmap(fs);
+		}
+
+		public static void DrawQuad(Vec<int> start, Vec<int> end, Color color) {
+			glDisable(GL_CULL_FACE);
+			glColor4f(color.r, color.g, color.b, color.a);
+			glBegin(GL_QUADS);
+			glVertex2i(start.x, start.y);
+			glVertex2i(end.x, start.y);
+			glVertex2i(end.x, end.y);
+			glVertex2i(start.x, end.y);
+			glEnd();
+			glEnable(GL_CULL_FACE);
 		}
 
 		public static float GetDistance(Vec<float> from, Vec<float> to) {
@@ -82,10 +102,6 @@ namespace RoomsEditor {
 			foreach (Vec<int> vector in vectors)
 				result = new Vec<int>(result.x + vector.x, result.y + vector.y);
 			return result;
-		}
-
-		public static List<RenderLayer> GetNewRoom(Vec<int> size) {
-
 		}
 	}
 }

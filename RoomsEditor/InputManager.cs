@@ -67,15 +67,14 @@ namespace RoomsEditor {
 		}
 
 		public static void ResetTransformation() {
-			scaleFactor = MainForm.form.matrix.scaleFactor;
+			scaleFactor = 2f/MainForm.form.matrix.scaleFactor;
 			translate = new Vec<int>();
-			glLoadIdentity();
-			glScalef(MainForm.form.matrix.scaleFactor, MainForm.form.matrix.scaleFactor, 0);
 		}
 
 		#region "Handlers"
 		public static void KeyDownHandle(KeyEventArgs args) {
-			keys.Add(args.KeyCode);
+			if (!keys.Contains(args.KeyCode))
+				keys.Add(args.KeyCode);
 		}
 
 		public static void KeyUpHandle(KeyEventArgs args) {
@@ -94,7 +93,7 @@ namespace RoomsEditor {
 
 		public static void MouseMoveHandle(MouseEventArgs e) {
 			Vec<int> mousePos = new Vec<int>(e.X, MainForm.form.viewPort.Height - e.Y);
-			Vec<int> mouseWorldPos = new Vec<int>((int)(mouseWindowPosition.x / scaleFactor - translate.x), (int)(mouseWindowPosition.y / scaleFactor - translate.y));
+			Vec<int> mouseWorldPos = new Vec<int>((int)Math.Round(mouseWindowPosition.x / scaleFactor - translate.x), (int)Math.Round(mouseWindowPosition.y / scaleFactor - translate.y));
 
 			deltaWindowDistance += GetDistance(mouseWindowPosition, mousePos);
 			deltaWindowVector = UniteVectors(deltaWindowVector, GetDelta(mouseWindowPosition, mousePos));

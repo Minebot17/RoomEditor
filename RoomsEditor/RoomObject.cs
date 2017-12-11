@@ -14,7 +14,7 @@ using static RoomsEditor.Utils;
  * 0----1
  */
 namespace RoomsEditor {
-	class RoomObject : IRenderer {
+	public class RoomObject : IRenderer {
 
 		public string name;
 		public string texture;

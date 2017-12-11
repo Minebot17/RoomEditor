@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace RoomsEditor {
-	interface IRenderer {
+	public interface IRenderer {
 		void Draw();
 	}
 }
