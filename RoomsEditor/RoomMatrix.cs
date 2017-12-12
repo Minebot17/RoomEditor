@@ -106,7 +106,18 @@ namespace RoomsEditor {
 			glDeleteLists(list, 1);
 		}
 
-		public void Fill(MatrixType type, Vec<int> from, Vec<int> to) {
+		public void FillSymmetry(MatrixType type, Vec<int> from, Vec<int> to, MatrixType layer) {
+			Fill(type, from, to, layer);
+			if (MainForm.form.XSymmetryBox.Checked)
+				Fill(type, new Vec<int>(495 * widthRoom - from.x, from.y), new Vec<int>(495 * widthRoom - to.x, to.y), layer);
+			if (MainForm.form.YSymmetryBox.Checked)
+				Fill(type, new Vec<int>(from.x, 277 * heightRoom - from.y), new Vec<int>(to.x, 277 * heightRoom - to.y), layer);
+			if (MainForm.form.XYSymmetryBox.Checked)
+				Fill(type, new Vec<int>(495 * widthRoom - from.x, 277 * heightRoom - from.y), new Vec<int>(495 * widthRoom - to.x, 277 * heightRoom - to.y), layer);
+			CompileList();
+		}
+
+		public void Fill(MatrixType type, Vec<int> from, Vec<int> to, MatrixType layer) {
 			if (from.x > to.x) {
 				from.x = from.x + to.x;
 				to.x = from.x - to.x;
@@ -119,9 +130,8 @@ namespace RoomsEditor {
 			}
 			for (int x = from.x; x < to.x; x++)
 				for (int y = from.y; y < to.y; y++)
-					matrix[x, y] = type;
-
-			CompileList();
+					if (layer == MatrixType.AIR || matrix[x, y] == layer)
+						matrix[x, y] = type;
 		}
 	}
 

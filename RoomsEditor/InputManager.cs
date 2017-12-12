@@ -83,7 +83,8 @@ namespace RoomsEditor {
 		}
 
 		public static void MouseDownHandle(MouseEventArgs e) {
-			buttons.Add(e.Button);
+			if (!buttons.Contains(e.Button))
+				buttons.Add(e.Button);
 		}
 
 		public static void MouseUpHandle(MouseEventArgs e) {

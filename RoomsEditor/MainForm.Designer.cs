@@ -43,11 +43,12 @@
 			this.сохранитьКакToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.вьюпортToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.сброситьТрансформациюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.button1 = new System.Windows.Forms.Button();
-			this.button2 = new System.Windows.Forms.Button();
-			this.button3 = new System.Windows.Forms.Button();
-			this.button4 = new System.Windows.Forms.Button();
+			this.CreateWallButton = new System.Windows.Forms.Button();
+			this.CreateHideButton = new System.Windows.Forms.Button();
+			this.EditWallButton = new System.Windows.Forms.Button();
+			this.EditObjectButton = new System.Windows.Forms.Button();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.infoLabel = new System.Windows.Forms.Label();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -58,10 +59,12 @@
 			this.сохранитьКакToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.вьюпортToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.сброситьТрансформациюToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-			this.infoLabel = new System.Windows.Forms.Label();
+			this.XSymmetryBox = new System.Windows.Forms.CheckBox();
+			this.YSymmetryBox = new System.Windows.Forms.CheckBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.XYSymmetryBox = new System.Windows.Forms.CheckBox();
 			DrawTimer = new System.Windows.Forms.Timer(this.components);
 			this.MainMenuStrip.SuspendLayout();
-			this.panel1.SuspendLayout();
 			this.tabControl1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -229,49 +232,59 @@
 			this.сброситьТрансформациюToolStripMenuItem.Text = "Сбросить трансформацию";
 			this.сброситьТрансформациюToolStripMenuItem.Click += new System.EventHandler(this.сброситьТрансформациюToolStripMenuItem_Click);
 			// 
-			// button1
+			// CreateWallButton
 			// 
-			this.button1.Location = new System.Drawing.Point(4, 27);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(64, 32);
-			this.button1.TabIndex = 2;
-			this.button1.Text = "СС";
-			this.button1.UseVisualStyleBackColor = true;
+			this.CreateWallButton.Location = new System.Drawing.Point(4, 27);
+			this.CreateWallButton.Name = "CreateWallButton";
+			this.CreateWallButton.Size = new System.Drawing.Size(64, 32);
+			this.CreateWallButton.TabIndex = 2;
+			this.CreateWallButton.Text = "СС";
+			this.CreateWallButton.UseVisualStyleBackColor = true;
+			this.CreateWallButton.Click += new System.EventHandler(this.CreateWallButton_Click);
 			// 
-			// button2
+			// CreateHideButton
 			// 
-			this.button2.Location = new System.Drawing.Point(74, 27);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(64, 32);
-			this.button2.TabIndex = 3;
-			this.button2.Text = "СПП";
-			this.button2.UseVisualStyleBackColor = true;
+			this.CreateHideButton.Location = new System.Drawing.Point(74, 27);
+			this.CreateHideButton.Name = "CreateHideButton";
+			this.CreateHideButton.Size = new System.Drawing.Size(64, 32);
+			this.CreateHideButton.TabIndex = 3;
+			this.CreateHideButton.Text = "СПП";
+			this.CreateHideButton.UseVisualStyleBackColor = true;
+			this.CreateHideButton.Click += new System.EventHandler(this.CreateHideButton_Click);
 			// 
-			// button3
+			// EditWallButton
 			// 
-			this.button3.Location = new System.Drawing.Point(144, 27);
-			this.button3.Name = "button3";
-			this.button3.Size = new System.Drawing.Size(64, 32);
-			this.button3.TabIndex = 4;
-			this.button3.Text = "РСИП";
-			this.button3.UseVisualStyleBackColor = true;
+			this.EditWallButton.Location = new System.Drawing.Point(144, 27);
+			this.EditWallButton.Name = "EditWallButton";
+			this.EditWallButton.Size = new System.Drawing.Size(64, 32);
+			this.EditWallButton.TabIndex = 4;
+			this.EditWallButton.Text = "РСИП";
+			this.EditWallButton.UseVisualStyleBackColor = true;
 			// 
-			// button4
+			// EditObjectButton
 			// 
-			this.button4.Location = new System.Drawing.Point(214, 27);
-			this.button4.Name = "button4";
-			this.button4.Size = new System.Drawing.Size(64, 32);
-			this.button4.TabIndex = 5;
-			this.button4.Text = "РО";
-			this.button4.UseVisualStyleBackColor = true;
+			this.EditObjectButton.Location = new System.Drawing.Point(214, 27);
+			this.EditObjectButton.Name = "EditObjectButton";
+			this.EditObjectButton.Size = new System.Drawing.Size(64, 32);
+			this.EditObjectButton.TabIndex = 5;
+			this.EditObjectButton.Text = "РО";
+			this.EditObjectButton.UseVisualStyleBackColor = true;
 			// 
 			// panel1
 			// 
-			this.panel1.Controls.Add(this.infoLabel);
 			this.panel1.Location = new System.Drawing.Point(4, 65);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(271, 231);
+			this.panel1.Size = new System.Drawing.Size(271, 218);
 			this.panel1.TabIndex = 6;
+			// 
+			// infoLabel
+			// 
+			this.infoLabel.AutoSize = true;
+			this.infoLabel.Location = new System.Drawing.Point(224, 286);
+			this.infoLabel.Name = "infoLabel";
+			this.infoLabel.Size = new System.Drawing.Size(47, 13);
+			this.infoLabel.TabIndex = 0;
+			this.infoLabel.Text = "dawdaw";
 			// 
 			// tabControl1
 			// 
@@ -346,25 +359,61 @@
 			this.сброситьТрансформациюToolStripMenuItem1.Text = "Сбросить трансформацию";
 			this.сброситьТрансформациюToolStripMenuItem1.Click += new System.EventHandler(this.сброситьТрансформациюToolStripMenuItem_Click);
 			// 
-			// infoLabel
+			// XSymmetryBox
 			// 
-			this.infoLabel.AutoSize = true;
-			this.infoLabel.Location = new System.Drawing.Point(3, 215);
-			this.infoLabel.Name = "infoLabel";
-			this.infoLabel.Size = new System.Drawing.Size(0, 13);
-			this.infoLabel.TabIndex = 0;
+			this.XSymmetryBox.AutoSize = true;
+			this.XSymmetryBox.Location = new System.Drawing.Point(67, 284);
+			this.XSymmetryBox.Name = "XSymmetryBox";
+			this.XSymmetryBox.Size = new System.Drawing.Size(33, 17);
+			this.XSymmetryBox.TabIndex = 8;
+			this.XSymmetryBox.Text = "X";
+			this.XSymmetryBox.UseVisualStyleBackColor = true;
+			// 
+			// YSymmetryBox
+			// 
+			this.YSymmetryBox.AutoSize = true;
+			this.YSymmetryBox.Location = new System.Drawing.Point(105, 284);
+			this.YSymmetryBox.Name = "YSymmetryBox";
+			this.YSymmetryBox.Size = new System.Drawing.Size(33, 17);
+			this.YSymmetryBox.TabIndex = 9;
+			this.YSymmetryBox.Text = "Y";
+			this.YSymmetryBox.UseVisualStyleBackColor = true;
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(1, 285);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(68, 13);
+			this.label1.TabIndex = 10;
+			this.label1.Text = "Симметрия:";
+			// 
+			// XYSymmetryBox
+			// 
+			this.XYSymmetryBox.AutoSize = true;
+			this.XYSymmetryBox.Location = new System.Drawing.Point(144, 284);
+			this.XYSymmetryBox.Name = "XYSymmetryBox";
+			this.XYSymmetryBox.Size = new System.Drawing.Size(40, 17);
+			this.XYSymmetryBox.TabIndex = 11;
+			this.XYSymmetryBox.Text = "XY";
+			this.XYSymmetryBox.UseVisualStyleBackColor = true;
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1272, 556);
+			this.Controls.Add(this.XYSymmetryBox);
+			this.Controls.Add(this.label1);
+			this.Controls.Add(this.YSymmetryBox);
+			this.Controls.Add(this.XSymmetryBox);
+			this.Controls.Add(this.infoLabel);
 			this.Controls.Add(this.tabControl1);
 			this.Controls.Add(this.panel1);
-			this.Controls.Add(this.button4);
-			this.Controls.Add(this.button3);
-			this.Controls.Add(this.button2);
-			this.Controls.Add(this.button1);
+			this.Controls.Add(this.EditObjectButton);
+			this.Controls.Add(this.EditWallButton);
+			this.Controls.Add(this.CreateHideButton);
+			this.Controls.Add(this.CreateWallButton);
 			this.Controls.Add(this.viewPort);
 			this.Controls.Add(this.MainMenuStrip);
 			this.KeyPreview = true;
@@ -375,8 +424,6 @@
 			this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
 			this.MainMenuStrip.ResumeLayout(false);
 			this.MainMenuStrip.PerformLayout();
-			this.panel1.ResumeLayout(false);
-			this.panel1.PerformLayout();
 			this.tabControl1.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -393,10 +440,10 @@
 		private System.Windows.Forms.ToolStripMenuItem вьюпортToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem сброситьТрансформациюToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem;
-		private System.Windows.Forms.Button button1;
-		private System.Windows.Forms.Button button2;
-		private System.Windows.Forms.Button button3;
-		private System.Windows.Forms.Button button4;
+		private System.Windows.Forms.Button CreateWallButton;
+		private System.Windows.Forms.Button CreateHideButton;
+		private System.Windows.Forms.Button EditWallButton;
+		private System.Windows.Forms.Button EditObjectButton;
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.TabControl tabControl1;
 		private System.Windows.Forms.TabPage tabPage1;
@@ -418,6 +465,10 @@
 		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
 		private System.Windows.Forms.ToolStripMenuItem сброситьТрансформациюToolStripMenuItem2;
 		public System.Windows.Forms.Label infoLabel;
+		public System.Windows.Forms.Label label1;
+		public System.Windows.Forms.CheckBox XSymmetryBox;
+		public System.Windows.Forms.CheckBox YSymmetryBox;
+		public System.Windows.Forms.CheckBox XYSymmetryBox;
 	}
 }
 

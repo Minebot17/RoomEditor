@@ -55,7 +55,7 @@ namespace RoomsEditor {
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 			TextureManager.LoadAllTextures();
-			activeTool = new CreateWallTool();
+			activeTool = new CreateWallTool(false);
 			form = this;
 			InputManager.scaleFactor = 1;
 			isLoaded = true;
@@ -152,6 +152,14 @@ namespace RoomsEditor {
 			matrix = new RoomMatrix(size.x, size.y);
 			objects = new List<RoomObject>();
 			ResetTransformation();
+		}
+
+		private void CreateWallButton_Click(object sender, EventArgs e) {
+			activeTool = new CreateWallTool(false);
+		}
+
+		private void CreateHideButton_Click(object sender, EventArgs e) {
+			activeTool = new CreateWallTool(true);
 		}
 	}
 }
