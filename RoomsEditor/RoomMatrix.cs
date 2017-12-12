@@ -133,6 +133,15 @@ namespace RoomsEditor {
 					if (layer == MatrixType.AIR || matrix[x, y] == layer)
 						matrix[x, y] = type;
 		}
+
+		public void Past(MatrixType[,] toPast, Vec<int> startCoord) {
+			for (int x = 0; x < toPast.GetLength(0); x++)
+				for (int y = 0; y < toPast.GetLength(1); y++)
+					if (toPast[x, y] != MatrixType.AIR)
+						matrix[x + startCoord.x, y + startCoord.y] = toPast[x, y];
+
+			CompileList();
+		}
 	}
 
 	public enum MatrixType {

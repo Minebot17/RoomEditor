@@ -8,11 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows;
+using System.Runtime.Serialization.Json;
+using System.IO;
 
 using Tao.FreeGlut;
 using Tao.OpenGl;
 using Tao.Platform.Windows;
 using RoomsEditor.Tools;
+using RoomsEditor.Objects;
 using static Tao.OpenGl.Gl;
 using static Tao.OpenGl.Glu;
 using static Tao.FreeGlut.Glut;
@@ -50,14 +53,16 @@ namespace RoomsEditor {
 			gluOrtho2D(0.0, viewPort.Width, 0.0, viewPort.Height);
 			glMatrixMode(GL_MODELVIEW);
 
-			//glEnable(GL_DEPTH_TEST);
 			glEnable(GL_BLEND);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-			TextureManager.LoadAllTextures();
-			activeTool = new CreateWallTool(false);
 			form = this;
+			TextureManager.LoadAllTextures();
+			ObjectsManager.ReadAllObjects();
+			activeTool = new CreateWallTool(false);
+
 			InputManager.scaleFactor = 1;
+
 			isLoaded = true;
 		}
 
@@ -86,6 +91,7 @@ namespace RoomsEditor {
 				activeTool.Disponse();
 				activeTool = oldTool;
 			}
+			infoLabel.Text = mouseWorldPosition.ToString();
 
 			glScalef(scaleFactor, scaleFactor, 1);
 			glTranslatef(translate.x, translate.y, 0);
@@ -160,6 +166,15 @@ namespace RoomsEditor {
 
 		private void CreateHideButton_Click(object sender, EventArgs e) {
 			activeTool = new CreateWallTool(true);
+		}
+
+		private void EditObjectButton_Click(object sender, EventArgs e) {
+			activeTool = new EditObjectsTool();
+		}
+
+		private void ObjectsView_MouseDoubleClick(object sender, MouseEventArgs e) {
+			if (ObjectsView.SelectedItems.Count != 0)
+				ObjectsManager.SpawnObject(ObjectsView.SelectedItems[0].Text);
 		}
 	}
 }

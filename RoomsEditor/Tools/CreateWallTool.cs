@@ -40,11 +40,12 @@ namespace RoomsEditor.Tools {
 			if (startPos.isZero())
 				return;
 
+			MainForm.form.infoLabel.Text = "W: " + (mouseWorldPosition.x - startPos.x) + " H: " + (mouseWorldPosition.y - startPos.y);
 			bool[] sides = new bool[4] {
-				mouseWindowPosition.x < 100,
-				mouseWindowPosition.x > MainForm.form.viewPort.Width - 100,
-				mouseWindowPosition.y < 100,
-				mouseWindowPosition.y > MainForm.form.viewPort.Height - 100
+				mouseWindowPosition.x < 50,
+				mouseWindowPosition.x > MainForm.form.viewPort.Width - 50,
+				mouseWindowPosition.y < 50,
+				mouseWindowPosition.y > MainForm.form.viewPort.Height - 50
 			};
 			if (sides[0] || sides[1] || sides[2] || sides[3])
 				TranslateMatrix(sides[0] ? 1 : sides[1] ? -1 : 0, sides[2] ? 1 : sides[3] ? -1 : 0);

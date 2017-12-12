@@ -49,9 +49,8 @@
 			this.EditObjectButton = new System.Windows.Forms.Button();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.infoLabel = new System.Windows.Forms.Label();
-			this.tabControl1 = new System.Windows.Forms.TabControl();
-			this.tabPage1 = new System.Windows.Forms.TabPage();
-			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.ObjectsView = new System.Windows.Forms.ListView();
+			this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.файлToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.создатьToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.открытьToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,7 +64,6 @@
 			this.XYSymmetryBox = new System.Windows.Forms.CheckBox();
 			DrawTimer = new System.Windows.Forms.Timer(this.components);
 			this.MainMenuStrip.SuspendLayout();
-			this.tabControl1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// DrawTimer
@@ -269,6 +267,7 @@
 			this.EditObjectButton.TabIndex = 5;
 			this.EditObjectButton.Text = "РО";
 			this.EditObjectButton.UseVisualStyleBackColor = true;
+			this.EditObjectButton.Click += new System.EventHandler(this.EditObjectButton_Click);
 			// 
 			// panel1
 			// 
@@ -280,41 +279,24 @@
 			// infoLabel
 			// 
 			this.infoLabel.AutoSize = true;
-			this.infoLabel.Location = new System.Drawing.Point(224, 286);
+			this.infoLabel.Location = new System.Drawing.Point(190, 285);
 			this.infoLabel.Name = "infoLabel";
-			this.infoLabel.Size = new System.Drawing.Size(47, 13);
+			this.infoLabel.Size = new System.Drawing.Size(40, 13);
 			this.infoLabel.TabIndex = 0;
-			this.infoLabel.Text = "dawdaw";
+			this.infoLabel.Text = "Coords";
+			this.infoLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
-			// tabControl1
+			// ObjectsView
 			// 
-			this.tabControl1.Controls.Add(this.tabPage1);
-			this.tabControl1.Controls.Add(this.tabPage2);
-			this.tabControl1.Location = new System.Drawing.Point(4, 302);
-			this.tabControl1.Name = "tabControl1";
-			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(271, 256);
-			this.tabControl1.TabIndex = 7;
-			// 
-			// tabPage1
-			// 
-			this.tabPage1.Location = new System.Drawing.Point(4, 22);
-			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(263, 230);
-			this.tabPage1.TabIndex = 0;
-			this.tabPage1.Text = "tabPage1";
-			this.tabPage1.UseVisualStyleBackColor = true;
-			// 
-			// tabPage2
-			// 
-			this.tabPage2.Location = new System.Drawing.Point(4, 22);
-			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage2.Size = new System.Drawing.Size(263, 230);
-			this.tabPage2.TabIndex = 1;
-			this.tabPage2.Text = "tabPage2";
-			this.tabPage2.UseVisualStyleBackColor = true;
+			this.ObjectsView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+			this.ObjectsView.Location = new System.Drawing.Point(0, 301);
+			this.ObjectsView.MultiSelect = false;
+			this.ObjectsView.Name = "ObjectsView";
+			this.ObjectsView.Size = new System.Drawing.Size(278, 257);
+			this.ObjectsView.TabIndex = 0;
+			this.ObjectsView.UseCompatibleStateImageBehavior = false;
+			this.ObjectsView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ObjectsView_MouseDoubleClick);
 			// 
 			// файлToolStripMenuItem1
 			// 
@@ -403,12 +385,12 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1272, 556);
+			this.Controls.Add(this.ObjectsView);
 			this.Controls.Add(this.XYSymmetryBox);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.YSymmetryBox);
 			this.Controls.Add(this.XSymmetryBox);
 			this.Controls.Add(this.infoLabel);
-			this.Controls.Add(this.tabControl1);
 			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.EditObjectButton);
 			this.Controls.Add(this.EditWallButton);
@@ -424,7 +406,6 @@
 			this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
 			this.MainMenuStrip.ResumeLayout(false);
 			this.MainMenuStrip.PerformLayout();
-			this.tabControl1.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -445,9 +426,6 @@
 		private System.Windows.Forms.Button EditWallButton;
 		private System.Windows.Forms.Button EditObjectButton;
 		private System.Windows.Forms.Panel panel1;
-		private System.Windows.Forms.TabControl tabControl1;
-		private System.Windows.Forms.TabPage tabPage1;
-		private System.Windows.Forms.TabPage tabPage2;
 		private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem1;
 		private System.Windows.Forms.ToolStripMenuItem создатьToolStripMenuItem1;
 		private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem1;
@@ -469,6 +447,8 @@
 		public System.Windows.Forms.CheckBox XSymmetryBox;
 		public System.Windows.Forms.CheckBox YSymmetryBox;
 		public System.Windows.Forms.CheckBox XYSymmetryBox;
+		private System.Windows.Forms.ColumnHeader columnHeader1;
+		public System.Windows.Forms.ListView ObjectsView;
 	}
 }
 

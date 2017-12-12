@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Drawing;
 using System.IO;
+using System.Runtime.Serialization;
 
 using Tao.FreeGlut;
 using Tao.OpenGl;
@@ -14,8 +15,11 @@ using static Tao.DevIl.Il;
 
 namespace RoomsEditor {
 	public static class Utils {
+		[DataContract]
 		public struct Vec<T>{
+			[DataMember]
 			public T x;
+			[DataMember]
 			public T y;
 
 			public Vec(T x, T y) {

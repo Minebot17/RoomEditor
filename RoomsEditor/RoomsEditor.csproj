@@ -55,6 +55,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -90,12 +91,16 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ObjectsManager.cs" />
+    <Compile Include="Objects\RoomObject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoomMatrix.cs" />
-    <Compile Include="RoomObject.cs" />
+    <Compile Include="ObjectRenderer.cs" />
     <Compile Include="TextureManager.cs" />
     <Compile Include="Tools\CreateWallTool.cs" />
+    <Compile Include="Tools\EditObjectsTool.cs" />
+    <Compile Include="Tools\EditWallsTool.cs" />
     <Compile Include="Tools\MoveTool.cs" />
     <Compile Include="Tools\Tool.cs" />
     <Compile Include="Utils.cs" />
