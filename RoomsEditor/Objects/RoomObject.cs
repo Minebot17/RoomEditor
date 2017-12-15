@@ -10,7 +10,7 @@ namespace RoomsEditor.Objects {
 		public ObjectRenderer render;
 		public string prefabName;
 		public Vec<int> coords;
-		public Object[] data;
+		public Vec<bool> mirror;
 		public int ID;
 
 		public RoomObject(ObjectRenderer render) {
@@ -22,7 +22,8 @@ namespace RoomsEditor.Objects {
 
 		public void Draw() {
 			glPushMatrix();
-			glTranslatef(coords.x, coords.y, 0);
+			glTranslatef(mirror.x ? coords.x + render.width : coords.x, mirror.y ? coords.y + render.height : coords.y, 0);
+			glScalef(mirror.x ? -1 : 1, mirror.y ? -1 : 1, 0);
 			render.Draw();
 			glPopMatrix();
 		}

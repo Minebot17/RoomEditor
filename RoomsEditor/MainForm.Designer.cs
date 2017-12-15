@@ -47,7 +47,7 @@
 			this.CreateHideButton = new System.Windows.Forms.Button();
 			this.EditWallButton = new System.Windows.Forms.Button();
 			this.EditObjectButton = new System.Windows.Forms.Button();
-			this.panel1 = new System.Windows.Forms.Panel();
+			this.objectTransformPanel = new System.Windows.Forms.Panel();
 			this.infoLabel = new System.Windows.Forms.Label();
 			this.ObjectsView = new System.Windows.Forms.ListView();
 			this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -62,8 +62,16 @@
 			this.YSymmetryBox = new System.Windows.Forms.CheckBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.XYSymmetryBox = new System.Windows.Forms.CheckBox();
+			this.objectNameLabel = new System.Windows.Forms.Label();
+			this.objectXCoordsLabel = new System.Windows.Forms.Label();
+			this.objectXSizeLabel = new System.Windows.Forms.Label();
+			this.objectMirrorXBox = new System.Windows.Forms.CheckBox();
+			this.objectMirrorYBox = new System.Windows.Forms.CheckBox();
+			this.objectYCoordsLabel = new System.Windows.Forms.Label();
+			this.objectYSizeLabel = new System.Windows.Forms.Label();
 			DrawTimer = new System.Windows.Forms.Timer(this.components);
 			this.MainMenuStrip.SuspendLayout();
+			this.objectTransformPanel.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// DrawTimer
@@ -269,12 +277,21 @@
 			this.EditObjectButton.UseVisualStyleBackColor = true;
 			this.EditObjectButton.Click += new System.EventHandler(this.EditObjectButton_Click);
 			// 
-			// panel1
+			// objectTransformPanel
 			// 
-			this.panel1.Location = new System.Drawing.Point(4, 65);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(271, 218);
-			this.panel1.TabIndex = 6;
+			this.objectTransformPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.objectTransformPanel.Controls.Add(this.objectYSizeLabel);
+			this.objectTransformPanel.Controls.Add(this.objectXSizeLabel);
+			this.objectTransformPanel.Controls.Add(this.objectYCoordsLabel);
+			this.objectTransformPanel.Controls.Add(this.objectMirrorYBox);
+			this.objectTransformPanel.Controls.Add(this.objectMirrorXBox);
+			this.objectTransformPanel.Controls.Add(this.objectXCoordsLabel);
+			this.objectTransformPanel.Controls.Add(this.objectNameLabel);
+			this.objectTransformPanel.Location = new System.Drawing.Point(4, 237);
+			this.objectTransformPanel.Name = "objectTransformPanel";
+			this.objectTransformPanel.Size = new System.Drawing.Size(271, 45);
+			this.objectTransformPanel.TabIndex = 6;
+			this.objectTransformPanel.Visible = false;
 			// 
 			// infoLabel
 			// 
@@ -380,6 +397,73 @@
 			this.XYSymmetryBox.Text = "XY";
 			this.XYSymmetryBox.UseVisualStyleBackColor = true;
 			// 
+			// objectNameLabel
+			// 
+			this.objectNameLabel.AutoSize = true;
+			this.objectNameLabel.Location = new System.Drawing.Point(3, 0);
+			this.objectNameLabel.Name = "objectNameLabel";
+			this.objectNameLabel.Size = new System.Drawing.Size(33, 13);
+			this.objectNameLabel.TabIndex = 0;
+			this.objectNameLabel.Text = "name";
+			// 
+			// objectXCoordsLabel
+			// 
+			this.objectXCoordsLabel.AutoSize = true;
+			this.objectXCoordsLabel.Location = new System.Drawing.Point(3, 13);
+			this.objectXCoordsLabel.Name = "objectXCoordsLabel";
+			this.objectXCoordsLabel.Size = new System.Drawing.Size(34, 13);
+			this.objectXCoordsLabel.TabIndex = 1;
+			this.objectXCoordsLabel.Text = "coord";
+			// 
+			// objectXSizeLabel
+			// 
+			this.objectXSizeLabel.AutoSize = true;
+			this.objectXSizeLabel.Location = new System.Drawing.Point(98, 13);
+			this.objectXSizeLabel.Name = "objectXSizeLabel";
+			this.objectXSizeLabel.Size = new System.Drawing.Size(26, 13);
+			this.objectXSizeLabel.TabIndex = 2;
+			this.objectXSizeLabel.Text = "WH";
+			// 
+			// objectMirrorXBox
+			// 
+			this.objectMirrorXBox.AutoSize = true;
+			this.objectMirrorXBox.Location = new System.Drawing.Point(235, 3);
+			this.objectMirrorXBox.Name = "objectMirrorXBox";
+			this.objectMirrorXBox.Size = new System.Drawing.Size(33, 17);
+			this.objectMirrorXBox.TabIndex = 12;
+			this.objectMirrorXBox.Text = "X";
+			this.objectMirrorXBox.UseVisualStyleBackColor = true;
+			this.objectMirrorXBox.CheckedChanged += new System.EventHandler(this.objectMirrorXBox_CheckedChanged);
+			// 
+			// objectMirrorYBox
+			// 
+			this.objectMirrorYBox.AutoSize = true;
+			this.objectMirrorYBox.Location = new System.Drawing.Point(235, 25);
+			this.objectMirrorYBox.Name = "objectMirrorYBox";
+			this.objectMirrorYBox.Size = new System.Drawing.Size(33, 17);
+			this.objectMirrorYBox.TabIndex = 12;
+			this.objectMirrorYBox.Text = "Y";
+			this.objectMirrorYBox.UseVisualStyleBackColor = true;
+			this.objectMirrorYBox.CheckedChanged += new System.EventHandler(this.objectMirrorYBox_CheckedChanged);
+			// 
+			// objectYCoordsLabel
+			// 
+			this.objectYCoordsLabel.AutoSize = true;
+			this.objectYCoordsLabel.Location = new System.Drawing.Point(2, 29);
+			this.objectYCoordsLabel.Name = "objectYCoordsLabel";
+			this.objectYCoordsLabel.Size = new System.Drawing.Size(34, 13);
+			this.objectYCoordsLabel.TabIndex = 13;
+			this.objectYCoordsLabel.Text = "coord";
+			// 
+			// objectYSizeLabel
+			// 
+			this.objectYSizeLabel.AutoSize = true;
+			this.objectYSizeLabel.Location = new System.Drawing.Point(98, 29);
+			this.objectYSizeLabel.Name = "objectYSizeLabel";
+			this.objectYSizeLabel.Size = new System.Drawing.Size(26, 13);
+			this.objectYSizeLabel.TabIndex = 14;
+			this.objectYSizeLabel.Text = "WH";
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -391,7 +475,7 @@
 			this.Controls.Add(this.YSymmetryBox);
 			this.Controls.Add(this.XSymmetryBox);
 			this.Controls.Add(this.infoLabel);
-			this.Controls.Add(this.panel1);
+			this.Controls.Add(this.objectTransformPanel);
 			this.Controls.Add(this.EditObjectButton);
 			this.Controls.Add(this.EditWallButton);
 			this.Controls.Add(this.CreateHideButton);
@@ -406,6 +490,8 @@
 			this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
 			this.MainMenuStrip.ResumeLayout(false);
 			this.MainMenuStrip.PerformLayout();
+			this.objectTransformPanel.ResumeLayout(false);
+			this.objectTransformPanel.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -425,7 +511,6 @@
 		private System.Windows.Forms.Button CreateHideButton;
 		private System.Windows.Forms.Button EditWallButton;
 		private System.Windows.Forms.Button EditObjectButton;
-		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem1;
 		private System.Windows.Forms.ToolStripMenuItem создатьToolStripMenuItem1;
 		private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem1;
@@ -449,6 +534,14 @@
 		public System.Windows.Forms.CheckBox XYSymmetryBox;
 		private System.Windows.Forms.ColumnHeader columnHeader1;
 		public System.Windows.Forms.ListView ObjectsView;
+		public System.Windows.Forms.Panel objectTransformPanel;
+		public System.Windows.Forms.Label objectNameLabel;
+		public System.Windows.Forms.CheckBox objectMirrorYBox;
+		public System.Windows.Forms.CheckBox objectMirrorXBox;
+		public System.Windows.Forms.Label objectXCoordsLabel;
+		public System.Windows.Forms.Label objectXSizeLabel;
+		public System.Windows.Forms.Label objectYCoordsLabel;
+		public System.Windows.Forms.Label objectYSizeLabel;
 	}
 }
 

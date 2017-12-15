@@ -107,5 +107,9 @@ namespace RoomsEditor {
 				result = new Vec<int>(result.x + vector.x, result.y + vector.y);
 			return result;
 		}
+
+		public static Vec<int> SubstractVector(Vec<int> vector1, Vec<int> vector2) {
+			return new Vec<int>(vector1.x - vector2.x, vector1.y - vector2.y);
+		}
 	}
 }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.IO;
 
@@ -175,6 +176,16 @@ namespace RoomsEditor {
 		private void ObjectsView_MouseDoubleClick(object sender, MouseEventArgs e) {
 			if (ObjectsView.SelectedItems.Count != 0)
 				ObjectsManager.SpawnObject(ObjectsView.SelectedItems[0].Text);
+		}
+
+		private void objectMirrorXBox_CheckedChanged(object sender, EventArgs e) {
+			if (activeTool is EditObjectsTool)
+				((EditObjectsTool)activeTool).changeMirror();
+		}
+
+		private void objectMirrorYBox_CheckedChanged(object sender, EventArgs e) {
+			if (activeTool is EditObjectsTool)
+				((EditObjectsTool)activeTool).changeMirror();
 		}
 	}
 }

@@ -46,7 +46,7 @@ namespace RoomsEditor {
 			obj.coords = new Utils.Vec<int>(-InputManager.translate.x, -InputManager.translate.y);
 			MainForm.form.objects.Add(obj);
 			if (MainForm.form.activeTool is Tools.EditObjectsTool)
-				((Tools.EditObjectsTool)MainForm.form.activeTool).activeObject = obj;
+				((Tools.EditObjectsTool)MainForm.form.activeTool).activeObject = new List<RoomObject>() { obj };
 		}
 
 		public static RoomObject GetObjectByRenderName(string name) {
