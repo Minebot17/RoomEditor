@@ -25,6 +25,9 @@ namespace RoomsEditor {
 						obj.name = file.Substring(8).Split('.')[0];
 					switch (obj.name) {
 						// Кейсами тут биндь по имени к наследникам от RoomObject
+						case "chestWooden":
+							type = typeof(ChestObject);
+							break;
 						default:
 							type = typeof(RoomObject);
 							break;
@@ -45,8 +48,11 @@ namespace RoomsEditor {
 			RoomObject obj = GetObjectByRenderName(name);
 			obj.coords = new Utils.Vec<int>(-InputManager.translate.x, -InputManager.translate.y);
 			MainForm.form.objects.Add(obj);
-			if (MainForm.form.activeTool is Tools.EditObjectsTool)
+			if (MainForm.form.activeTool is Tools.EditObjectsTool) {
+				if (((Tools.EditObjectsTool)MainForm.form.activeTool).activeObject != null && ((Tools.EditObjectsTool)MainForm.form.activeTool).activeObject.Count == 1 && ((Tools.EditObjectsTool)MainForm.form.activeTool).activeObject[0] is IExtendedData)
+					((IExtendedData)((Tools.EditObjectsTool)MainForm.form.activeTool).activeObject[0]).closePanel();
 				((Tools.EditObjectsTool)MainForm.form.activeTool).activeObject = new List<RoomObject>() { obj };
+			}
 		}
 
 		public static RoomObject GetObjectByRenderName(string name) {

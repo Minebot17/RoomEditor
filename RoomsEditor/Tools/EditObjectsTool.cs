@@ -14,6 +14,8 @@ namespace RoomsEditor.Tools {
 		public override void MouseDown() {
 			if (InputManager.IsMouseButtonDown(System.Windows.Forms.MouseButtons.Left)) {
 				if (InputManager.IsKeyDown(System.Windows.Forms.Keys.ShiftKey)) {
+					if (activeObject != null && activeObject.Count == 1 && activeObject[0] is IExtendedData)
+						((IExtendedData)activeObject[0]).closePanel();
 					if (activeObject == null)
 						activeObject = new List<RoomObject>();
 
@@ -25,8 +27,13 @@ namespace RoomsEditor.Tools {
 					else
 						activeObject.Add(ObjectsManager.GetObjectOverMouse());
 				}
-				else
+				else {
+					if (activeObject != null && activeObject.Count == 1 && activeObject[0] is IExtendedData)
+						((IExtendedData)activeObject[0]).closePanel();
 					activeObject = ObjectsManager.GetObjectOverMouse() == null ? null : new List<RoomObject>() { ObjectsManager.GetObjectOverMouse() };
+					if (activeObject != null && activeObject[0] is IExtendedData)
+						((IExtendedData)activeObject[0]).openPanel();
+				}
 
 				loadObjectPanel();
 			}
@@ -64,6 +71,8 @@ namespace RoomsEditor.Tools {
 
 		public override void Disponse() {
 			MainForm.form.objectTransformPanel.Visible = false;
+			if (activeObject != null && activeObject.Count == 1 && activeObject[0] is IExtendedData)
+				((IExtendedData)activeObject[0]).closePanel();
 		}
 
 		public void changeMirror() {

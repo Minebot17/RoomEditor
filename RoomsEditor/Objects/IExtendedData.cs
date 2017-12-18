@@ -6,8 +6,10 @@ using System.Windows.Forms;
 
 namespace RoomsEditor.Objects {
 	public interface IExtendedData {
-		object[] saveData();
-		void loadData(object[] data);
-		Control loadUI();
+		void openPanel();
+		void closePanel();
+
+		object[] serializeData();
+		void deserializeData(object[] data);
 	}
 }
