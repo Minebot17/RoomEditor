@@ -15,7 +15,7 @@ using static RoomsEditor.Utils;
  * 0----1
  */
 namespace RoomsEditor {
-	
+
 	[DataContract]
 	public class ObjectRenderer : IRenderer {
 
@@ -31,6 +31,14 @@ namespace RoomsEditor {
 		public Vec<float>[] uv;
 		[DataMember]
 		public Vec<int> offset;
+		[DataMember]
+		public bool notAddToMenu;
+		[DataMember]
+		public bool mustNotMove;
+		[DataMember]
+		public bool mustNotDelete;
+		[DataMember]
+		public bool mustNotDoRenderWithSymmetry;
 
 		public ObjectRenderer(string name, string texture) {
 			Bitmap bmp = LoadBitmap("textures/" + texture);
@@ -42,15 +50,12 @@ namespace RoomsEditor {
 		}
 
 		public ObjectRenderer(string name, string texture, int width, int height, Vec<int> offset) {
-			Bitmap bmp = LoadBitmap("textures/"+texture);
 			this.name = name;
 			this.offset = offset;
 			this.texture = texture;
 			this.height = height;
 			this.width = width;
-			Vec<float> start = new Vec<float>(offset.x / (float)bmp.Width, 1f - offset.y / (float)bmp.Height);
-			Vec<float> end = new Vec<float>((offset.x + width) / (float)bmp.Width, 1f - (offset.y + height) / (float)bmp.Height);
-			this.uv = new Vec<float>[] { new Vec<float>(start.x, end.y), new Vec<float>(end.x, end.y), new Vec<float>(end.x, start.y), new Vec<float>(start.x, start.y) };
+			constructUV();
 		}
 
 		public ObjectRenderer(string name, string texture, int width, int height, Vec<float>[] uv) {
@@ -73,6 +78,13 @@ namespace RoomsEditor {
 			glTexCoord2f(uv[3].x, uv[3].y);
 			glVertex2i(0, height);
 			glEnd();
+		}
+
+		public void constructUV() {
+			Bitmap bmp = LoadBitmap("textures/" + texture);
+			Vec<float> start = new Vec<float>(offset.x / (float)bmp.Width, 1f - offset.y / (float)bmp.Height);
+			Vec<float> end = new Vec<float>((offset.x + width) / (float)bmp.Width, 1f - (offset.y + height) / (float)bmp.Height);
+			this.uv = new Vec<float>[] { new Vec<float>(start.x, end.y), new Vec<float>(end.x, end.y), new Vec<float>(end.x, start.y), new Vec<float>(start.x, start.y) };
 		}
 
 		public override bool Equals(object obj) => obj is ObjectRenderer && ((ObjectRenderer)obj).name.Equals(name);

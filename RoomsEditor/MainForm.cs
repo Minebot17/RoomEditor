@@ -156,8 +156,8 @@ namespace RoomsEditor {
 		private void оКToolStripMenuItem_Click(object sender, EventArgs e) {
 			string text = toolStripComboBox1.Text;
 			Vec<int> size = new Vec<int>(int.Parse(text[0]+""), int.Parse(text[2]+""));
-			matrix = new RoomMatrix(size.x, size.y);
 			objects = new List<RoomObject>();
+			matrix = new RoomMatrix(size.x, size.y);
 			ResetTransformation();
 		}
 

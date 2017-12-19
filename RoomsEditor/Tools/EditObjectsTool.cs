@@ -44,9 +44,11 @@ namespace RoomsEditor.Tools {
 				return;
 
 			Vec<int> delta = SubstractVector(InputManager.mouseWorldPosition, activeObject[0].coords);
-			activeObject[0].coords = InputManager.mouseWorldPosition;
+			if (!activeObject[0].render.mustNotMove)
+				activeObject[0].coords = InputManager.mouseWorldPosition;
 			for (int i = 1; i < activeObject.Count; i++)
-				activeObject[i].coords = UniteVectors(activeObject[i].coords, delta);
+				if (!activeObject[i].render.mustNotMove)
+					activeObject[i].coords = UniteVectors(activeObject[i].coords, delta);
 
 			if (panelMode == 1)
 				updatePanelCoords();
@@ -73,6 +75,18 @@ namespace RoomsEditor.Tools {
 			MainForm.form.objectTransformPanel.Visible = false;
 			if (activeObject != null && activeObject.Count == 1 && activeObject[0] is IExtendedData)
 				((IExtendedData)activeObject[0]).closePanel();
+			activeObject = null;
+			loadObjectPanel();
+		}
+
+		public override void KeyDown() {
+			if (InputManager.IsKeyDown(System.Windows.Forms.Keys.Delete) && activeObject != null) {
+				if (activeObject.Count == 1 && activeObject[0] is IExtendedData)
+					((IExtendedData)activeObject[0]).closePanel();
+				MainForm.form.objects.RemoveAll(x => activeObject.Contains(x) && !x.render.mustNotDelete);
+				activeObject = null;
+				loadObjectPanel();
+			}
 		}
 
 		public void changeMirror() {
@@ -97,8 +111,14 @@ namespace RoomsEditor.Tools {
 					MainForm.form.objectNameLabel.Text = activeObject[0].prefabName + " " + activeObject[0].ID;
 					MainForm.form.objectXSizeLabel.Text = "W: " + activeObject[0].render.width;
 					MainForm.form.objectYSizeLabel.Text = "H: " + activeObject[0].render.height;
-					MainForm.form.objectMirrorXBox.Checked = activeObject[0].mirror.x;
-					MainForm.form.objectMirrorYBox.Checked = activeObject[0].mirror.y;
+					if (activeObject[0].render.mustNotDoRenderWithSymmetry) {
+						MainForm.form.objectMirrorXBox.Visible = false;
+						MainForm.form.objectMirrorYBox.Visible = false;
+					}
+					else {
+						MainForm.form.objectMirrorXBox.Checked = activeObject[0].mirror.x;
+						MainForm.form.objectMirrorYBox.Checked = activeObject[0].mirror.y;
+					}
 					updatePanelCoords();
 					break;
 				case 2:
@@ -106,7 +126,7 @@ namespace RoomsEditor.Tools {
 					bool sameMirror = true;
 					for (int i = 0; i < activeObject.Count; i++)
 						for (int j = 0; j < activeObject.Count; j++)
-							if (activeObject[i].mirror.x != activeObject[j].mirror.x || activeObject[i].mirror.y != activeObject[j].mirror.y) {
+							if (activeObject[i].mirror.x != activeObject[j].mirror.x || activeObject[i].mirror.y != activeObject[j].mirror.y || activeObject[i].render.mustNotDoRenderWithSymmetry) {
 								sameMirror = false;
 								break;
 							}

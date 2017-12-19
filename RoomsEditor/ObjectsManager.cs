@@ -20,7 +20,7 @@ namespace RoomsEditor {
 					Type type;
 					ObjectRenderer obj = (ObjectRenderer) jsonFormatter.ReadObject(stream);
 					if (obj.uv == null)
-						obj = new ObjectRenderer(obj.name, obj.texture, obj.width, obj.height, obj.offset);
+						obj.constructUV();
 					if (obj.name == null)
 						obj.name = file.Substring(8).Split('.')[0];
 					switch (obj.name) {
@@ -33,13 +33,15 @@ namespace RoomsEditor {
 							break;
 					}
 
-					Bitmap original = Utils.LoadBitmap("textures/" + obj.texture);
-					Bitmap icon = new Bitmap(obj.width, obj.height);
-					for (int x = 0; x < obj.width; x++)
-						for (int y = 0; y < obj.height; y++)
-							icon.SetPixel(x, y, original.GetPixel(obj.offset.x + x, obj.offset.y + y));
-					MainForm.form.ObjectsView.LargeImageList.Images.Add(obj.name, icon);
-					MainForm.form.ObjectsView.Items.Add(obj.name, obj.name);
+					if (!obj.notAddToMenu) {
+						Bitmap original = Utils.LoadBitmap("textures/" + obj.texture);
+						Bitmap icon = new Bitmap(obj.width, obj.height);
+						for (int x = 0; x < obj.width; x++)
+							for (int y = 0; y < obj.height; y++)
+								icon.SetPixel(x, y, original.GetPixel(obj.offset.x + x, obj.offset.y + y));
+						MainForm.form.ObjectsView.LargeImageList.Images.Add(obj.name, icon);
+						MainForm.form.ObjectsView.Items.Add(obj.name, obj.name);
+					}
 					rendersList.Add(obj, type);
 				}
 		}

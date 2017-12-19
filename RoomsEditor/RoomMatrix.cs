@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RoomsEditor.Objects;
 using static Tao.OpenGl.Gl;
 using static RoomsEditor.Utils;
 using static RoomsEditor.InputManager;
@@ -29,25 +30,39 @@ namespace RoomsEditor {
 			for (int x = 0; x < width; x++) {
 				float xCenter = 495f*(x + 0.5f);
 				conditions.Add(delegate (Vec<int> coords) {
-					return coords.y < 23 && coords.x > xCenter - 38.5f && coords.x < xCenter + 38.5f;
+					return coords.y < 24 && coords.x > xCenter - 33.5f && coords.x < xCenter + 34f;
 				});
 				conditions.Add(delegate (Vec<int> coords) {
-					return coords.y > matrix.GetLength(1) - 23 && coords.x > xCenter - 38.5f && coords.x < xCenter + 38.5f;
+					return coords.y > matrix.GetLength(1) - 24 && coords.x > xCenter - 33.5f && coords.x < xCenter + 34f;
 				});
+
+				RoomObject downGate = ObjectsManager.GetObjectByRenderName("downGate");
+				RoomObject topGate = ObjectsManager.GetObjectByRenderName("topGate");
+				downGate.coords = new Vec<int>((int)(xCenter - 32.5f), 0);
+				topGate.coords = new Vec<int>((int)(xCenter - 32.5f), 277 * height - 23);
+				MainForm.form.objects.Add(downGate);
+				MainForm.form.objects.Add(topGate);
 			}
 			for (int y = 0; y < height; y++) {
 				float yCenter = 277f * (y + 0.5f);
 				conditions.Add(delegate (Vec<int> coords) {
-					return coords.x < 46 && coords.y > yCenter - 38.5f && coords.y < yCenter + 38.5f;
+					return coords.x < 46 && coords.y > yCenter - 33.5f && coords.y < yCenter + 34f;
 				});
 				conditions.Add(delegate (Vec<int> coords) {
-					return coords.x > matrix.GetLength(0) - 46 && coords.y > yCenter - 38.5f && coords.y < yCenter + 38.5f;
+					return coords.x > matrix.GetLength(0) - 46 && coords.y > yCenter - 33.5f && coords.y < yCenter + 34f;
 				});
+
+				RoomObject leftGate = ObjectsManager.GetObjectByRenderName("leftGate");
+				RoomObject rightGate = ObjectsManager.GetObjectByRenderName("rightGate");
+				leftGate.coords = new Vec<int>(0, (int)(yCenter - 32.5f));
+				rightGate.coords = new Vec<int>(495 * width - 45, (int)(yCenter - 32.5f));
+				MainForm.form.objects.Add(leftGate);
+				MainForm.form.objects.Add(rightGate);
 			}
 
 			for (int x = 0; x < matrix.GetLength(0); x++)
 				for (int y = 0; y < matrix.GetLength(1); y++) {
-					if (x < 46 || x > matrix.GetLength(0) - 46 || y < 23 || y > matrix.GetLength(1) - 23) {
+					if (x < 45 || x > matrix.GetLength(0) - 46 || y < 23 || y > matrix.GetLength(1) - 24) {
 						bool yes = true;
 						for (int i = 0; i < conditions.Count; i++) {
 							if (conditions[i].Invoke(new Vec<int>(x, y))) {
