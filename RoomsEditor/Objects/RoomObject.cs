@@ -1,16 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Runtime.Serialization;
 using static Tao.OpenGl.Gl;
 using static RoomsEditor.Utils;
 
 namespace RoomsEditor.Objects {
+	[DataContract]
+	[KnownType(typeof(ChestObject))]
+	[KnownType(typeof(GateObject))]
 	public class RoomObject : IRenderer {
 		public ObjectRenderer render;
+		[DataMember]
 		public string prefabName;
+		[DataMember]
 		public Vec<int> coords;
+		[DataMember]
 		public Vec<bool> mirror;
+		[DataMember]
 		public int ID;
 
 		public RoomObject(ObjectRenderer render) {

@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Runtime.Serialization;
 using System.Windows.Forms;
 
 namespace RoomsEditor.Objects {
+	[DataContract]
+	[KnownType(typeof(ChestObject))]
+	[KnownType(typeof(GateObject))]
+	[KnownType(typeof(String[]))]
 	public abstract class RoomObjectWithData<T> : RoomObject, IExtendedData where T : Control {
 		private T panel;
+		[DataMember]
 		private object[] data;
 
 		public RoomObjectWithData(ObjectRenderer render) : base(render) {

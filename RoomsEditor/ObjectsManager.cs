@@ -28,6 +28,12 @@ namespace RoomsEditor {
 						case "chestWooden":
 							type = typeof(ChestObject);
 							break;
+						case "leftGate":
+						case "rightGate":
+						case "topGate":
+						case "downGate":
+							type = typeof(GateObject);
+							break;
 						default:
 							type = typeof(RoomObject);
 							break;
@@ -54,6 +60,9 @@ namespace RoomsEditor {
 				if (((Tools.EditObjectsTool)MainForm.form.activeTool).activeObject != null && ((Tools.EditObjectsTool)MainForm.form.activeTool).activeObject.Count == 1 && ((Tools.EditObjectsTool)MainForm.form.activeTool).activeObject[0] is IExtendedData)
 					((IExtendedData)((Tools.EditObjectsTool)MainForm.form.activeTool).activeObject[0]).closePanel();
 				((Tools.EditObjectsTool)MainForm.form.activeTool).activeObject = new List<RoomObject>() { obj };
+				if (((Tools.EditObjectsTool)MainForm.form.activeTool).activeObject != null && ((Tools.EditObjectsTool)MainForm.form.activeTool).activeObject.Count == 1 && ((Tools.EditObjectsTool)MainForm.form.activeTool).activeObject[0] is IExtendedData)
+					((IExtendedData)((Tools.EditObjectsTool)MainForm.form.activeTool).activeObject[0]).openPanel();
+				((Tools.EditObjectsTool)MainForm.form.activeTool).loadObjectPanel();
 			}
 		}
 
@@ -61,6 +70,15 @@ namespace RoomsEditor {
 			foreach (ObjectRenderer obj in rendersList.Keys) {
 				if (obj.name.Equals(name)) {
 					return (RoomObject)rendersList[obj].GetConstructor(new Type[] { typeof(ObjectRenderer) }).Invoke(new object[] { obj });
+				}
+			}
+			return null;
+		}
+
+		public static ObjectRenderer GetRenderByName(string name) {
+			foreach (ObjectRenderer obj in rendersList.Keys) {
+				if (obj.name.Equals(name)) {
+					return obj;
 				}
 			}
 			return null;

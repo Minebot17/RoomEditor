@@ -99,7 +99,7 @@ namespace RoomsEditor.Tools {
 			}
 		}
 
-		private void loadObjectPanel() {
+		public void loadObjectPanel() {
 			panelMode = activeObject == null || activeObject.Count == 0 ? 0 : activeObject.Count == 1 ? 1 : 2;
 
 			clearPanel();

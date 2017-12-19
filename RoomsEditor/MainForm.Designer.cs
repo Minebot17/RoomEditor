@@ -33,7 +33,6 @@
 			this.оКToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.открытьToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
 			this.сохранитьToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-			this.сохранитьКакToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
 			this.сброситьТрансформациюToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
 			this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,6 +68,8 @@
 			this.YSymmetryBox = new System.Windows.Forms.CheckBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.XYSymmetryBox = new System.Windows.Forms.CheckBox();
+			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+			this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
 			DrawTimer = new System.Windows.Forms.Timer(this.components);
 			this.MainMenuStrip.SuspendLayout();
 			this.objectTransformPanel.SuspendLayout();
@@ -119,8 +120,7 @@
 			this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.создатьToolStripMenuItem2,
             this.открытьToolStripMenuItem2,
-            this.сохранитьToolStripMenuItem2,
-            this.сохранитьКакToolStripMenuItem2});
+            this.сохранитьToolStripMenuItem2});
 			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
 			this.toolStripMenuItem1.Size = new System.Drawing.Size(49, 20);
 			this.toolStripMenuItem1.Text = "Файл";
@@ -131,7 +131,7 @@
             this.toolStripComboBox1,
             this.оКToolStripMenuItem});
 			this.создатьToolStripMenuItem2.Name = "создатьToolStripMenuItem2";
-			this.создатьToolStripMenuItem2.Size = new System.Drawing.Size(166, 22);
+			this.создатьToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
 			this.создатьToolStripMenuItem2.Text = "Создать";
 			// 
 			// toolStripComboBox1
@@ -163,20 +163,17 @@
 			// открытьToolStripMenuItem2
 			// 
 			this.открытьToolStripMenuItem2.Name = "открытьToolStripMenuItem2";
-			this.открытьToolStripMenuItem2.Size = new System.Drawing.Size(166, 22);
+			this.открытьToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
 			this.открытьToolStripMenuItem2.Text = "Открыть";
+			this.открытьToolStripMenuItem2.Click += new System.EventHandler(this.открытьToolStripMenuItem2_Click);
 			// 
 			// сохранитьToolStripMenuItem2
 			// 
+			this.сохранитьToolStripMenuItem2.Enabled = false;
 			this.сохранитьToolStripMenuItem2.Name = "сохранитьToolStripMenuItem2";
-			this.сохранитьToolStripMenuItem2.Size = new System.Drawing.Size(166, 22);
+			this.сохранитьToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
 			this.сохранитьToolStripMenuItem2.Text = "Сохранить";
-			// 
-			// сохранитьКакToolStripMenuItem2
-			// 
-			this.сохранитьКакToolStripMenuItem2.Name = "сохранитьКакToolStripMenuItem2";
-			this.сохранитьКакToolStripMenuItem2.Size = new System.Drawing.Size(166, 22);
-			this.сохранитьКакToolStripMenuItem2.Text = "Сохранить как...";
+			this.сохранитьToolStripMenuItem2.Click += new System.EventHandler(this.сохранитьToolStripMenuItem2_Click);
 			// 
 			// toolStripMenuItem2
 			// 
@@ -464,6 +461,16 @@
 			this.XYSymmetryBox.Text = "XY";
 			this.XYSymmetryBox.UseVisualStyleBackColor = true;
 			// 
+			// openFileDialog
+			// 
+			this.openFileDialog.Filter = "JSON files|*.json";
+			this.openFileDialog.RestoreDirectory = true;
+			// 
+			// saveFileDialog
+			// 
+			this.saveFileDialog.Filter = "JSON files|*.json";
+			this.saveFileDialog.RestoreDirectory = true;
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -484,6 +491,7 @@
 			this.Controls.Add(this.MainMenuStrip);
 			this.KeyPreview = true;
 			this.Name = "MainForm";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Rooms Editor [0.1]";
 			this.Load += new System.EventHandler(this.MainForm_Load);
 			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
@@ -523,8 +531,6 @@
 		private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
 		private System.Windows.Forms.ToolStripMenuItem оКToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem2;
-		private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem2;
-		private System.Windows.Forms.ToolStripMenuItem сохранитьКакToolStripMenuItem2;
 		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
 		private System.Windows.Forms.ToolStripMenuItem сброситьТрансформациюToolStripMenuItem2;
 		public System.Windows.Forms.Label infoLabel;
@@ -542,6 +548,9 @@
 		public System.Windows.Forms.Label objectXSizeLabel;
 		public System.Windows.Forms.Label objectYCoordsLabel;
 		public System.Windows.Forms.Label objectYSizeLabel;
+		public System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem2;
+		private System.Windows.Forms.OpenFileDialog openFileDialog;
+		private System.Windows.Forms.SaveFileDialog saveFileDialog;
 	}
 }
 

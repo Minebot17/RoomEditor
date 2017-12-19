@@ -159,6 +159,7 @@ namespace RoomsEditor {
 			objects = new List<RoomObject>();
 			matrix = new RoomMatrix(size.x, size.y);
 			ResetTransformation();
+			сохранитьToolStripMenuItem2.Enabled = true;
 		}
 
 		private void CreateWallButton_Click(object sender, EventArgs e) {
@@ -186,6 +187,18 @@ namespace RoomsEditor {
 		private void objectMirrorYBox_CheckedChanged(object sender, EventArgs e) {
 			if (activeTool is EditObjectsTool)
 				((EditObjectsTool)activeTool).changeMirror();
+		}
+
+		private void открытьToolStripMenuItem2_Click(object sender, EventArgs e) {
+			DialogResult result = openFileDialog.ShowDialog();
+			if (result != DialogResult.Cancel)
+				SaveLoader.Load(openFileDialog.FileName);
+		}
+
+		private void сохранитьToolStripMenuItem2_Click(object sender, EventArgs e) {
+			DialogResult result = saveFileDialog.ShowDialog();
+			if (result != DialogResult.Cancel)
+				SaveLoader.Save(saveFileDialog.FileName.Substring(saveFileDialog.FileName.Length - 5).Equals(".json") ? saveFileDialog.FileName : saveFileDialog.FileName + ".json");
 		}
 	}
 }

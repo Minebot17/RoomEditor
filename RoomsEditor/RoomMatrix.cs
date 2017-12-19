@@ -4,12 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RoomsEditor.Objects;
+using System.Runtime.Serialization;
 using static Tao.OpenGl.Gl;
 using static RoomsEditor.Utils;
 using static RoomsEditor.InputManager;
 
 namespace RoomsEditor {
+	[DataContract]
 	public class RoomMatrix : IRenderer {
+		[DataMember]
 		public MatrixType[,] matrix;
 		public int scaleFactor;
 		public int widthRoom;
@@ -159,6 +162,7 @@ namespace RoomsEditor {
 		}
 	}
 
+	[DataContract]
 	public enum MatrixType {
 		AIR = 0,
 		WALL = 1,
