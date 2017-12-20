@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using RoomsEditor.Objects;
+using System.Runtime.Serialization;
 using static RoomsEditor.InputManager;
 
 namespace RoomsEditor {
@@ -15,10 +16,10 @@ namespace RoomsEditor {
 
 			MainForm.form.ObjectsView.LargeImageList = new System.Windows.Forms.ImageList();
 			string[] files = Directory.GetFiles("objects");
-			foreach (string file in files) 
+			foreach (string file in files)
 				using (FileStream stream = new FileStream(file, FileMode.Open)) {
 					Type type;
-					ObjectRenderer obj = (ObjectRenderer) jsonFormatter.ReadObject(stream);
+					ObjectRenderer obj = (ObjectRenderer)jsonFormatter.ReadObject(stream);
 					if (obj.uv == null)
 						obj.constructUV();
 					if (obj.name == null)
@@ -64,6 +65,13 @@ namespace RoomsEditor {
 					((IExtendedData)((Tools.EditObjectsTool)MainForm.form.activeTool).activeObject[0]).openPanel();
 				((Tools.EditObjectsTool)MainForm.form.activeTool).loadObjectPanel();
 			}
+		}
+
+		public static RoomObject FindObjectByID(int ID) {
+			foreach (RoomObject obj in MainForm.form.objects)
+				if (obj.ID == ID)
+					return obj;
+			return null;
 		}
 
 		public static RoomObject GetObjectByRenderName(string name) {

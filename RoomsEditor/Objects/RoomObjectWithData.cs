@@ -9,8 +9,9 @@ namespace RoomsEditor.Objects {
 	[KnownType(typeof(ChestObject))]
 	[KnownType(typeof(GateObject))]
 	[KnownType(typeof(String[]))]
+	[KnownType(typeof(List<int>))]
 	public abstract class RoomObjectWithData<T> : RoomObject, IExtendedData where T : Control {
-		private T panel;
+		protected T panel;
 		[DataMember]
 		private object[] data;
 

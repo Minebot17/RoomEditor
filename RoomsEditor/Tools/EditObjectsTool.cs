@@ -14,18 +14,24 @@ namespace RoomsEditor.Tools {
 		public override void MouseDown() {
 			if (InputManager.IsMouseButtonDown(System.Windows.Forms.MouseButtons.Left)) {
 				if (InputManager.IsKeyDown(System.Windows.Forms.Keys.ShiftKey)) {
-					if (activeObject != null && activeObject.Count == 1 && activeObject[0] is IExtendedData)
-						((IExtendedData)activeObject[0]).closePanel();
 					if (activeObject == null)
 						activeObject = new List<RoomObject>();
 
 					RoomObject obj = ObjectsManager.GetObjectOverMouse();
 					if (obj == null)
 						return;
-					else if (activeObject.Contains(obj))
+					else if (activeObject.Contains(obj)) {
+						if (activeObject.Count == 1 && activeObject[0] is IExtendedData)
+							((IExtendedData)activeObject[0]).closePanel();
 						activeObject.Remove(obj);
-					else
+					}
+					else {
+						if (activeObject.Count == 1 && activeObject[0] is IExtendedData)
+							((IExtendedData)activeObject[0]).closePanel();
 						activeObject.Add(ObjectsManager.GetObjectOverMouse());
+						if (activeObject.Count == 1 && activeObject[0] is IExtendedData)
+							((IExtendedData)activeObject[0]).openPanel();
+					}
 				}
 				else {
 					if (activeObject != null && activeObject.Count == 1 && activeObject[0] is IExtendedData)

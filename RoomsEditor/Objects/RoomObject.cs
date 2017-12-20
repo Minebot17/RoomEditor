@@ -27,7 +27,7 @@ namespace RoomsEditor.Objects {
 			ID = MainForm.rnd.Next();
 		}
 
-		public void Draw() {
+		public virtual void Draw() {
 			glPushMatrix();
 			glTranslatef(mirror.x ? coords.x + render.width : coords.x, mirror.y ? coords.y + render.height : coords.y, 0);
 			glScalef(mirror.x ? -1 : 1, mirror.y ? -1 : 1, 0);

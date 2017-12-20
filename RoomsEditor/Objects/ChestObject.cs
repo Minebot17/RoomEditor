@@ -18,7 +18,7 @@ namespace RoomsEditor.Objects {
 				data = new object[] { 0, new string[0] };
 			string[] array;
 			try {
-				array = (string[])data;
+				array = (string[])data[1];
 			}
 			catch (InvalidCastException e) {
 				array = new string[((object[])data[1]).Length];

@@ -124,6 +124,9 @@
     <EmbeddedResource Include="ChestPanel.resx">
       <DependentUpon>ChestPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GatePanel.resx">
+      <DependentUpon>GatePanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

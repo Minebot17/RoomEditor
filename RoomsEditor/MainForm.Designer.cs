@@ -131,7 +131,7 @@
             this.toolStripComboBox1,
             this.оКToolStripMenuItem});
 			this.создатьToolStripMenuItem2.Name = "создатьToolStripMenuItem2";
-			this.создатьToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+			this.создатьToolStripMenuItem2.Size = new System.Drawing.Size(135, 22);
 			this.создатьToolStripMenuItem2.Text = "Создать";
 			// 
 			// toolStripComboBox1
@@ -163,7 +163,7 @@
 			// открытьToolStripMenuItem2
 			// 
 			this.открытьToolStripMenuItem2.Name = "открытьToolStripMenuItem2";
-			this.открытьToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+			this.открытьToolStripMenuItem2.Size = new System.Drawing.Size(135, 22);
 			this.открытьToolStripMenuItem2.Text = "Открыть";
 			this.открытьToolStripMenuItem2.Click += new System.EventHandler(this.открытьToolStripMenuItem2_Click);
 			// 
@@ -171,7 +171,7 @@
 			// 
 			this.сохранитьToolStripMenuItem2.Enabled = false;
 			this.сохранитьToolStripMenuItem2.Name = "сохранитьToolStripMenuItem2";
-			this.сохранитьToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+			this.сохранитьToolStripMenuItem2.Size = new System.Drawing.Size(135, 22);
 			this.сохранитьToolStripMenuItem2.Text = "Сохранить";
 			this.сохранитьToolStripMenuItem2.Click += new System.EventHandler(this.сохранитьToolStripMenuItem2_Click);
 			// 
