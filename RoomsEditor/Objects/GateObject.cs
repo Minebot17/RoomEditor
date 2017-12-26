@@ -60,28 +60,36 @@ namespace RoomsEditor.Objects {
 			glEnable(GL_TEXTURE_2D);
 		}
 
-		public override object[] createDataFromPanel(GatePanel panel) {
-			return new object[] { panel.type, panel.existsIDs, panel.unexistsIDs };
+		public override string[] createDataFromPanel(GatePanel panel) {
+			List<string> result = new List<string>();
+			result.Add(panel.type+"");
+			foreach (int x in panel.existsIDs)
+				result.Add(x + "");
+			result.Add("splitter");
+			foreach (int x in panel.unexistsIDs)
+				result.Add(x + "");
+			return result.ToArray();
 		}
 
-		public override GatePanel createPanelFromData(object[] data) {
+		public override GatePanel createPanelFromData(string[] data) {
 			if (data == null)
-				data = new object[] { 0, new List<int>(), new List<int>() };
+				data = new string[] { "0" };
 
 			List<int> array1 = new List<int>();
 			List<int> array2 = new List<int>();
-			try {
-				array1 = (List<int>)data[1];
-				array2 = (List<int>)data[2];
-			}
-			catch (InvalidCastException e) {
-				for (int i = 0; i < ((object[])data[1]).Length; i++)
-					array1.Add((int)((object[])data[1])[i]);
-				for (int i = 0; i < ((object[])data[2]).Length; i++)
-					array2.Add((int)((object[])data[2])[i]);
-			}
 
-			return new GatePanel((int)data[0], array1, array2);
+			int index = 99999;
+			for (int i = 1; i < data.Length; i++) {
+				if (data[i].Equals("splitter")) {
+					index = i + 1;
+					break;
+				}
+				array1.Add(int.Parse(data[i]));
+			}
+			for (int i = index; i < data.Length; i++)
+				array2.Add(int.Parse(data[i]));
+
+			return new GatePanel(int.Parse(data[0]), array1, array2);
 		}
 	}
 }

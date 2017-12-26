@@ -8,12 +8,10 @@ namespace RoomsEditor.Objects {
 	[DataContract]
 	[KnownType(typeof(ChestObject))]
 	[KnownType(typeof(GateObject))]
-	[KnownType(typeof(String[]))]
-	[KnownType(typeof(List<int>))]
 	public abstract class RoomObjectWithData<T> : RoomObject, IExtendedData where T : Control {
 		protected T panel;
 		[DataMember]
-		private object[] data;
+		private string[] data;
 
 		public RoomObjectWithData(ObjectRenderer render) : base(render) {
 			
@@ -31,15 +29,15 @@ namespace RoomsEditor.Objects {
 			panel = null;
 		}
 
-		public object[] serializeData() {
+		public string[] serializeData() {
 			return data;
 		}
 
-		public void deserializeData(object[] data) {
+		public void deserializeData(string[] data) {
 			this.data = data;
 		}
 
-		public abstract T createPanelFromData(object[] data);
-		public abstract object[] createDataFromPanel(T panel);
+		public abstract T createPanelFromData(string[] data);
+		public abstract string[] createDataFromPanel(T panel);
 	}
 }

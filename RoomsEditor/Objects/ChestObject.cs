@@ -13,23 +13,20 @@ namespace RoomsEditor.Objects {
 			
 		}
 
-		public override ChestPanel createPanelFromData(object[] data) {
+		public override ChestPanel createPanelFromData(string[] data) {
 			if (data == null)
-				data = new object[] { 0, new string[0] };
-			string[] array;
-			try {
-				array = (string[])data[1];
-			}
-			catch (InvalidCastException e) {
-				array = new string[((object[])data[1]).Length];
-				for (int i = 0; i < array.Length; i++)
-					array[i] = (string)((object[])data[1])[i];
-			}
-			return new ChestPanel((int)data[0], array);
+				data = new string[] { "0" };
+			string[] array = new string[data.Length - 1];
+			for (int i = 1; i < data.Length; i++)
+				array[i - 1] = data[i]; 
+			return new ChestPanel(int.Parse(data[0]), array);
 		}
 
-		public override object[] createDataFromPanel(ChestPanel panel) {
-			return new object[] { panel.getType(), panel.getIDs() };
+		public override string[] createDataFromPanel(ChestPanel panel) {
+			List<string> result = new List<string>();
+			result.Add(panel.getType()+"");
+			Array.ForEach<string>(panel.getIDs(), x => result.Add(x));
+			return result.ToArray();
 		}
 	}
 }
