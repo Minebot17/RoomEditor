@@ -86,17 +86,31 @@ namespace RoomsEditor {
 		}
 
 		public void CompileList() {
+			List<Polygon> polygons = new List<Polygon>();
+			List<Vec<int>> checkedPoints = new List<Vec<int>>();
+			for (int y = 0; y < matrix.GetLength(1); y++) {
+				int thisIndex = 0;
+				MatrixType thisType = matrix[0, y];
+
+				for (int x = 0; x < matrix.GetLength(0); x++) {
+					if (matrix[x, y] != thisType || matrix.GetLength(0) == x + 1) {
+						polygons.Add(new Polygon(thisType, new Vec<int>(thisIndex, y), x - thisIndex));
+						thisIndex = x;
+						thisType = matrix[x, y];
+					}
+				}
+			}
+
 			glNewList(list, GL_COMPILE);
 			glBegin(GL_QUADS);
-			for (int x = 0; x < matrix.GetLength(0); x++)
-				for (int y = 0; y < matrix.GetLength(1); y++) {
-					Color color = colors[(int)matrix[x,y]];
-					glColor3f(color.r, color.g, color.b);
-					glVertex2i(x, y);
-					glVertex2i(x + 1, y);
-					glVertex2i(x + 1, y + 1);
-					glVertex2i(x, y + 1);
-				}
+			foreach (Polygon polygon in polygons) {
+				Color color = colors[(int)polygon.type];
+				glColor3f(color.r, color.g, color.b);
+				glVertex2i(polygon.offset.x, polygon.offset.y);
+				glVertex2i(polygon.offset.x + polygon.lenght, polygon.offset.y);
+				glVertex2i(polygon.offset.x + polygon.lenght, polygon.offset.y + 1);
+				glVertex2i(polygon.offset.x, polygon.offset.y + 1);
+			}
 			glEnd();
 
 			if (InputManager.scaleFactor > 3) {
@@ -159,6 +173,17 @@ namespace RoomsEditor {
 						matrix[x + startCoord.x, y + startCoord.y] = toPast[x, y];
 
 			CompileList();
+		}
+
+		private struct Polygon {
+			public Vec<int> offset;
+			public int lenght;
+			public MatrixType type;
+			public Polygon(MatrixType type, Vec<int> offset, int lenght) {
+				this.type = type;
+				this.offset = offset;
+				this.lenght = lenght;
+			}
 		}
 	}
 
