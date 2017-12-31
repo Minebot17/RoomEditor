@@ -33,32 +33,32 @@ namespace RoomsEditor {
 			for (int x = 0; x < width; x++) {
 				float xCenter = 495f*(x + 0.5f);
 				conditions.Add(delegate (Vec<int> coords) {
-					return coords.y < 24 && coords.x > xCenter - 33.5f && coords.x < xCenter + 34f;
+					return coords.y < 24 && coords.x > xCenter - 33f && coords.x < xCenter + 33f;
 				});
 				conditions.Add(delegate (Vec<int> coords) {
-					return coords.y > matrix.GetLength(1) - 24 && coords.x > xCenter - 33.5f && coords.x < xCenter + 34f;
+					return coords.y > matrix.GetLength(1) - 24 && coords.x > xCenter - 33f && coords.x < xCenter + 33f;
 				});
 
 				RoomObject downGate = ObjectsManager.GetObjectByRenderName("downGate");
 				RoomObject topGate = ObjectsManager.GetObjectByRenderName("topGate");
-				downGate.coords = new Vec<int>((int)(xCenter - 32.5f), 0);
-				topGate.coords = new Vec<int>((int)(xCenter - 32.5f), 277 * height - 23);
+				downGate.coords = new Vec<int>((int)(xCenter - 33f), 0);
+				topGate.coords = new Vec<int>((int)(xCenter - 33f), 277 * height - 23);
 				MainForm.form.objects.Add(downGate);
 				MainForm.form.objects.Add(topGate);
 			}
 			for (int y = 0; y < height; y++) {
 				float yCenter = 277f * (y + 0.5f);
 				conditions.Add(delegate (Vec<int> coords) {
-					return coords.x < 46 && coords.y > yCenter - 33.5f && coords.y < yCenter + 34f;
+					return coords.x < 46 && coords.y > yCenter - 33f && coords.y < yCenter + 33f;
 				});
 				conditions.Add(delegate (Vec<int> coords) {
-					return coords.x > matrix.GetLength(0) - 46 && coords.y > yCenter - 33.5f && coords.y < yCenter + 34f;
+					return coords.x > matrix.GetLength(0) - 46 && coords.y > yCenter - 33f && coords.y < yCenter + 33f;
 				});
 
 				RoomObject leftGate = ObjectsManager.GetObjectByRenderName("leftGate");
 				RoomObject rightGate = ObjectsManager.GetObjectByRenderName("rightGate");
-				leftGate.coords = new Vec<int>(0, (int)(yCenter - 32.5f));
-				rightGate.coords = new Vec<int>(495 * width - 45, (int)(yCenter - 32.5f));
+				leftGate.coords = new Vec<int>(0, (int)(yCenter - 33f));
+				rightGate.coords = new Vec<int>(495 * width - 45, (int)(yCenter - 33f));
 				MainForm.form.objects.Add(leftGate);
 				MainForm.form.objects.Add(rightGate);
 			}
@@ -83,6 +83,44 @@ namespace RoomsEditor {
 			scaleFactor = width > height ? width : height;
 			list = glGenLists(1);
 			CompileList();
+		}
+
+		public void DeleteWallsInGates() {
+			List<Func<Vec<int>, bool>> conditions = new List<Func<Vec<int>, bool>>();
+			for (int x = 0; x < widthRoom; x++) {
+				float xCenter = 495f * (x + 0.5f);
+				conditions.Add(delegate (Vec<int> coords) {
+					return coords.y < 24 && coords.x > xCenter - 33f && coords.x < xCenter + 33f;
+				});
+				conditions.Add(delegate (Vec<int> coords) {
+					return coords.y > matrix.GetLength(1) - 24 && coords.x > xCenter - 33f && coords.x < xCenter + 33f;
+				});
+			}
+			for (int y = 0; y < heightRoom; y++) {
+				float yCenter = 277f * (y + 0.5f);
+				conditions.Add(delegate (Vec<int> coords) {
+					return coords.x < 46 && coords.y > yCenter - 33f && coords.y < yCenter + 33f;
+				});
+				conditions.Add(delegate (Vec<int> coords) {
+					return coords.x > matrix.GetLength(0) - 46 && coords.y > yCenter - 33f && coords.y < yCenter + 33f;
+				});
+			}
+
+			for (int x = 0; x < matrix.GetLength(0); x++)
+				for (int y = 0; y < matrix.GetLength(1); y++) {
+					if (x < 45 || x > matrix.GetLength(0) - 46 || y < 23 || y > matrix.GetLength(1) - 24) {
+						bool yes = true;
+						for (int i = 0; i < conditions.Count; i++) {
+							if (conditions[i].Invoke(new Vec<int>(x, y))) {
+								yes = false;
+								break;
+							}
+						}
+
+						if (!yes)
+							matrix[x, y] = MatrixType.AIR;
+					}
+				}
 		}
 
 		public void CompileList() {

@@ -48,7 +48,7 @@ namespace RoomsEditor.Tools {
 				mouseWindowPosition.y > MainForm.form.viewPort.Height - 50
 			};
 			if (sides[0] || sides[1] || sides[2] || sides[3])
-				TranslateMatrix(sides[0] ? 1 : sides[1] ? -1 : 0, sides[2] ? 1 : sides[3] ? -1 : 0);
+				TranslateMatrix(sides[0] ? (int)((mouseWindowPosition.x - 50) * -0.3f) : sides[1] ? (int)((mouseWindowPosition.x - MainForm.form.viewPort.Width + 50) * -0.3f) : 0, sides[2] ? (int)((mouseWindowPosition.y - 50) * -0.3f) : sides[3] ? (int)((mouseWindowPosition.y - MainForm.form.viewPort.Height + 50) * -0.3f) : 0);
 
 			Color color = isLeft ? (hiden ? RoomMatrix.colors[2] : RoomMatrix.colors[1]) : hiden ? RoomMatrix.colors[1] : RoomMatrix.colors[0];
 			DrawQuad(startPos, mouseWorldPosition, color);
