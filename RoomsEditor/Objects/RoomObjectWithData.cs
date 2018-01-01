@@ -17,6 +17,12 @@ namespace RoomsEditor.Objects {
 			
 		}
 
+		public override RoomObject Copy() {
+			RoomObjectWithData<T> copy = (RoomObjectWithData<T>) base.Copy();
+			copy.data = data;
+			return copy;
+		}
+
 		public void openPanel() {
 			panel = createPanelFromData(data);
 			panel.Location = new System.Drawing.Point(4, 65);

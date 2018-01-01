@@ -17,35 +17,11 @@ namespace RoomsEditor.Tools {
 
 		public override void MouseDown() {
 			if (InputManager.IsMouseButtonDown(System.Windows.Forms.MouseButtons.Left)) {
-				if (InputManager.IsKeyDown(System.Windows.Forms.Keys.ShiftKey)) {
-					if (activeObject == null)
-						activeObject = new List<RoomObject>();
-
-					RoomObject obj = ObjectsManager.GetObjectOverMouse();
-					if (obj == null)
-						return;
-					else if (activeObject.Contains(obj)) {
-						if (activeObject.Count == 1 && activeObject[0] is IExtendedData)
-							((IExtendedData)activeObject[0]).closePanel();
-						activeObject.Remove(obj);
-					}
-					else {
-						if (activeObject.Count == 1 && activeObject[0] is IExtendedData)
-							((IExtendedData)activeObject[0]).closePanel();
-						activeObject.Add(ObjectsManager.GetObjectOverMouse());
-						if (activeObject.Count == 1 && activeObject[0] is IExtendedData)
-							((IExtendedData)activeObject[0]).openPanel();
-					}
-				}
-				else {
-					if (activeObject != null && activeObject.Count == 1 && activeObject[0] is IExtendedData)
-						((IExtendedData)activeObject[0]).closePanel();
-					activeObject = ObjectsManager.GetObjectOverMouse() == null ? null : new List<RoomObject>() { ObjectsManager.GetObjectOverMouse() };
-					if (activeObject != null && activeObject[0] is IExtendedData)
-						((IExtendedData)activeObject[0]).openPanel();
-				}
-
-				loadObjectPanel();
+				RoomObject obj = ObjectsManager.GetObjectOverMouse();
+				if (InputManager.IsKeyDown(System.Windows.Forms.Keys.ShiftKey))
+					AddToSelectObject(obj);
+				else
+					SelectObjects(new List<RoomObject>() { obj });
 			}
 		}
 
@@ -54,8 +30,15 @@ namespace RoomsEditor.Tools {
 				return;
 
 			Vec<int> delta = SubstractVector(InputManager.mouseWorldPosition, activeObject[0].coords);
-			if (!activeObject[0].render.mustNotMove)
+			if (!activeObject[0].render.mustNotMove) {
 				activeObject[0].coords = InputManager.mouseWorldPosition;
+				if (xSymmetryObject != null)
+					xSymmetryObject.coords = new Vec<int>(495 * MainForm.form.matrix.widthRoom - InputManager.mouseWorldPosition.x - xSymmetryObject.render.width, InputManager.mouseWorldPosition.y);
+				if (ySymmetryObject != null)
+					ySymmetryObject.coords = new Vec<int>(InputManager.mouseWorldPosition.x, 277 * MainForm.form.matrix.heightRoom - InputManager.mouseWorldPosition.y - ySymmetryObject.render.height);
+				if (xySymmetryObject != null)
+					xySymmetryObject.coords = new Vec<int>(495 * MainForm.form.matrix.widthRoom - InputManager.mouseWorldPosition.x - xySymmetryObject.render.width, 277 * MainForm.form.matrix.heightRoom - InputManager.mouseWorldPosition.y - xySymmetryObject.render.height);
+			}
 			for (int i = 1; i < activeObject.Count; i++)
 				if (!activeObject[i].render.mustNotMove)
 					activeObject[i].coords = UniteVectors(activeObject[i].coords, delta);
@@ -87,15 +70,73 @@ namespace RoomsEditor.Tools {
 				((IExtendedData)activeObject[0]).closePanel();
 			activeObject = null;
 			loadObjectPanel();
+			FindSymmetryObjects();
 		}
 
 		public override void KeyDown() {
 			if (InputManager.IsKeyDown(System.Windows.Forms.Keys.Delete) && activeObject != null) {
+				FindSymmetryObjects();
+				if (xSymmetryObject != null)
+					MainForm.form.objects.Remove(xSymmetryObject);
+				if (ySymmetryObject != null)
+					MainForm.form.objects.Remove(ySymmetryObject);
+				if (xySymmetryObject != null)
+					MainForm.form.objects.Remove(xySymmetryObject);
 				if (activeObject.Count == 1 && activeObject[0] is IExtendedData)
 					((IExtendedData)activeObject[0]).closePanel();
 				MainForm.form.objects.RemoveAll(x => activeObject.Contains(x) && !x.render.mustNotDelete);
 				activeObject = null;
 				loadObjectPanel();
+			}
+		}
+
+		public void SelectObjects(List<RoomObject> objects) {
+			if (activeObject != null && activeObject.Count == 1 && activeObject[0] is IExtendedData)
+				((IExtendedData)activeObject[0]).closePanel();
+			if (objects.All(x => x == null))
+				activeObject = null;
+			else
+				activeObject = objects;
+			if (activeObject != null && activeObject.Count == 1 && activeObject[0] is IExtendedData)
+				((IExtendedData)activeObject[0]).openPanel();
+			loadObjectPanel();
+			FindSymmetryObjects();
+		}
+
+		public void AddToSelectObject(RoomObject obj) {
+			if (activeObject == null)
+				activeObject = new List<RoomObject>();
+
+			if (obj == null)
+				return;
+			else if (activeObject.Contains(obj)) {
+				if (activeObject.Count == 1 && activeObject[0] is IExtendedData)
+					((IExtendedData)activeObject[0]).closePanel();
+				activeObject.Remove(obj);
+			}
+			else {
+				if (activeObject.Count == 1 && activeObject[0] is IExtendedData)
+					((IExtendedData)activeObject[0]).closePanel();
+				activeObject.Add(obj);
+				if (activeObject.Count == 1 && activeObject[0] is IExtendedData)
+					((IExtendedData)activeObject[0]).openPanel();
+			}
+			loadObjectPanel();
+		}
+
+		public void FindSymmetryObjects() {
+			xSymmetryObject = null;
+			ySymmetryObject = null;
+			xySymmetryObject = null;
+
+			if (activeObject != null && activeObject.Count == 1) {
+				RoomObject original = activeObject[0];
+				if (MainForm.form.XSymmetryBox.Checked)
+					xSymmetryObject = ObjectsManager.FindObject(obj => obj.coords.y == original.coords.y && 495 * MainForm.form.matrix.widthRoom - obj.coords.x - obj.render.width == original.coords.x && obj.prefabName.Equals(original.prefabName));
+				if (MainForm.form.YSymmetryBox.Checked)
+					ySymmetryObject = ObjectsManager.FindObject(obj => 277 * MainForm.form.matrix.heightRoom - obj.coords.y - obj.render.height == original.coords.y && obj.coords.x == original.coords.x && obj.prefabName.Equals(original.prefabName));
+				if (MainForm.form.XYSymmetryBox.Checked)
+					xySymmetryObject = ObjectsManager.FindObject(obj => 277 * MainForm.form.matrix.heightRoom - obj.coords.y - obj.render.height == original.coords.y && 495 * MainForm.form.matrix.widthRoom - obj.coords.x - obj.render.width == original.coords.x && obj.prefabName.Equals(original.prefabName));
 			}
 		}
 

@@ -34,5 +34,14 @@ namespace RoomsEditor.Objects {
 			render.Draw();
 			glPopMatrix();
 		}
+
+		public virtual RoomObject Copy() {
+			RoomObject copy = ObjectsManager.GetObjectByRenderName(render.name);
+			copy.prefabName = prefabName;
+			copy.coords = coords;
+			copy.mirror = mirror;
+			copy.ID = MainForm.rnd.Next();
+			return copy;
+		}
 	}
 }
