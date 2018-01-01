@@ -107,6 +107,8 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ObjectsManager.cs" />
+    <Compile Include="Objects\MatrixRenderer.cs" />
+    <Compile Include="Objects\RoomChunkObject.cs" />
     <Compile Include="Objects\RoomObject.cs" />
     <Compile Include="Objects\RoomObjectWithData.cs" />
     <Compile Include="Program.cs" />

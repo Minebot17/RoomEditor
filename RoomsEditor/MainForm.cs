@@ -63,6 +63,7 @@ namespace RoomsEditor {
 			activeTool = new CreateWallTool(false);
 
 			InputManager.scaleFactor = 1;
+			//glCullFace(GL_FRONT_AND_BACK);
 
 			isLoaded = true;
 		}
@@ -99,8 +100,10 @@ namespace RoomsEditor {
 
 			matrix.Draw();
 			glEnable(GL_TEXTURE_2D);
+			glDisable(GL_CULL_FACE);
 			for (int i = 0; i < objects.Count; i++)
 				objects[i].Draw();
+			glEnable(GL_CULL_FACE);
 			glDisable(GL_TEXTURE_2D);
 			activeTool.Draw();
 
@@ -180,6 +183,10 @@ namespace RoomsEditor {
 
 		private void EditObjectButton_Click(object sender, EventArgs e) {
 			SetTool(new EditObjectsTool());
+		}
+
+		private void EditWallButton_Click(object sender, EventArgs e) {
+			SetTool(new EditWallsTool());
 		}
 
 		private void ObjectsView_MouseDoubleClick(object sender, MouseEventArgs e) {

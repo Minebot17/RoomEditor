@@ -267,6 +267,7 @@
 			this.EditWallButton.Size = new System.Drawing.Size(64, 32);
 			this.EditWallButton.TabIndex = 4;
 			this.EditWallButton.UseVisualStyleBackColor = true;
+			this.EditWallButton.Click += new System.EventHandler(this.EditWallButton_Click);
 			// 
 			// EditObjectButton
 			// 

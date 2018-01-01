@@ -20,6 +20,8 @@ namespace RoomsEditor.Objects {
 		[DataMember]
 		public int ID;
 
+		public RoomObject() { }
+
 		public RoomObject(ObjectRenderer render) {
 			this.render = render;
 			prefabName = render.name;

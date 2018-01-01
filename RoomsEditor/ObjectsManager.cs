@@ -53,6 +53,14 @@ namespace RoomsEditor {
 				}
 		}
 
+		public static void SpawnObjectWithoutSymmetry(string name) {
+			RoomObject obj = GetObjectByRenderName(name);
+			obj.coords = new Utils.Vec<int>(-InputManager.translate.x, -InputManager.translate.y);
+			MainForm.form.objects.Add(obj);
+			if (MainForm.form.activeTool is Tools.EditObjectsTool)
+				((Tools.EditObjectsTool)MainForm.form.activeTool).SelectObjects(new List<RoomObject>() { obj });
+		}
+
 		public static void SpawnObject(string name) {
 			RoomObject obj = GetObjectByRenderName(name);
 			obj.coords = new Utils.Vec<int>(-InputManager.translate.x, -InputManager.translate.y);

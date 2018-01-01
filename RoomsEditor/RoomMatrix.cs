@@ -125,7 +125,6 @@ namespace RoomsEditor {
 
 		public void CompileList() {
 			List<Polygon> polygons = new List<Polygon>();
-			List<Vec<int>> checkedPoints = new List<Vec<int>>();
 			for (int y = 0; y < matrix.GetLength(1); y++) {
 				int thisIndex = 0;
 				MatrixType thisType = matrix[0, y];
@@ -207,13 +206,17 @@ namespace RoomsEditor {
 		public void Past(MatrixType[,] toPast, Vec<int> startCoord) {
 			for (int x = 0; x < toPast.GetLength(0); x++)
 				for (int y = 0; y < toPast.GetLength(1); y++)
-					if (toPast[x, y] != MatrixType.AIR)
-						matrix[x + startCoord.x, y + startCoord.y] = toPast[x, y];
+					if (toPast[x, y] != MatrixType.AIR) {
+						try {
+							matrix[x + startCoord.x, y + startCoord.y] = toPast[x, y];
+						}
+						catch (IndexOutOfRangeException ignore) { }
+					}
 
 			CompileList();
 		}
 
-		private struct Polygon {
+		public struct Polygon {
 			public Vec<int> offset;
 			public int lenght;
 			public MatrixType type;

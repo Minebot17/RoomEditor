@@ -85,9 +85,21 @@ namespace RoomsEditor.Tools {
 				if (activeObject.Count == 1 && activeObject[0] is IExtendedData)
 					((IExtendedData)activeObject[0]).closePanel();
 				MainForm.form.objects.RemoveAll(x => activeObject.Contains(x) && !x.render.mustNotDelete);
-				activeObject = null;
-				loadObjectPanel();
 			}
+			else if (InputManager.IsKeyDown(System.Windows.Forms.Keys.Enter) && activeObject != null && activeObject.Count == 1 && activeObject[0] is RoomChunkObject) {
+				MainForm.form.matrix.Past(revert(((RoomChunkObject)activeObject[0]).renderer.matrix, activeObject[0].mirror.x, activeObject[0].mirror.y), activeObject[0].coords);
+				MainForm.form.objects.Remove(activeObject[0]);
+			}
+			activeObject = null;
+			loadObjectPanel();
+		}
+
+		private MatrixType[,] revert(MatrixType[,] matrix, bool xB, bool yB) {
+			MatrixType[,] copy = (MatrixType[,]) matrix.Clone();
+			for (int x = 0; x < copy.GetLength(0); x++)
+				for (int y = 0; y < copy.GetLength(1); y++)
+					copy[x, y] = matrix[xB ? matrix.GetLength(0) - 1 - x : x, yB ? matrix.GetLength(1) - 1 - y : y];
+			return copy;
 		}
 
 		public void SelectObjects(List<RoomObject> objects) {
