@@ -108,6 +108,11 @@ namespace RoomsEditor {
 			viewPort.Invalidate();
 		}
 
+		public void SetTool(Tool tool) {
+			activeTool.Disponse();
+			activeTool = tool;
+		}
+
 		#region "Handlers"
 		private void viewPort_MouseWheel(object sender, MouseEventArgs e) {
 			InputManager.MouseWheelHandle(e);
@@ -154,6 +159,9 @@ namespace RoomsEditor {
 		}
 
 		private void оКToolStripMenuItem_Click(object sender, EventArgs e) {
+			if (matrix != null)
+				matrix.Disponse();
+			activeTool.Disponse();
 			string text = toolStripComboBox1.Text;
 			Vec<int> size = new Vec<int>(int.Parse(text[0]+""), int.Parse(text[2]+""));
 			objects = new List<RoomObject>();
@@ -163,15 +171,15 @@ namespace RoomsEditor {
 		}
 
 		private void CreateWallButton_Click(object sender, EventArgs e) {
-			activeTool = new CreateWallTool(false);
+			SetTool(new CreateWallTool(false));
 		}
 
 		private void CreateHideButton_Click(object sender, EventArgs e) {
-			activeTool = new CreateWallTool(true);
+			SetTool(new CreateWallTool(true));
 		}
 
 		private void EditObjectButton_Click(object sender, EventArgs e) {
-			activeTool = new EditObjectsTool();
+			SetTool(new EditObjectsTool());
 		}
 
 		private void ObjectsView_MouseDoubleClick(object sender, MouseEventArgs e) {

@@ -153,6 +153,17 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\editWallTool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\editObjectTool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\wallTool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hildenWallTool.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

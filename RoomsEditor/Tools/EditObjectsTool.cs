@@ -11,6 +11,10 @@ namespace RoomsEditor.Tools {
 		public List<RoomObject> activeObject;
 		public int panelMode;
 
+		public RoomObject xSymmetryObject;
+		public RoomObject ySymmetryObject;
+		public RoomObject xySymmetryObject;
+
 		public override void MouseDown() {
 			if (InputManager.IsMouseButtonDown(System.Windows.Forms.MouseButtons.Left)) {
 				if (InputManager.IsKeyDown(System.Windows.Forms.Keys.ShiftKey)) {

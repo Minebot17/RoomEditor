@@ -237,40 +237,45 @@
 			// 
 			// CreateWallButton
 			// 
+			this.CreateWallButton.BackgroundImage = global::RoomsEditor.Properties.Resources.wallTool;
+			this.CreateWallButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.CreateWallButton.Location = new System.Drawing.Point(4, 27);
+			this.CreateWallButton.Margin = new System.Windows.Forms.Padding(0);
 			this.CreateWallButton.Name = "CreateWallButton";
 			this.CreateWallButton.Size = new System.Drawing.Size(64, 32);
 			this.CreateWallButton.TabIndex = 2;
-			this.CreateWallButton.Text = "СС";
 			this.CreateWallButton.UseVisualStyleBackColor = true;
 			this.CreateWallButton.Click += new System.EventHandler(this.CreateWallButton_Click);
 			// 
 			// CreateHideButton
 			// 
+			this.CreateHideButton.BackgroundImage = global::RoomsEditor.Properties.Resources.hildenWallTool;
+			this.CreateHideButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.CreateHideButton.Location = new System.Drawing.Point(74, 27);
 			this.CreateHideButton.Name = "CreateHideButton";
 			this.CreateHideButton.Size = new System.Drawing.Size(64, 32);
 			this.CreateHideButton.TabIndex = 3;
-			this.CreateHideButton.Text = "СПП";
 			this.CreateHideButton.UseVisualStyleBackColor = true;
 			this.CreateHideButton.Click += new System.EventHandler(this.CreateHideButton_Click);
 			// 
 			// EditWallButton
 			// 
+			this.EditWallButton.BackgroundImage = global::RoomsEditor.Properties.Resources.editWallTool;
+			this.EditWallButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.EditWallButton.Location = new System.Drawing.Point(144, 27);
 			this.EditWallButton.Name = "EditWallButton";
 			this.EditWallButton.Size = new System.Drawing.Size(64, 32);
 			this.EditWallButton.TabIndex = 4;
-			this.EditWallButton.Text = "РСИП";
 			this.EditWallButton.UseVisualStyleBackColor = true;
 			// 
 			// EditObjectButton
 			// 
+			this.EditObjectButton.BackgroundImage = global::RoomsEditor.Properties.Resources.editObjectTool;
+			this.EditObjectButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.EditObjectButton.Location = new System.Drawing.Point(214, 27);
 			this.EditObjectButton.Name = "EditObjectButton";
 			this.EditObjectButton.Size = new System.Drawing.Size(64, 32);
 			this.EditObjectButton.TabIndex = 5;
-			this.EditObjectButton.Text = "РО";
 			this.EditObjectButton.UseVisualStyleBackColor = true;
 			this.EditObjectButton.Click += new System.EventHandler(this.EditObjectButton_Click);
 			// 
