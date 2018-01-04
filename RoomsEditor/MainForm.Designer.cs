@@ -70,6 +70,7 @@
 			this.XYSymmetryBox = new System.Windows.Forms.CheckBox();
 			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
 			this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+			this.переключитьФонToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			DrawTimer = new System.Windows.Forms.Timer(this.components);
 			this.MainMenuStrip.SuspendLayout();
 			this.objectTransformPanel.SuspendLayout();
@@ -178,7 +179,8 @@
 			// toolStripMenuItem2
 			// 
 			this.toolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.сброситьТрансформациюToolStripMenuItem2});
+            this.сброситьТрансформациюToolStripMenuItem2,
+            this.переключитьФонToolStripMenuItem});
 			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
 			this.toolStripMenuItem2.Size = new System.Drawing.Size(69, 20);
 			this.toolStripMenuItem2.Text = "Вьюпорт";
@@ -480,6 +482,13 @@
 			this.saveFileDialog.Filter = "JSON files|*.json";
 			this.saveFileDialog.RestoreDirectory = true;
 			// 
+			// переключитьФонToolStripMenuItem
+			// 
+			this.переключитьФонToolStripMenuItem.Name = "переключитьФонToolStripMenuItem";
+			this.переключитьФонToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+			this.переключитьФонToolStripMenuItem.Text = "Переключить фон";
+			this.переключитьФонToolStripMenuItem.Click += new System.EventHandler(this.переключитьФонToolStripMenuItem_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -560,6 +569,7 @@
 		public System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem2;
 		private System.Windows.Forms.OpenFileDialog openFileDialog;
 		private System.Windows.Forms.SaveFileDialog saveFileDialog;
+		private System.Windows.Forms.ToolStripMenuItem переключитьФонToolStripMenuItem;
 	}
 }
 

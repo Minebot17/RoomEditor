@@ -18,6 +18,7 @@ namespace RoomsEditor {
 		public int scaleFactor;
 		public int widthRoom;
 		public int heightRoom;
+		public bool renderTextureBackground;
 		private int list;
 		public static Color[] colors = new Color[] {
 			new Color(0xFFF0F0F0),
@@ -132,7 +133,8 @@ namespace RoomsEditor {
 
 				for (int x = 0; x < matrix.GetLength(0); x++) {
 					if (matrix[x, y] != thisType || matrix.GetLength(0) == x + 1) {
-						polygons.Add(new Polygon(thisType, new Vec<int>(thisIndex, y), x - thisIndex));
+						if (!renderTextureBackground || thisType != MatrixType.AIR)
+							polygons.Add(new Polygon(thisType, new Vec<int>(thisIndex, y), x - thisIndex));
 						thisIndex = x;
 						thisType = matrix[x, y];
 					}
@@ -140,6 +142,29 @@ namespace RoomsEditor {
 			}
 
 			glNewList(list, GL_COMPILE);
+			if (renderTextureBackground) {
+				glEnable(GL_TEXTURE_2D);
+				TextureManager.BindTexture("background.png");
+				glBegin(GL_QUADS);
+				for (int x = 0; x < widthRoom; x++)
+					for (int y = 0; y < heightRoom; y++) {
+
+						for (int i = 0; i < 3; i++)
+							for (int j = 0; j < 3; j++) {
+								glTexCoord2f(0, 1);
+								glVertex2i(165 * i + x * 495, 277 - j * 125 + y * 277);
+								glTexCoord2f(0, j == 2 ? 0.784f : 0);
+								glVertex2i(165 * i + x * 495, j == 2 ? y * 277 : 152 - j * 125 + y * 277);
+								glTexCoord2f(1, j == 2 ? 0.784f : 0);
+								glVertex2i(165 * (i + 1) + x * 495, j == 2 ? y * 277 : 152 - j * 125 + y * 277);
+								glTexCoord2f(1, 1);
+								glVertex2i(165 * (i + 1) + x * 495, 277 - j * 125 + y * 277);
+							}
+					}
+				glEnd();
+				glDisable(GL_TEXTURE_2D);
+			}
+
 			glBegin(GL_QUADS);
 			foreach (Polygon polygon in polygons) {
 				Color color = colors[(int)polygon.type];

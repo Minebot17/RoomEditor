@@ -248,5 +248,12 @@ namespace RoomsEditor {
 			else
 				checkBoxSwitch = false;
 		}
+
+		private void переключитьФонToolStripMenuItem_Click(object sender, EventArgs e) {
+			if (matrix != null) {
+				matrix.renderTextureBackground = !matrix.renderTextureBackground;
+				matrix.CompileList();
+			}
+		}
 	}
 }
