@@ -8,7 +8,7 @@ using static RoomsEditor.RoomMatrix;
 using static RoomsEditor.Utils;
 
 namespace RoomsEditor.Objects {
-	class MatrixRenderer : IRenderer {
+	public class MatrixRenderer : IRenderer {
 		public MatrixType[,] matrix;
 		private List<Polygon> polygons = new List<Polygon>();
 		public static Color[] colors = new Color[] {

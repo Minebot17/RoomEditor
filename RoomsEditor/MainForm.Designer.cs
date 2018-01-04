@@ -437,6 +437,7 @@
 			this.XSymmetryBox.TabIndex = 8;
 			this.XSymmetryBox.Text = "X";
 			this.XSymmetryBox.UseVisualStyleBackColor = true;
+			this.XSymmetryBox.CheckedChanged += new System.EventHandler(this.XSymmetryBox_CheckedChanged);
 			// 
 			// YSymmetryBox
 			// 
@@ -447,6 +448,7 @@
 			this.YSymmetryBox.TabIndex = 9;
 			this.YSymmetryBox.Text = "Y";
 			this.YSymmetryBox.UseVisualStyleBackColor = true;
+			this.YSymmetryBox.CheckedChanged += new System.EventHandler(this.YSymmetryBox_CheckedChanged);
 			// 
 			// label1
 			// 
@@ -466,6 +468,7 @@
 			this.XYSymmetryBox.TabIndex = 11;
 			this.XYSymmetryBox.Text = "XY";
 			this.XYSymmetryBox.UseVisualStyleBackColor = true;
+			this.XYSymmetryBox.CheckedChanged += new System.EventHandler(this.XYSymmetryBox_CheckedChanged);
 			// 
 			// openFileDialog
 			// 

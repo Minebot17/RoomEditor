@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using RoomsEditor.Objects;
+using RoomsEditor.Actions;
 using static Tao.OpenGl.Gl;
 using static RoomsEditor.Utils;
 using static RoomsEditor.InputManager;
@@ -12,7 +13,7 @@ namespace RoomsEditor.Tools {
 		public Vec<int> startPos;
 		private int mode; // 0 - select, 1 - add to select (shift), 2 - remove from select (ctrl), 3 - move selected area
 		private static bool[,] selectionMatrix;
-		private static MatrixType[,] tradeBuffer;
+		public static MatrixType[,] tradeBuffer;
 		private static Color color = new Color(0.6f, 0.6f, 1f, 0.5f);
 
 		public EditWallsTool() {
@@ -113,42 +114,52 @@ namespace RoomsEditor.Tools {
 		}
 
 		public override void KeyDown() {
-			if (IsKeyDown(System.Windows.Forms.Keys.ControlKey)) {
-				if (IsKeyDown(System.Windows.Forms.Keys.C) || IsKeyDown(System.Windows.Forms.Keys.X)) {
-					Vec<int> startCopyPos = new Vec<int>(selectionMatrix.GetLength(0), selectionMatrix.GetLength(1));
-					Vec<int> endCopyPos = new Vec<int>();
-					for (int x = 0; x < selectionMatrix.GetLength(0); x++)
-						for (int y = 0; y < selectionMatrix.GetLength(1); y++) {
+			bool ctrl = IsKeyDown(System.Windows.Forms.Keys.ControlKey);
+			bool cut = ctrl && IsKeyDown(System.Windows.Forms.Keys.X);
+			bool copy = ctrl && IsKeyDown(System.Windows.Forms.Keys.C);
+			bool past = ctrl && IsKeyDown(System.Windows.Forms.Keys.V) && tradeBuffer != null;
+			bool del = IsKeyDown(System.Windows.Forms.Keys.Delete);
+
+			if (cut || copy || past || del){
+				Vec<int> startCopyPos = new Vec<int>(selectionMatrix.GetLength(0), selectionMatrix.GetLength(1));
+				Vec<int> endCopyPos = new Vec<int>();
+				for (int x = 0; x < selectionMatrix.GetLength(0); x++)
+					for (int y = 0; y < selectionMatrix.GetLength(1); y++) {
+						if (selectionMatrix[x, y]) {
+							if (startCopyPos.x > x)
+								startCopyPos = new Vec<int>(x, startCopyPos.y);
+							if (startCopyPos.y > y)
+								startCopyPos = new Vec<int>(startCopyPos.x, y);
+							if (endCopyPos.x < x)
+								endCopyPos = new Vec<int>(x, endCopyPos.y);
+							if (endCopyPos.y < y)
+								endCopyPos = new Vec<int>(endCopyPos.x, y);
+						}
+					}
+
+				if (past) {
+					RoomObject obj = new RoomChunkObject(new MatrixRenderer(tradeBuffer));
+					MainForm.form.objects.Add(obj);
+					ActionManager.Add(new SpawnObjectAction(new List<RoomObject>() { obj }));
+				}
+				else if (del || copy || cut) {
+					tradeBuffer = new MatrixType[endCopyPos.x - startCopyPos.x + 1, endCopyPos.y - startCopyPos.y + 1];
+					bool[,] select = new bool[tradeBuffer.GetLength(0), tradeBuffer.GetLength(1)];
+					for (int x = startCopyPos.x; x <= endCopyPos.x; x++)
+						for (int y = startCopyPos.y; y <= endCopyPos.y; y++) {
 							if (selectionMatrix[x, y]) {
-								if (startCopyPos.x > x)
-									startCopyPos = new Vec<int>(x, startCopyPos.y);
-								if (startCopyPos.y > y)
-									startCopyPos = new Vec<int>(startCopyPos.x, y);
-								if (endCopyPos.x < x)
-									endCopyPos = new Vec<int>(x, endCopyPos.y);
-								if (endCopyPos.y < y)
-									endCopyPos = new Vec<int>(endCopyPos.x, y);
+								select[x - startCopyPos.x, y - startCopyPos.y] = true;
+								tradeBuffer[x - startCopyPos.x, y - startCopyPos.y] = MainForm.form.matrix.matrix[x, y];
 							}
 						}
 
-					bool isX = IsKeyDown(System.Windows.Forms.Keys.X);
-					tradeBuffer = new MatrixType[endCopyPos.x - startCopyPos.x + 1, endCopyPos.y - startCopyPos.y + 1];
-					for (int x = startCopyPos.x; x <= endCopyPos.x; x++)
-						for (int y = startCopyPos.y; y <= endCopyPos.y; y++) {
-							if (selectionMatrix[x, y])
-								tradeBuffer[x - startCopyPos.x, y - startCopyPos.y] = MainForm.form.matrix.matrix[x, y];
-						}
-					if (isX)
+					if (cut || del) {
+						ActionManager.Add(new CutAction(select, tradeBuffer, startCopyPos));
 						DeleteSelected();
-					MainForm.form.matrix.CompileList();
-				}
-				else if (IsKeyDown(System.Windows.Forms.Keys.V)) {
-					RoomObject obj = new RoomChunkObject(new MatrixRenderer(tradeBuffer));
-					MainForm.form.objects.Add(obj);
+						MainForm.form.matrix.CompileList();
+					}
 				}
 			}
-			else if (IsKeyDown(System.Windows.Forms.Keys.Delete))
-				DeleteSelected();
 		}
 
 		private void DeleteSelected() {

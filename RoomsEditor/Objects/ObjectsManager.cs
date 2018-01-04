@@ -5,6 +5,8 @@ using System.IO;
 using System.Runtime.Serialization.Json;
 using RoomsEditor.Objects;
 using System.Runtime.Serialization;
+using RoomsEditor.Tools;
+using RoomsEditor.Actions;
 using static RoomsEditor.InputManager;
 
 namespace RoomsEditor {
@@ -61,28 +63,62 @@ namespace RoomsEditor {
 				((Tools.EditObjectsTool)MainForm.form.activeTool).SelectObjects(new List<RoomObject>() { obj });
 		}
 
-		public static void SpawnObject(string name) {
+		public static void SpawnObject(string name, bool createAction) {
+			List<RoomObject> objectsToSpawn = new List<RoomObject>();
 			RoomObject obj = GetObjectByRenderName(name);
 			obj.coords = new Utils.Vec<int>(-InputManager.translate.x, -InputManager.translate.y);
 			MainForm.form.objects.Add(obj);
+			objectsToSpawn.Add(obj);
 			if (MainForm.form.XSymmetryBox.Checked) {
 				RoomObject symmetry = obj.Copy();
 				symmetry.coords = new Utils.Vec<int>(495*MainForm.form.matrix.widthRoom + InputManager.translate.x - symmetry.render.width, -InputManager.translate.y);
 				MainForm.form.objects.Add(symmetry);
+				objectsToSpawn.Add(symmetry);
 			}
 			if (MainForm.form.YSymmetryBox.Checked) {
 				RoomObject symmetry = obj.Copy();
 				symmetry.coords = new Utils.Vec<int>(-InputManager.translate.x, 277 * MainForm.form.matrix.heightRoom + InputManager.translate.y - symmetry.render.height);
 				MainForm.form.objects.Add(symmetry);
+				objectsToSpawn.Add(symmetry);
 			}
 			if (MainForm.form.XYSymmetryBox.Checked) {
 				RoomObject symmetry = obj.Copy();
 				symmetry.coords = new Utils.Vec<int>(495 * MainForm.form.matrix.widthRoom + InputManager.translate.x - symmetry.render.width, 277 * MainForm.form.matrix.heightRoom + InputManager.translate.y - symmetry.render.height);
 				MainForm.form.objects.Add(symmetry);
+				objectsToSpawn.Add(symmetry);
 			}
 
 			if (MainForm.form.activeTool is Tools.EditObjectsTool)
 				((Tools.EditObjectsTool)MainForm.form.activeTool).SelectObjects(new List<RoomObject>() { obj });
+
+			if (createAction)
+				ActionManager.Add(new SpawnObjectAction(objectsToSpawn));
+		}
+
+
+		public static void SpawnObject(RoomObject obj, bool createAction) {
+			List<RoomObject> objectsToSpawn = new List<RoomObject>();
+			MainForm.form.objects.Add(obj);
+			objectsToSpawn.Add(obj);
+
+			if (createAction)
+				ActionManager.Add(new SpawnObjectAction(objectsToSpawn));
+		}
+
+		public static void RemoveObject(RoomObject obj, bool createAction) {
+			MainForm.form.objects.Remove(obj);
+			if (MainForm.form.activeTool is EditObjectsTool) {
+				EditObjectsTool tool = (EditObjectsTool)MainForm.form.activeTool;
+				if (tool.activeObject != null && tool.activeObject.Contains(obj)) {
+					if (tool.activeObject != null && tool.activeObject.Count == 1 && tool.activeObject[0] is IExtendedData)
+						((IExtendedData)tool.activeObject[0]).closePanel();
+					tool.activeObject.Remove(obj);
+					tool.loadObjectPanel();
+					tool.FindSymmetryObjects();
+				}
+			}
+			if (createAction)
+				ActionManager.Add(new RemoveObjectAction(new List<RoomObject>() { obj }));
 		}
 
 		public static RoomObject FindObjectByID(int ID) {

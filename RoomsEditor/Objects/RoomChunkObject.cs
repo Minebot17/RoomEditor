@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using static Tao.OpenGl.Gl;
 
 namespace RoomsEditor.Objects {
-	class RoomChunkObject : RoomObject {
+	public class RoomChunkObject : RoomObject {
 		public MatrixRenderer renderer;
 
 		public RoomChunkObject(MatrixRenderer renderer) {

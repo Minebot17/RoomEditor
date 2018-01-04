@@ -17,6 +17,7 @@ using Tao.OpenGl;
 using Tao.Platform.Windows;
 using RoomsEditor.Tools;
 using RoomsEditor.Objects;
+using RoomsEditor.Actions;
 using static Tao.OpenGl.Gl;
 using static Tao.OpenGl.Glu;
 using static Tao.FreeGlut.Glut;
@@ -139,6 +140,14 @@ namespace RoomsEditor {
 		private void MainForm_KeyDown(object sender, KeyEventArgs e) {
 			InputManager.KeyDownHandle(e);
 			activeTool.KeyDown();
+
+			if (IsKeyDown(Keys.ControlKey)) {
+				if (IsKeyDown(Keys.Z))
+					ActionManager.Cancel();
+				else if (IsKeyDown(Keys.Y))
+					ActionManager.Return();
+					
+			}
 		}
 
 		private void MainForm_KeyUp(object sender, KeyEventArgs e) {
@@ -165,6 +174,7 @@ namespace RoomsEditor {
 			if (matrix != null)
 				matrix.Disponse();
 			activeTool.Disponse();
+			ActionManager.Disponse();
 			string text = toolStripComboBox1.Text;
 			Vec<int> size = new Vec<int>(int.Parse(text[0]+""), int.Parse(text[2]+""));
 			objects = new List<RoomObject>();
@@ -191,7 +201,7 @@ namespace RoomsEditor {
 
 		private void ObjectsView_MouseDoubleClick(object sender, MouseEventArgs e) {
 			if (ObjectsView.SelectedItems.Count != 0)
-				ObjectsManager.SpawnObject(ObjectsView.SelectedItems[0].Text);
+				ObjectsManager.SpawnObject(ObjectsView.SelectedItems[0].Text, true);
 		}
 
 		private void objectMirrorXBox_CheckedChanged(object sender, EventArgs e) {
@@ -214,6 +224,29 @@ namespace RoomsEditor {
 			DialogResult result = saveFileDialog.ShowDialog();
 			if (result != DialogResult.Cancel)
 				SaveLoader.Save(saveFileDialog.FileName.Substring(saveFileDialog.FileName.Length - 5).Equals(".json") ? saveFileDialog.FileName : saveFileDialog.FileName + ".json");
+		}
+
+
+		public bool checkBoxSwitch;
+		private void XSymmetryBox_CheckedChanged(object sender, EventArgs e) {
+			if (!checkBoxSwitch)
+				ActionManager.Add(new SwitchSymmetryAction((CheckBox)sender));
+			else
+				checkBoxSwitch = false;
+		}
+
+		private void YSymmetryBox_CheckedChanged(object sender, EventArgs e) {
+			if (!checkBoxSwitch)
+				ActionManager.Add(new SwitchSymmetryAction((CheckBox)sender));
+			else
+				checkBoxSwitch = false;
+		}
+
+		private void XYSymmetryBox_CheckedChanged(object sender, EventArgs e) {
+			if (!checkBoxSwitch)
+				ActionManager.Add(new SwitchSymmetryAction((CheckBox)sender));
+			else
+				checkBoxSwitch = false;
 		}
 	}
 }

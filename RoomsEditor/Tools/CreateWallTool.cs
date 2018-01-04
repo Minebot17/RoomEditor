@@ -32,7 +32,7 @@ namespace RoomsEditor.Tools {
 				mouseWorldPosition.x < 0 ? 0 : mouseWorldPosition.x > MainForm.form.matrix.widthRoom * 495 ? MainForm.form.matrix.widthRoom * 495 : mouseWorldPosition.x,
 				mouseWorldPosition.y < 0 ? 0 : mouseWorldPosition.y > MainForm.form.matrix.heightRoom * 277 ? MainForm.form.matrix.heightRoom * 277 : mouseWorldPosition.y);
 			
-			MainForm.form.matrix.FillSymmetry(isLeft ? (hiden ? MatrixType.HIDENWALL : MatrixType.WALL) : (hiden ? MatrixType.WALL : MatrixType.AIR), startPos, endPos, hiden ? (isLeft ? MatrixType.WALL : MatrixType.HIDENWALL) : MatrixType.AIR);
+			MainForm.form.matrix.FillSymmetry(isLeft ? (hiden ? MatrixType.HIDENWALL : MatrixType.WALL) : (hiden ? MatrixType.WALL : MatrixType.AIR), startPos, endPos, hiden ? (isLeft ? MatrixType.WALL : MatrixType.HIDENWALL) : MatrixType.AIR, true);
 			this.startPos = new Vec<int>();
 		}
 

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RoomsEditor.Objects;
 using System.Runtime.Serialization;
+using RoomsEditor.Actions;
 using static Tao.OpenGl.Gl;
 using static RoomsEditor.Utils;
 using static RoomsEditor.InputManager;
@@ -175,18 +176,22 @@ namespace RoomsEditor {
 			glDeleteLists(list, 1);
 		}
 
-		public void FillSymmetry(MatrixType type, Vec<int> from, Vec<int> to, MatrixType layer) {
-			Fill(type, from, to, layer);
+		public void FillSymmetry(MatrixType type, Vec<int> from, Vec<int> to, MatrixType layer, bool createAction) {
+			List<CreateWallAction.OldChunk> args = new List<CreateWallAction.OldChunk>();
+			args.Add(Fill(type, from, to, layer));
 			if (MainForm.form.XSymmetryBox.Checked)
-				Fill(type, new Vec<int>(495 * widthRoom - from.x, from.y), new Vec<int>(495 * widthRoom - to.x, to.y), layer);
+				args.Add(Fill(type, new Vec<int>(495 * widthRoom - from.x, from.y), new Vec<int>(495 * widthRoom - to.x, to.y), layer));
 			if (MainForm.form.YSymmetryBox.Checked)
-				Fill(type, new Vec<int>(from.x, 277 * heightRoom - from.y), new Vec<int>(to.x, 277 * heightRoom - to.y), layer);
+				args.Add(Fill(type, new Vec<int>(from.x, 277 * heightRoom - from.y), new Vec<int>(to.x, 277 * heightRoom - to.y), layer));
 			if (MainForm.form.XYSymmetryBox.Checked)
-				Fill(type, new Vec<int>(495 * widthRoom - from.x, 277 * heightRoom - from.y), new Vec<int>(495 * widthRoom - to.x, 277 * heightRoom - to.y), layer);
+				args.Add(Fill(type, new Vec<int>(495 * widthRoom - from.x, 277 * heightRoom - from.y), new Vec<int>(495 * widthRoom - to.x, 277 * heightRoom - to.y), layer));
 			CompileList();
+
+			if (createAction)
+				ActionManager.Add(new CreateWallAction(args));
 		}
 
-		public void Fill(MatrixType type, Vec<int> from, Vec<int> to, MatrixType layer) {
+		public CreateWallAction.OldChunk Fill(MatrixType type, Vec<int> from, Vec<int> to, MatrixType layer) {
 			if (from.x > to.x) {
 				from.x = from.x + to.x;
 				to.x = from.x - to.x;
@@ -197,10 +202,14 @@ namespace RoomsEditor {
 				to.y = from.y - to.y;
 				from.y = from.y - to.y;
 			}
+			CreateWallAction.OldChunk chunk = new CreateWallAction.OldChunk(new MatrixType[to.x - from.x, to.y - from.y], from, type, layer);
 			for (int x = from.x; x < to.x; x++)
-				for (int y = from.y; y < to.y; y++)
+				for (int y = from.y; y < to.y; y++) {
+					chunk.matrix[x - from.x, y - from.y] = matrix[x, y];
 					if (layer == MatrixType.AIR || matrix[x, y] == layer)
 						matrix[x, y] = type;
+				}
+			return chunk;
 		}
 
 		public void Past(MatrixType[,] toPast, Vec<int> startCoord) {
@@ -230,8 +239,8 @@ namespace RoomsEditor {
 
 	[DataContract]
 	public enum MatrixType {
-		AIR = 0,
-		WALL = 1,
-		HIDENWALL = 2
+		AIR = (byte)0,
+		WALL = (byte)1,
+		HIDENWALL = (byte)2
 	}
 }

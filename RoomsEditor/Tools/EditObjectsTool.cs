@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using RoomsEditor.Objects;
+using RoomsEditor.Actions;
 using static RoomsEditor.Utils;
 using static Tao.OpenGl.Gl;
 
@@ -10,6 +11,8 @@ namespace RoomsEditor.Tools {
 	class EditObjectsTool : Tool {
 		public List<RoomObject> activeObject;
 		public int panelMode;
+		public List<Vec<int>> startMovePoses;
+		public bool isMoved;
 
 		public RoomObject xSymmetryObject;
 		public RoomObject ySymmetryObject;
@@ -22,6 +25,12 @@ namespace RoomsEditor.Tools {
 					AddToSelectObject(obj);
 				else
 					SelectObjects(new List<RoomObject>() { obj });
+			}
+			else if (InputManager.IsMouseButtonDown(System.Windows.Forms.MouseButtons.Right) && activeObject != null && activeObject.Count != 0) {
+				startMovePoses = new List<Vec<int>>();
+				foreach (RoomObject obj in activeObject)
+					startMovePoses.Add(obj.coords);
+				isMoved = true;
 			}
 		}
 
@@ -45,6 +54,18 @@ namespace RoomsEditor.Tools {
 
 			if (panelMode == 1)
 				updatePanelCoords();
+		}
+
+		public override void MouseUp() {
+			if (isMoved) {
+				List<MoveObjectAction.MoveArgs> args = new List<MoveObjectAction.MoveArgs>();
+				for (int i = 0; i < activeObject.Count; i++) {
+					args.Add(new MoveObjectAction.MoveArgs(activeObject[i], startMovePoses[i], activeObject[i].coords));
+				}
+				isMoved = false;
+
+				ActionManager.Add(new MoveObjectAction(args));
+			}
 		}
 
 		public override void Draw() {
@@ -75,26 +96,49 @@ namespace RoomsEditor.Tools {
 
 		public override void KeyDown() {
 			if (InputManager.IsKeyDown(System.Windows.Forms.Keys.Delete) && activeObject != null) {
+				List<RoomObject> toAction = new List<RoomObject>(activeObject);
+
 				FindSymmetryObjects();
-				if (xSymmetryObject != null)
+				if (xSymmetryObject != null) {
+					toAction.Add(xSymmetryObject);
 					MainForm.form.objects.Remove(xSymmetryObject);
-				if (ySymmetryObject != null)
+				}
+				if (ySymmetryObject != null) {
+					toAction.Add(ySymmetryObject);
 					MainForm.form.objects.Remove(ySymmetryObject);
-				if (xySymmetryObject != null)
+				}
+				if (xySymmetryObject != null) {
+					toAction.Add(xySymmetryObject);
 					MainForm.form.objects.Remove(xySymmetryObject);
+				}
+				ActionManager.Add(new RemoveObjectAction(toAction));
+
 				if (activeObject.Count == 1 && activeObject[0] is IExtendedData)
 					((IExtendedData)activeObject[0]).closePanel();
 				MainForm.form.objects.RemoveAll(x => activeObject.Contains(x) && !x.render.mustNotDelete);
+				activeObject = null;
+				loadObjectPanel();
 			}
 			else if (InputManager.IsKeyDown(System.Windows.Forms.Keys.Enter) && activeObject != null && activeObject.Count == 1 && activeObject[0] is RoomChunkObject) {
-				MainForm.form.matrix.Past(revert(((RoomChunkObject)activeObject[0]).renderer.matrix, activeObject[0].mirror.x, activeObject[0].mirror.y), activeObject[0].coords);
-				MainForm.form.objects.Remove(activeObject[0]);
+				RoomChunkObject obj = (RoomChunkObject)activeObject[0];
+				MatrixType[,] forAction = new MatrixType[obj.renderer.matrix.GetLength(0), obj.renderer.matrix.GetLength(1)];
+				for (int x = 0; x < forAction.GetLength(0); x++)
+					for (int y = 0; y < forAction.GetLength(1); y++) {
+						try {
+							forAction[x, y] = MainForm.form.matrix.matrix[x + obj.coords.x, y + obj.coords.y];
+						}
+						catch (IndexOutOfRangeException ignore) { }
+					}
+				MainForm.form.matrix.Past(revert(obj.renderer.matrix, obj.mirror.x, obj.mirror.y), obj.coords);
+				MainForm.form.objects.Remove(obj);
+
+				ActionManager.Add(new PastAction(obj, forAction));
+				activeObject = null;
+				loadObjectPanel();
 			}
-			activeObject = null;
-			loadObjectPanel();
 		}
 
-		private MatrixType[,] revert(MatrixType[,] matrix, bool xB, bool yB) {
+		public static MatrixType[,] revert(MatrixType[,] matrix, bool xB, bool yB) {
 			MatrixType[,] copy = (MatrixType[,]) matrix.Clone();
 			for (int x = 0; x < copy.GetLength(0); x++)
 				for (int y = 0; y < copy.GetLength(1); y++)
