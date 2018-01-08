@@ -13,11 +13,28 @@ namespace RoomsEditor.Objects {
 		}
 
 		public override void Draw() {
+			int state = data == null ? 0 : int.Parse(data[0]);
 			glPushMatrix();
 			glTranslatef(mirror.x ? coords.x + render.width : coords.x, mirror.y ? coords.y + render.height : coords.y, 0);
 			glScalef(mirror.x ? -1 : 1, mirror.y ? -1 : 1, 0);
-			render.Draw();
+			if (state == 0) {
+				render.Draw();
+				glDisable(GL_TEXTURE_2D);
+				glEnable(GL_BLEND);
+				Utils.Color color = RoomMatrix.colors[1];
+				glColor4f(color.r, color.g, color.b, 0.5f);
+				render.Draw();
+			}
+			else if (state == 1)
+				render.Draw();
+			else if (state == 2) {
+				glDisable(GL_TEXTURE_2D);
+				Utils.Color color = RoomMatrix.colors[1];
+				glColor3f(color.r, color.g, color.b);
+				render.Draw();
+			}
 			glPopMatrix();
+			glColor3f(1, 1, 1);
 
 			glDisable(GL_TEXTURE_2D);
 			glLineWidth(1);

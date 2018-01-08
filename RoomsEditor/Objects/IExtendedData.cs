@@ -8,6 +8,7 @@ namespace RoomsEditor.Objects {
 	public interface IExtendedData {
 		void openPanel();
 		void closePanel();
+		void markDirty();
 
 		string[] serializeData();
 		void deserializeData(string[] data);

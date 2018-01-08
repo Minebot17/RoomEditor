@@ -75,6 +75,7 @@ namespace RoomsEditor {
 			infoButton.Visible = selectedType == 0;
 			gateDataTab.Visible = selectedType == 0;
 			type = selectedType;
+			Tools.EditObjectsTool.MarkDirtyActiveObject();
 		}
 
 		private void selectButton_Click(object sender, EventArgs e) {
@@ -89,9 +90,10 @@ namespace RoomsEditor {
 
 		private void selectButton_KeyDown(object sender, KeyEventArgs e) {
 			List<int> list = gateDataTab.SelectedTab.Name.Equals("tabPage") ? existsIDs : unexistsIDs;
-			if (e.KeyCode == Keys.ControlKey && selectedObject != null && !list.Exists(x => x == selectedObject.ID)) {
+			if (e.KeyCode == Keys.ControlKey && selectedObject != null && !list.Exists(x => x == selectedObject.ID) && !(selectedObject is GateObject)) {
 				list.Add(selectedObject.ID);
 				((ListBox)gateDataTab.SelectedTab.Controls[0]).Items.Add(selectedObject.prefabName + " " + selectedObject.ID);
+				Tools.EditObjectsTool.MarkDirtyActiveObject();
 			}
 		}
 
@@ -100,6 +102,7 @@ namespace RoomsEditor {
 				for (int i = 0; i < existsList.SelectedItems.Count; i++) {
 					existsIDs.Remove(int.Parse(existsList.SelectedItems[i].ToString().Split(' ')[1]));
 					existsList.Items.Remove(existsList.SelectedItems[i]);
+					Tools.EditObjectsTool.MarkDirtyActiveObject();
 				}
 			}
 		}
@@ -109,6 +112,7 @@ namespace RoomsEditor {
 				for (int i = 0; i < unexistsList.SelectedItems.Count; i++) {
 					unexistsIDs.Remove(int.Parse(unexistsList.SelectedItems[i].ToString().Split(' ')[1]));
 					unexistsList.Items.Remove(unexistsList.SelectedItems[i]);
+					Tools.EditObjectsTool.MarkDirtyActiveObject();
 				}
 			}
 		}

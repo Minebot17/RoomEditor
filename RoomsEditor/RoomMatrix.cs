@@ -134,7 +134,7 @@ namespace RoomsEditor {
 				for (int x = 0; x < matrix.GetLength(0); x++) {
 					if (matrix[x, y] != thisType || matrix.GetLength(0) == x + 1) {
 						if (!renderTextureBackground || thisType != MatrixType.AIR)
-							polygons.Add(new Polygon(thisType, new Vec<int>(thisIndex, y), x - thisIndex));
+							polygons.Add(new Polygon(thisType, new Vec<int>(thisIndex, y), x - thisIndex + 1));
 						thisIndex = x;
 						thisType = matrix[x, y];
 					}

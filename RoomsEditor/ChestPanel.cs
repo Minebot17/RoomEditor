@@ -45,6 +45,7 @@ namespace RoomsEditor {
 				MessageBox.Show("Такого типа не существует", "Ошибка долбоеба");
 			}
 			type = result;
+			Tools.EditObjectsTool.MarkDirtyActiveObject();
 		}
 
 		private void addButton_Click(object sender, EventArgs e) {
@@ -52,11 +53,14 @@ namespace RoomsEditor {
 			ids = new string[itemsBox.Items.Count];
 			for (int i = 0; i < itemsBox.Items.Count; i++)
 				ids[i] = itemsBox.Items[i].ToString();
+			Tools.EditObjectsTool.MarkDirtyActiveObject();
 		}
 
 		private void itemsBox_MouseDoubleClick(object sender, MouseEventArgs e) {
-			if (itemsBox.SelectedItem != null)
+			if (itemsBox.SelectedItem != null) {
 				itemsBox.Items.Remove(itemsBox.SelectedItem);
+				Tools.EditObjectsTool.MarkDirtyActiveObject();
+			}
 		}
 
 		public int getType() { return type; }

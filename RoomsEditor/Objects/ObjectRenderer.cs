@@ -24,6 +24,8 @@ namespace RoomsEditor {
 		[DataMember]
 		public string texture;
 		[DataMember]
+		public string group;
+		[DataMember]
 		public int height;
 		[DataMember]
 		public int width;

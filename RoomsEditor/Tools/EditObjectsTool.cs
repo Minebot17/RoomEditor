@@ -138,6 +138,16 @@ namespace RoomsEditor.Tools {
 			}
 		}
 
+		public static void MarkDirtyActiveObject() {
+			if (MainForm.form.activeTool is EditObjectsTool) {
+				EditObjectsTool tool = (EditObjectsTool)MainForm.form.activeTool;
+				if (tool.activeObject != null && tool.activeObject.Count == 1 && tool.activeObject[0] is IExtendedData) {
+					IExtendedData obj = (IExtendedData) tool.activeObject[0];
+					obj.markDirty();
+				}
+			}
+		}
+
 		public static MatrixType[,] revert(MatrixType[,] matrix, bool xB, bool yB) {
 			MatrixType[,] copy = (MatrixType[,]) matrix.Clone();
 			for (int x = 0; x < copy.GetLength(0); x++)

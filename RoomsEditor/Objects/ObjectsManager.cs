@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Windows.Forms;
 using System.Runtime.Serialization.Json;
 using RoomsEditor.Objects;
 using System.Runtime.Serialization;
@@ -48,11 +49,22 @@ namespace RoomsEditor {
 						for (int x = 0; x < obj.width; x++)
 							for (int y = 0; y < obj.height; y++)
 								icon.SetPixel(x, y, original.GetPixel(obj.offset.x + x, obj.offset.y + y));
+						ListViewGroupCollection collection = MainForm.form.ObjectsView.Groups;
 						MainForm.form.ObjectsView.LargeImageList.Images.Add(obj.name, icon);
-						MainForm.form.ObjectsView.Items.Add(obj.name, obj.name);
+						MainForm.form.ObjectsView.Items.Add(obj.name, obj.name).Group = FindGroup(collection, obj.group == null || FindGroup(collection, obj.group) == null ? "Остальное" : obj.group);
 					}
 					rendersList.Add(obj, type);
 				}
+		}
+
+		private static ListViewGroup FindGroup(ListViewGroupCollection collection, string group) {
+			ListViewGroup result = null;
+			foreach (ListViewGroup g in collection)
+				if (g.Name.Equals(group)) {
+					result = g;
+					break;
+				}
+			return result;
 		}
 
 		public static void SpawnObjectWithoutSymmetry(string name) {

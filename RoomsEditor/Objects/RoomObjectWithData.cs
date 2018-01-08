@@ -11,7 +11,7 @@ namespace RoomsEditor.Objects {
 	public abstract class RoomObjectWithData<T> : RoomObject, IExtendedData where T : Control {
 		protected T panel;
 		[DataMember]
-		private string[] data;
+		protected string[] data;
 
 		public RoomObjectWithData(ObjectRenderer render) : base(render) {
 			
@@ -33,6 +33,10 @@ namespace RoomsEditor.Objects {
 			data = createDataFromPanel(panel);
 			MainForm.form.Controls.Remove(panel);
 			panel = null;
+		}
+
+		public void markDirty() {
+			data = createDataFromPanel(panel);
 		}
 
 		public string[] serializeData() {
