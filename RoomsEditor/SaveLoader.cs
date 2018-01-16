@@ -11,7 +11,7 @@ namespace RoomsEditor {
 	public static class SaveLoader {
 
 		public static void Save(string fileName) {
-			MainForm.form.matrix.DeleteWallsInGates();
+			MainForm.form.matrix.FillWallsInGates();
 			DataContractJsonSerializer formatter = new DataContractJsonSerializer(typeof(SaveFile));
 			if (File.Exists(fileName))
 				File.Delete(fileName);

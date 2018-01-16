@@ -31,16 +31,8 @@ namespace RoomsEditor {
 			heightRoom = height;
 			matrix = new MatrixType[495*width,277*height];
 
-			List<Func<Vec<int>, bool>> conditions = new List<Func<Vec<int>, bool>>();
 			for (int x = 0; x < width; x++) {
 				float xCenter = 495f*(x + 0.5f);
-				conditions.Add(delegate (Vec<int> coords) {
-					return coords.y < 24 && coords.x > xCenter - 33f && coords.x < xCenter + 33f;
-				});
-				conditions.Add(delegate (Vec<int> coords) {
-					return coords.y > matrix.GetLength(1) - 24 && coords.x > xCenter - 33f && coords.x < xCenter + 33f;
-				});
-
 				RoomObject downGate = ObjectsManager.GetObjectByRenderName("downGate");
 				RoomObject topGate = ObjectsManager.GetObjectByRenderName("topGate");
 				downGate.coords = new Vec<int>((int)(xCenter - 33f), 0);
@@ -50,13 +42,6 @@ namespace RoomsEditor {
 			}
 			for (int y = 0; y < height; y++) {
 				float yCenter = 277f * (y + 0.5f);
-				conditions.Add(delegate (Vec<int> coords) {
-					return coords.x < 46 && coords.y > yCenter - 33f && coords.y < yCenter + 33f;
-				});
-				conditions.Add(delegate (Vec<int> coords) {
-					return coords.x > matrix.GetLength(0) - 46 && coords.y > yCenter - 33f && coords.y < yCenter + 33f;
-				});
-
 				RoomObject leftGate = ObjectsManager.GetObjectByRenderName("leftGate");
 				RoomObject rightGate = ObjectsManager.GetObjectByRenderName("rightGate");
 				leftGate.coords = new Vec<int>(0, (int)(yCenter - 33f));
@@ -66,28 +51,15 @@ namespace RoomsEditor {
 			}
 
 			for (int x = 0; x < matrix.GetLength(0); x++)
-				for (int y = 0; y < matrix.GetLength(1); y++) {
-					if (x < 45 || x > matrix.GetLength(0) - 46 || y < 23 || y > matrix.GetLength(1) - 24) {
-						bool yes = true;
-						for (int i = 0; i < conditions.Count; i++) {
-							if (conditions[i].Invoke(new Vec<int>(x, y))) {
-								yes = false;
-								break;
-							}
-						}
-
-						matrix[x, y] = yes ? MatrixType.WALL : MatrixType.AIR;
-					}
-					else
-						matrix[x, y] = MatrixType.AIR;
-				}
+				for (int y = 0; y < matrix.GetLength(1); y++)
+					matrix[x, y] = x < 45 || x > matrix.GetLength(0) - 46 || y < 23 || y > matrix.GetLength(1) - 24 ? MatrixType.WALL : MatrixType.AIR;
 
 			scaleFactor = width > height ? width : height;
 			list = glGenLists(1);
 			CompileList();
 		}
 
-		public void DeleteWallsInGates() {
+		public void FillWallsInGates() {
 			List<Func<Vec<int>, bool>> conditions = new List<Func<Vec<int>, bool>>();
 			for (int x = 0; x < widthRoom; x++) {
 				float xCenter = 495f * (x + 0.5f);
@@ -120,7 +92,7 @@ namespace RoomsEditor {
 						}
 
 						if (!yes)
-							matrix[x, y] = MatrixType.AIR;
+							matrix[x, y] = MatrixType.WALL;
 					}
 				}
 		}
