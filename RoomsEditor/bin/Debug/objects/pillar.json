@@ -1,0 +1,18 @@
+{
+	"texture": "decor.png",
+	"types": [
+		{
+			"width": 50,
+			"height": 117,
+			"offset": {"x": 0, "y": 0}
+		},{
+			"width": 50,
+			"height": 117,
+			"offset": {"x": 1, "y": 119}
+		},{
+			"width": 50,
+			"height": 117,
+			"offset": {"x": 0, "y": 238}
+		}
+	]
+}

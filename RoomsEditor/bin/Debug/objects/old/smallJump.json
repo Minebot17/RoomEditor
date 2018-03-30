@@ -1,0 +1,7 @@
+{
+	"width": 116,
+	"height": 108,
+	"texture": "small.png",
+	"offset": {"x": 0, "y": 0},
+	"group": "Инструменты"
+}

@@ -1,0 +1,14 @@
+{
+	"texture": "gates.png",
+	"notAddToMenu": true,
+	"mustNotMove": true,
+	"mustNotDelete": true,
+	"mustNotDoRenderWithSymmetry": true,
+	"types": [
+		{
+			"width": 45,
+			"height": 67,
+			"offset": {"x": 114, "y": 0}
+		}
+	]
+}

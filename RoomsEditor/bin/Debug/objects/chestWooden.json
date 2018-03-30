@@ -1,0 +1,10 @@
+{
+	"texture": "decor.png",
+	"types": [
+		{
+			"width": 50,
+			"height": 31,
+			"offset": {"x": 135, "y": 209}
+		}
+	]
+}
