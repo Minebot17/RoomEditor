@@ -14,6 +14,7 @@ namespace RoomsEditor.Tools {
 		public virtual void KeyDown() { }
 		public virtual void KeyUp() { }
 		public virtual void Draw() { }
+		public virtual void Draw(int type) { }
 		public virtual void Disponse() { }
 	}
 }

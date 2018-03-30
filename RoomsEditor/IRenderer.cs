@@ -7,5 +7,6 @@ using System.Threading.Tasks;
 namespace RoomsEditor {
 	public interface IRenderer {
 		void Draw();
+		void Draw(int type);
 	}
 }

@@ -34,6 +34,10 @@ namespace RoomsEditor.Objects {
 			}
 		}
 
+		public void Draw(int type) {
+			Draw();
+		}
+
 		public void Draw() {
 			glDisable(GL_TEXTURE_2D);
 			glBegin(GL_QUADS);

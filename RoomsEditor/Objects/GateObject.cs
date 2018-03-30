@@ -15,7 +15,7 @@ namespace RoomsEditor.Objects {
 		public override void Draw() {
 			int state = data == null ? 0 : int.Parse(data[0]);
 			glPushMatrix();
-			glTranslatef(mirror.x ? coords.x + render.width : coords.x, mirror.y ? coords.y + render.height : coords.y, 0);
+			glTranslatef(mirror.x ? coords.x + GetRender().width : coords.x, mirror.y ? coords.y + GetRender().height : coords.y, 0);
 			glScalef(mirror.x ? -1 : 1, mirror.y ? -1 : 1, 0);
 			if (state == 0) {
 				render.Draw();
@@ -46,9 +46,9 @@ namespace RoomsEditor.Objects {
 					glTranslatef(panel.selectedObject.coords.x, panel.selectedObject.coords.y, 0);
 					glBegin(GL_LINE_LOOP);
 					glVertex2i(0, 0);
-					glVertex2i(panel.selectedObject.render.width, 0);
-					glVertex2i(panel.selectedObject.render.width, panel.selectedObject.render.height);
-					glVertex2i(0, panel.selectedObject.render.height);
+					glVertex2i(panel.selectedObject.GetRender().width, 0);
+					glVertex2i(panel.selectedObject.GetRender().width, panel.selectedObject.GetRender().height);
+					glVertex2i(0, panel.selectedObject.GetRender().height);
 					glEnd();
 					glColor3f(1, 1, 1);
 					glPopMatrix();
@@ -66,9 +66,9 @@ namespace RoomsEditor.Objects {
 					glTranslatef(objects[i].coords.x, objects[i].coords.y, 0);
 					glBegin(GL_LINE_LOOP);
 					glVertex2i(0, 0);
-					glVertex2i(objects[i].render.width, 0);
-					glVertex2i(objects[i].render.width, objects[i].render.height);
-					glVertex2i(0, objects[i].render.height);
+					glVertex2i(objects[i].GetRender().width, 0);
+					glVertex2i(objects[i].GetRender().width, objects[i].GetRender().height);
+					glVertex2i(0, objects[i].GetRender().height);
 					glEnd();
 					glColor3f(1, 1, 1);
 					glPopMatrix();

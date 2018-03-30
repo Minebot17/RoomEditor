@@ -23,8 +23,9 @@ namespace RoomsEditor {
 				using (FileStream stream = new FileStream(file, FileMode.Open)) {
 					Type type;
 					ObjectRenderer obj = (ObjectRenderer)jsonFormatter.ReadObject(stream);
-					if (obj.uv == null)
-						obj.constructUV();
+					foreach (ObjectRenderer.RenderType render in obj.types)
+						if (render.uv == null)
+							obj.constructUV(render);
 					if (obj.name == null)
 						obj.name = file.Substring(8).Split('.')[0];
 					switch (obj.name) {
@@ -45,10 +46,10 @@ namespace RoomsEditor {
 
 					if (!obj.notAddToMenu) {
 						Bitmap original = Utils.LoadBitmap("textures/" + obj.texture);
-						Bitmap icon = new Bitmap(obj.width, obj.height);
-						for (int x = 0; x < obj.width; x++)
-							for (int y = 0; y < obj.height; y++)
-								icon.SetPixel(x, y, original.GetPixel(obj.offset.x + x, obj.offset.y + y));
+						Bitmap icon = new Bitmap(obj.types[0].width, obj.types[0].height);
+						for (int x = 0; x < obj.types[0].width; x++)
+							for (int y = 0; y < obj.types[0].height; y++)
+								icon.SetPixel(x, y, original.GetPixel(obj.types[0].offset.x + x, obj.types[0].offset.y + y));
 						ListViewGroupCollection collection = MainForm.form.ObjectsView.Groups;
 						MainForm.form.ObjectsView.LargeImageList.Images.Add(obj.name, icon);
 						MainForm.form.ObjectsView.Items.Add(obj.name, obj.name).Group = FindGroup(collection, obj.group == null || FindGroup(collection, obj.group) == null ? "Остальное" : obj.group);
@@ -83,19 +84,19 @@ namespace RoomsEditor {
 			objectsToSpawn.Add(obj);
 			if (MainForm.form.XSymmetryBox.Checked) {
 				RoomObject symmetry = obj.Copy();
-				symmetry.coords = new Utils.Vec<int>(495*MainForm.form.matrix.widthRoom + InputManager.translate.x - symmetry.render.width, -InputManager.translate.y);
+				symmetry.coords = new Utils.Vec<int>(495*MainForm.form.matrix.widthRoom + InputManager.translate.x - symmetry.GetRender().width, -InputManager.translate.y);
 				MainForm.form.objects.Add(symmetry);
 				objectsToSpawn.Add(symmetry);
 			}
 			if (MainForm.form.YSymmetryBox.Checked) {
 				RoomObject symmetry = obj.Copy();
-				symmetry.coords = new Utils.Vec<int>(-InputManager.translate.x, 277 * MainForm.form.matrix.heightRoom + InputManager.translate.y - symmetry.render.height);
+				symmetry.coords = new Utils.Vec<int>(-InputManager.translate.x, 277 * MainForm.form.matrix.heightRoom + InputManager.translate.y - symmetry.GetRender().height);
 				MainForm.form.objects.Add(symmetry);
 				objectsToSpawn.Add(symmetry);
 			}
 			if (MainForm.form.XYSymmetryBox.Checked) {
 				RoomObject symmetry = obj.Copy();
-				symmetry.coords = new Utils.Vec<int>(495 * MainForm.form.matrix.widthRoom + InputManager.translate.x - symmetry.render.width, 277 * MainForm.form.matrix.heightRoom + InputManager.translate.y - symmetry.render.height);
+				symmetry.coords = new Utils.Vec<int>(495 * MainForm.form.matrix.widthRoom + InputManager.translate.x - symmetry.GetRender().width, 277 * MainForm.form.matrix.heightRoom + InputManager.translate.y - symmetry.GetRender().height);
 				MainForm.form.objects.Add(symmetry);
 				objectsToSpawn.Add(symmetry);
 			}
@@ -164,7 +165,7 @@ namespace RoomsEditor {
 
 		public static RoomObject GetObjectOverMouse() {
 			foreach (RoomObject obj in MainForm.form.objects) {
-				if (mouseWorldPosition.x > obj.coords.x && mouseWorldPosition.x < obj.coords.x + obj.render.width && mouseWorldPosition.y > obj.coords.y && mouseWorldPosition.y < obj.coords.y + obj.render.height)
+				if (mouseWorldPosition.x > obj.coords.x && mouseWorldPosition.x < obj.coords.x + obj.GetRender().width && mouseWorldPosition.y > obj.coords.y && mouseWorldPosition.y < obj.coords.y + obj.GetRender().height)
 					return obj;
 			}
 			return null;

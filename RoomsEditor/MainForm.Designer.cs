@@ -75,6 +75,8 @@
 			this.XYSymmetryBox = new System.Windows.Forms.CheckBox();
 			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
 			this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+			this.renderTypeLabel = new System.Windows.Forms.Label();
+			this.renderTypeBox = new System.Windows.Forms.ComboBox();
 			DrawTimer = new System.Windows.Forms.Timer(this.components);
 			this.MainMenuStrip.SuspendLayout();
 			this.objectTransformPanel.SuspendLayout();
@@ -296,6 +298,8 @@
 			// objectTransformPanel
 			// 
 			this.objectTransformPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.objectTransformPanel.Controls.Add(this.renderTypeBox);
+			this.objectTransformPanel.Controls.Add(this.renderTypeLabel);
 			this.objectTransformPanel.Controls.Add(this.objectYSizeLabel);
 			this.objectTransformPanel.Controls.Add(this.objectXSizeLabel);
 			this.objectTransformPanel.Controls.Add(this.objectYCoordsLabel);
@@ -506,6 +510,24 @@
 			this.saveFileDialog.Filter = "JSON files|*.json";
 			this.saveFileDialog.RestoreDirectory = true;
 			// 
+			// renderTypeLabel
+			// 
+			this.renderTypeLabel.AutoSize = true;
+			this.renderTypeLabel.Location = new System.Drawing.Point(188, 0);
+			this.renderTypeLabel.Name = "renderTypeLabel";
+			this.renderTypeLabel.Size = new System.Drawing.Size(31, 13);
+			this.renderTypeLabel.TabIndex = 15;
+			this.renderTypeLabel.Text = "Type";
+			// 
+			// renderTypeBox
+			// 
+			this.renderTypeBox.FormattingEnabled = true;
+			this.renderTypeBox.Location = new System.Drawing.Point(188, 16);
+			this.renderTypeBox.Name = "renderTypeBox";
+			this.renderTypeBox.Size = new System.Drawing.Size(35, 21);
+			this.renderTypeBox.TabIndex = 16;
+			this.renderTypeBox.SelectedIndexChanged += new System.EventHandler(this.TypeBox_SelectedIndexChanged);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -587,6 +609,8 @@
 		private System.Windows.Forms.OpenFileDialog openFileDialog;
 		private System.Windows.Forms.SaveFileDialog saveFileDialog;
 		private System.Windows.Forms.ToolStripMenuItem переключитьФонToolStripMenuItem;
+		public System.Windows.Forms.ComboBox renderTypeBox;
+		public System.Windows.Forms.Label renderTypeLabel;
 	}
 }
 

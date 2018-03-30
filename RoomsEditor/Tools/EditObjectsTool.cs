@@ -42,11 +42,11 @@ namespace RoomsEditor.Tools {
 			if (!activeObject[0].render.mustNotMove) {
 				activeObject[0].coords = InputManager.mouseWorldPosition;
 				if (xSymmetryObject != null)
-					xSymmetryObject.coords = new Vec<int>(495 * MainForm.form.matrix.widthRoom - InputManager.mouseWorldPosition.x - xSymmetryObject.render.width, InputManager.mouseWorldPosition.y);
+					xSymmetryObject.coords = new Vec<int>(495 * MainForm.form.matrix.widthRoom - InputManager.mouseWorldPosition.x - xSymmetryObject.GetRender().width, InputManager.mouseWorldPosition.y);
 				if (ySymmetryObject != null)
-					ySymmetryObject.coords = new Vec<int>(InputManager.mouseWorldPosition.x, 277 * MainForm.form.matrix.heightRoom - InputManager.mouseWorldPosition.y - ySymmetryObject.render.height);
+					ySymmetryObject.coords = new Vec<int>(InputManager.mouseWorldPosition.x, 277 * MainForm.form.matrix.heightRoom - InputManager.mouseWorldPosition.y - ySymmetryObject.GetRender().height);
 				if (xySymmetryObject != null)
-					xySymmetryObject.coords = new Vec<int>(495 * MainForm.form.matrix.widthRoom - InputManager.mouseWorldPosition.x - xySymmetryObject.render.width, 277 * MainForm.form.matrix.heightRoom - InputManager.mouseWorldPosition.y - xySymmetryObject.render.height);
+					xySymmetryObject.coords = new Vec<int>(495 * MainForm.form.matrix.widthRoom - InputManager.mouseWorldPosition.x - xySymmetryObject.GetRender().width, 277 * MainForm.form.matrix.heightRoom - InputManager.mouseWorldPosition.y - xySymmetryObject.GetRender().height);
 			}
 			for (int i = 1; i < activeObject.Count; i++)
 				if (!activeObject[i].render.mustNotMove)
@@ -77,9 +77,9 @@ namespace RoomsEditor.Tools {
 			foreach (RoomObject obj in activeObject) {
 				glBegin(GL_LINE_LOOP);
 				glVertex2i(obj.coords.x, obj.coords.y);
-				glVertex2i(obj.render.width + obj.coords.x, obj.coords.y);
-				glVertex2i(obj.render.width + obj.coords.x, obj.render.height + obj.coords.y);
-				glVertex2i(obj.coords.x, obj.render.height + obj.coords.y);
+				glVertex2i(obj.GetRender().width + obj.coords.x, obj.coords.y);
+				glVertex2i(obj.GetRender().width + obj.coords.x, obj.GetRender().height + obj.coords.y);
+				glVertex2i(obj.coords.x, obj.GetRender().height + obj.coords.y);
 				glEnd();
 			}
 			glColor3f(1, 1, 1);
@@ -198,11 +198,11 @@ namespace RoomsEditor.Tools {
 			if (activeObject != null && activeObject.Count == 1) {
 				RoomObject original = activeObject[0];
 				if (MainForm.form.XSymmetryBox.Checked)
-					xSymmetryObject = ObjectsManager.FindObject(obj => obj.coords.y == original.coords.y && 495 * MainForm.form.matrix.widthRoom - obj.coords.x - obj.render.width == original.coords.x && obj.prefabName.Equals(original.prefabName));
+					xSymmetryObject = ObjectsManager.FindObject(obj => obj.coords.y == original.coords.y && 495 * MainForm.form.matrix.widthRoom - obj.coords.x - obj.GetRender().width == original.coords.x && obj.prefabName.Equals(original.prefabName));
 				if (MainForm.form.YSymmetryBox.Checked)
-					ySymmetryObject = ObjectsManager.FindObject(obj => 277 * MainForm.form.matrix.heightRoom - obj.coords.y - obj.render.height == original.coords.y && obj.coords.x == original.coords.x && obj.prefabName.Equals(original.prefabName));
+					ySymmetryObject = ObjectsManager.FindObject(obj => 277 * MainForm.form.matrix.heightRoom - obj.coords.y - obj.GetRender().height == original.coords.y && obj.coords.x == original.coords.x && obj.prefabName.Equals(original.prefabName));
 				if (MainForm.form.XYSymmetryBox.Checked)
-					xySymmetryObject = ObjectsManager.FindObject(obj => 277 * MainForm.form.matrix.heightRoom - obj.coords.y - obj.render.height == original.coords.y && 495 * MainForm.form.matrix.widthRoom - obj.coords.x - obj.render.width == original.coords.x && obj.prefabName.Equals(original.prefabName));
+					xySymmetryObject = ObjectsManager.FindObject(obj => 277 * MainForm.form.matrix.heightRoom - obj.coords.y - obj.GetRender().height == original.coords.y && 495 * MainForm.form.matrix.widthRoom - obj.coords.x - obj.GetRender().width == original.coords.x && obj.prefabName.Equals(original.prefabName));
 			}
 		}
 
@@ -216,18 +216,31 @@ namespace RoomsEditor.Tools {
 			}
 		}
 
+		public void changeRenderType() {
+			if (activeObject == null || activeObject.Count == 0)
+				return;
+
+			for (int i = 0; i < activeObject.Count; i++)
+				activeObject[i].type = int.Parse(MainForm.form.renderTypeBox.Text);
+		}
+
 		public void loadObjectPanel() {
 			panelMode = activeObject == null || activeObject.Count == 0 ? 0 : activeObject.Count == 1 ? 1 : 2;
 
 			clearPanel();
+			if (panelMode != 0)
+				for (int i = 0; i < activeObject[0].render.types.Length; i++)
+					MainForm.form.renderTypeBox.Items.Add("" + i);
+
 			switch (panelMode) {
 				case 0:
 					MainForm.form.objectTransformPanel.Visible = false;
 					break;
 				case 1:
 					MainForm.form.objectNameLabel.Text = activeObject[0].prefabName + " " + activeObject[0].ID;
-					MainForm.form.objectXSizeLabel.Text = "W: " + activeObject[0].render.width;
-					MainForm.form.objectYSizeLabel.Text = "H: " + activeObject[0].render.height;
+					MainForm.form.objectXSizeLabel.Text = "W: " + activeObject[0].GetRender().width;
+					MainForm.form.objectYSizeLabel.Text = "H: " + activeObject[0].GetRender().height;
+					MainForm.form.renderTypeBox.Text = activeObject[0].type+"";
 					if (activeObject[0].render.mustNotDoRenderWithSymmetry) {
 						MainForm.form.objectMirrorXBox.Visible = false;
 						MainForm.form.objectMirrorYBox.Visible = false;
@@ -241,12 +254,22 @@ namespace RoomsEditor.Tools {
 				case 2:
 					MainForm.form.objectNameLabel.Text = "Selected " + activeObject.Count + " objects";
 					bool sameMirror = true;
+					bool sameObjects = true;
+					bool sameType = true;
 					for (int i = 0; i < activeObject.Count; i++)
-						for (int j = 0; j < activeObject.Count; j++)
-							if (activeObject[i].mirror.x != activeObject[j].mirror.x || activeObject[i].mirror.y != activeObject[j].mirror.y || activeObject[i].render.mustNotDoRenderWithSymmetry) {
+						for (int j = 0; j < activeObject.Count; j++) {
+							if (sameMirror && (activeObject[i].mirror.x != activeObject[j].mirror.x || activeObject[i].mirror.y != activeObject[j].mirror.y || activeObject[i].render.mustNotDoRenderWithSymmetry))
 								sameMirror = false;
+
+							if (sameType && activeObject[i].type != activeObject[j].type)
+								sameType = false;
+
+							if (sameObjects && !activeObject[i].prefabName.Equals(activeObject[j].prefabName))
+								sameObjects = false;
+
+							if (!sameMirror && !sameMirror && !sameObjects)
 								break;
-							}
+						}
 
 					if (sameMirror) {
 						MainForm.form.objectMirrorXBox.Checked = activeObject[0].mirror.x;
@@ -256,6 +279,16 @@ namespace RoomsEditor.Tools {
 						MainForm.form.objectMirrorXBox.Visible = false;
 						MainForm.form.objectMirrorYBox.Visible = false;
 					}
+
+					if (sameType && sameObjects)
+						MainForm.form.renderTypeBox.Text = activeObject[0].type + "";
+					else if (sameObjects)
+						MainForm.form.renderTypeBox.Text = "-";
+					else {
+						MainForm.form.renderTypeBox.Visible = false;
+						MainForm.form.renderTypeLabel.Visible = false;
+					}
+
 					break;
 			}
 		}
@@ -269,11 +302,15 @@ namespace RoomsEditor.Tools {
 			MainForm.form.objectTransformPanel.Visible = true;
 			MainForm.form.objectMirrorXBox.Visible = true;
 			MainForm.form.objectMirrorYBox.Visible = true;
+			MainForm.form.renderTypeBox.Visible = true;
+			MainForm.form.renderTypeLabel.Visible = true;
 			MainForm.form.objectNameLabel.Text = "";
 			MainForm.form.objectXCoordsLabel.Text = "";
 			MainForm.form.objectXSizeLabel.Text = "";
 			MainForm.form.objectYCoordsLabel.Text = "";
 			MainForm.form.objectYSizeLabel.Text = "";
+			MainForm.form.renderTypeBox.Text = "";
+			MainForm.form.renderTypeBox.Items.Clear();
 		}
 	}
 }

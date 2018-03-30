@@ -19,6 +19,8 @@ namespace RoomsEditor.Objects {
 		public Vec<bool> mirror;
 		[DataMember]
 		public int ID;
+		[DataMember]
+		public int type;
 
 		public RoomObject() { }
 
@@ -27,14 +29,22 @@ namespace RoomsEditor.Objects {
 			prefabName = render.name;
 			coords = new Vec<int>();
 			ID = MainForm.rnd.Next();
+			type = 0;
+		}
+		public virtual void Draw() {
+			Draw(type);
 		}
 
-		public virtual void Draw() {
+		public virtual void Draw(int type) {
 			glPushMatrix();
-			glTranslatef(mirror.x ? coords.x + render.width : coords.x, mirror.y ? coords.y + render.height : coords.y, 0);
+			glTranslatef(mirror.x ? coords.x + render.types[type].width : coords.x, mirror.y ? coords.y + render.types[type].height : coords.y, 0);
 			glScalef(mirror.x ? -1 : 1, mirror.y ? -1 : 1, 0);
-			render.Draw();
+			render.Draw(type);
 			glPopMatrix();
+		}
+
+		public virtual ObjectRenderer.RenderType GetRender() {
+			return render.types[type];
 		}
 
 		public virtual RoomObject Copy() {
@@ -43,6 +53,7 @@ namespace RoomsEditor.Objects {
 			copy.coords = coords;
 			copy.mirror = mirror;
 			copy.ID = MainForm.rnd.Next();
+			copy.type = type;
 			return copy;
 		}
 	}

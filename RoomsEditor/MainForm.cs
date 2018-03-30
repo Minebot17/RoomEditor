@@ -214,6 +214,11 @@ namespace RoomsEditor {
 				((EditObjectsTool)activeTool).changeMirror();
 		}
 
+		private void TypeBox_SelectedIndexChanged(object sender, EventArgs e) {
+			if (activeTool is EditObjectsTool)
+				((EditObjectsTool)activeTool).changeRenderType();
+		}
+
 		private void открытьToolStripMenuItem2_Click(object sender, EventArgs e) {
 			DialogResult result = openFileDialog.ShowDialog();
 			if (result != DialogResult.Cancel)

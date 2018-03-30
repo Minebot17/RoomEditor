@@ -165,6 +165,10 @@ namespace RoomsEditor {
 			glEndList();
 		}
 
+		public void Draw(int type) {
+			Draw();
+		}
+
 		public void Draw() {
 			glCallList(list);
 		}
