@@ -1,4 +1,4 @@
-﻿namespace RoomsEditor {
+﻿namespace RoomsEditor.Panels {
 	partial class GatePanel {
 		/// <summary> 
 		/// Обязательная переменная конструктора.

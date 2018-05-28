@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace RoomsEditor {
+namespace RoomsEditor.Panels {
 	public partial class ChestPanel : UserControl {
 		public static List<string> types = new List<string>() {
 			"Пустой",

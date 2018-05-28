@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using RoomsEditor.Objects;
 using System.Windows.Forms;
 
-namespace RoomsEditor {
+namespace RoomsEditor.Panels {
 	public partial class GatePanel : UserControl {
 		public int type;
 		public List<int> existsIDs = new List<int>();

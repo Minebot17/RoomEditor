@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Runtime.Serialization;
 using static Tao.OpenGl.Gl;
+using RoomsEditor.Panels;
 
 namespace RoomsEditor.Objects {
 	[DataContract]
