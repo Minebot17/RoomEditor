@@ -91,12 +91,32 @@ namespace RoomsEditor.Properties {
         }
         
         /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        public static byte[] texture_color {
+            get {
+                object obj = ResourceManager.GetObject("texture_color", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap wallTool {
             get {
                 object obj = ResourceManager.GetObject("wallTool", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        public static byte[] white_colored {
+            get {
+                object obj = ResourceManager.GetObject("white_colored", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }

@@ -1,5 +1,5 @@
 ﻿namespace RoomsEditor.Panels {
-	partial class TextPanel {
+	partial class MarkerPanel {
 		/// <summary> 
 		/// Обязательная переменная конструктора.
 		/// </summary>

@@ -5,8 +5,10 @@ using System.Drawing;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 using RoomsEditor.Objects;
+using static RoomsEditor.Utils;
 using System.Windows.Forms;
 
 namespace RoomsEditor.Panels {
@@ -16,6 +18,7 @@ namespace RoomsEditor.Panels {
 		public List<int> unexistsIDs = new List<int>();
 		public bool selectMode;
 		public RoomObject selectedObject; // Устанавливается из класса объекта
+		public GateObject gate;
 
 		public static string[] types = new string[] {
 			"Может существовать",
@@ -23,11 +26,12 @@ namespace RoomsEditor.Panels {
 			"Не существует"
 		};
 
-		public GatePanel(int type, List<int> existsIDs, List<int> unexistsIDs) {
+		public GatePanel(int type, List<int> existsIDs, List<int> unexistsIDs, GateObject gate) {
 			InitializeComponent();
 			this.type = type;
 			this.existsIDs = existsIDs;
 			this.unexistsIDs = unexistsIDs;
+			this.gate = gate;
 
 			typeBox.Text = types[type];
 			for (int i = 0; i < types.Length; i++)
@@ -115,6 +119,28 @@ namespace RoomsEditor.Panels {
 					Tools.EditObjectsTool.MarkDirtyActiveObject();
 				}
 			}
+		}
+
+		private void testRoomButton_Click(object sender, EventArgs e) {
+			const string directoryPath = "Build/Build_Data/StreamingAssets";
+			DirectoryInfo directory = new DirectoryInfo(directoryPath);
+			if (directory.Exists)
+				Directory.Delete(directoryPath, true);
+			Directory.CreateDirectory(directoryPath);
+
+			bool isTopDownGate = gate.coords.y == 0 || gate.coords.y == 277 * MainForm.form.matrix.heightRoom - 23;
+			Vec<int> playerCoords = gate.coords;
+			playerCoords.x += isTopDownGate ? 33 : 22;
+			playerCoords.y += isTopDownGate ? 11 : 33;
+
+			SaveLoader.Save(directoryPath + "/room.json");
+			File.WriteAllLines(directoryPath + "/gate.txt", new string[] {
+				playerCoords.x + "",
+				playerCoords.y + "",
+				(gate.coords.y == 0).ToString()
+			});
+
+			System.Diagnostics.Process.Start(Application.StartupPath + "/Build/Build.exe");
 		}
 	}
 }

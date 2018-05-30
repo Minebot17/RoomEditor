@@ -9,7 +9,7 @@ namespace RoomsEditor.Objects {
 	[DataContract]
 	[KnownType(typeof(ChestObject))]
 	[KnownType(typeof(GateObject))]
-	[KnownType(typeof(TextObject))]
+	[KnownType(typeof(MarkerObject))]
 	public class RoomObject : IRenderer {
 		public ObjectRenderer render;
 		[DataMember]

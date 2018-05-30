@@ -3,42 +3,34 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using RoomsEditor.Panels;
+using RoomsEditor.Shaders;
 using static Tao.OpenGl.Gl;
-using static Tao.Platform.Windows.Wgl;
-using System.Runtime.InteropServices;
-
 
 namespace RoomsEditor.Objects {
 
 	[DataContract]
-	public class TextObject : RoomObjectWithData<TextPanel> {
-		private string text;
+	public class MarkerObject : RoomObjectWithData<MarkerPanel> {
+		private string name;
 		private Color color;
 
-		public TextObject(ObjectRenderer render) : base(render) {
-			text = "";
+		public MarkerObject(ObjectRenderer render) : base(render) {
+			name = "";
 			color = Color.Black;
 		}
 
-		[DllImport("Gdi32.dll", SetLastError = true)]
-		public static extern IntPtr SelectObject(IntPtr hdc, IntPtr hgdiobj);
-
 		public override void Draw(int type) {
 			glPushMatrix();
+			glTranslatef(coords.x, coords.y, 0);
 			glColor3b(color.R, color.G, color.B);
-			using (Font font = new Font(FontFamily.GenericSerif, 20, FontStyle.Bold)) {
-				SelectObject(MainForm.hdc, font.ToHfont());
-				wglUseFontBitmapsW(MainForm.hdc, 0, 1104, 1000);
-			}
-			glListBase(1000);
-			glCallLists(text.Length, GL_UNSIGNED_BYTE, text);
-			glListBase(0);
+			//ShaderManager.whiteColored.start();
+			render.Draw(type);
+			//ShaderManager.whiteColored.stop();
 			glColor3f(1, 1, 1);
 			glPopMatrix();
 		}
 
-		public override string[] createDataFromPanel(TextPanel panel) {
-			text = panel.GetText();
+		public override string[] createDataFromPanel(MarkerPanel panel) {
+			name = panel.GetText();
 			color = panel.GetColor();
 			return new string[] {
 				panel.GetText(),
@@ -46,10 +38,10 @@ namespace RoomsEditor.Objects {
 			};
 		}
 
-		public override TextPanel createPanelFromData(string[] data) {
+		public override MarkerPanel createPanelFromData(string[] data) {
 			if (data == null)
-				return new TextPanel("", Color.Black);
-			return new TextPanel(data[0], Color.FromArgb(int.Parse(data[1])));
+				return new MarkerPanel("", Color.Black);
+			return new MarkerPanel(data[0], Color.FromArgb(int.Parse(data[1])));
 		}
 	}
 }

@@ -25,10 +25,10 @@
 		private void InitializeComponent() {
 			this.components = new System.ComponentModel.Container();
 			System.Windows.Forms.Timer DrawTimer;
-			System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Объекты", System.Windows.Forms.HorizontalAlignment.Left);
-			System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Декорации", System.Windows.Forms.HorizontalAlignment.Left);
-			System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Инструменты", System.Windows.Forms.HorizontalAlignment.Left);
-			System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Остальное", System.Windows.Forms.HorizontalAlignment.Left);
+			System.Windows.Forms.ListViewGroup listViewGroup13 = new System.Windows.Forms.ListViewGroup("Объекты", System.Windows.Forms.HorizontalAlignment.Left);
+			System.Windows.Forms.ListViewGroup listViewGroup14 = new System.Windows.Forms.ListViewGroup("Декорации", System.Windows.Forms.HorizontalAlignment.Left);
+			System.Windows.Forms.ListViewGroup listViewGroup15 = new System.Windows.Forms.ListViewGroup("Инструменты", System.Windows.Forms.HorizontalAlignment.Left);
+			System.Windows.Forms.ListViewGroup listViewGroup16 = new System.Windows.Forms.ListViewGroup("Остальное", System.Windows.Forms.HorizontalAlignment.Left);
 			this.viewPort = new Tao.Platform.Windows.SimpleOpenGlControl();
 			this.MainMenuStrip = new System.Windows.Forms.MenuStrip();
 			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,6 +52,8 @@
 			this.EditWallButton = new System.Windows.Forms.Button();
 			this.EditObjectButton = new System.Windows.Forms.Button();
 			this.objectTransformPanel = new System.Windows.Forms.Panel();
+			this.renderTypeBox = new System.Windows.Forms.ComboBox();
+			this.renderTypeLabel = new System.Windows.Forms.Label();
 			this.objectYSizeLabel = new System.Windows.Forms.Label();
 			this.objectXSizeLabel = new System.Windows.Forms.Label();
 			this.objectYCoordsLabel = new System.Windows.Forms.Label();
@@ -75,8 +77,6 @@
 			this.XYSymmetryBox = new System.Windows.Forms.CheckBox();
 			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
 			this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-			this.renderTypeLabel = new System.Windows.Forms.Label();
-			this.renderTypeBox = new System.Windows.Forms.ComboBox();
 			DrawTimer = new System.Windows.Forms.Timer(this.components);
 			this.MainMenuStrip.SuspendLayout();
 			this.objectTransformPanel.SuspendLayout();
@@ -313,6 +313,24 @@
 			this.objectTransformPanel.TabIndex = 6;
 			this.objectTransformPanel.Visible = false;
 			// 
+			// renderTypeBox
+			// 
+			this.renderTypeBox.FormattingEnabled = true;
+			this.renderTypeBox.Location = new System.Drawing.Point(188, 16);
+			this.renderTypeBox.Name = "renderTypeBox";
+			this.renderTypeBox.Size = new System.Drawing.Size(35, 21);
+			this.renderTypeBox.TabIndex = 16;
+			this.renderTypeBox.SelectedIndexChanged += new System.EventHandler(this.TypeBox_SelectedIndexChanged);
+			// 
+			// renderTypeLabel
+			// 
+			this.renderTypeLabel.AutoSize = true;
+			this.renderTypeLabel.Location = new System.Drawing.Point(188, 0);
+			this.renderTypeLabel.Name = "renderTypeLabel";
+			this.renderTypeLabel.Size = new System.Drawing.Size(31, 13);
+			this.renderTypeLabel.TabIndex = 15;
+			this.renderTypeLabel.Text = "Type";
+			// 
 			// objectYSizeLabel
 			// 
 			this.objectYSizeLabel.AutoSize = true;
@@ -373,7 +391,9 @@
 			// 
 			// objectNameLabel
 			// 
+			this.objectNameLabel.AllowDrop = true;
 			this.objectNameLabel.AutoSize = true;
+			this.objectNameLabel.Cursor = System.Windows.Forms.Cursors.Default;
 			this.objectNameLabel.Location = new System.Drawing.Point(3, 0);
 			this.objectNameLabel.Name = "objectNameLabel";
 			this.objectNameLabel.Size = new System.Drawing.Size(33, 13);
@@ -394,19 +414,19 @@
 			// 
 			this.ObjectsView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
-			listViewGroup1.Header = "Объекты";
-			listViewGroup1.Name = "Объекты";
-			listViewGroup2.Header = "Декорации";
-			listViewGroup2.Name = "Декорации";
-			listViewGroup3.Header = "Инструменты";
-			listViewGroup3.Name = "Инструменты";
-			listViewGroup4.Header = "Остальное";
-			listViewGroup4.Name = "Остальное";
+			listViewGroup13.Header = "Объекты";
+			listViewGroup13.Name = "Объекты";
+			listViewGroup14.Header = "Декорации";
+			listViewGroup14.Name = "Декорации";
+			listViewGroup15.Header = "Инструменты";
+			listViewGroup15.Name = "Инструменты";
+			listViewGroup16.Header = "Остальное";
+			listViewGroup16.Name = "Остальное";
 			this.ObjectsView.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1,
-            listViewGroup2,
-            listViewGroup3,
-            listViewGroup4});
+            listViewGroup13,
+            listViewGroup14,
+            listViewGroup15,
+            listViewGroup16});
 			this.ObjectsView.Location = new System.Drawing.Point(0, 301);
 			this.ObjectsView.MultiSelect = false;
 			this.ObjectsView.Name = "ObjectsView";
@@ -509,24 +529,6 @@
 			// 
 			this.saveFileDialog.Filter = "JSON files|*.json";
 			this.saveFileDialog.RestoreDirectory = true;
-			// 
-			// renderTypeLabel
-			// 
-			this.renderTypeLabel.AutoSize = true;
-			this.renderTypeLabel.Location = new System.Drawing.Point(188, 0);
-			this.renderTypeLabel.Name = "renderTypeLabel";
-			this.renderTypeLabel.Size = new System.Drawing.Size(31, 13);
-			this.renderTypeLabel.TabIndex = 15;
-			this.renderTypeLabel.Text = "Type";
-			// 
-			// renderTypeBox
-			// 
-			this.renderTypeBox.FormattingEnabled = true;
-			this.renderTypeBox.Location = new System.Drawing.Point(188, 16);
-			this.renderTypeBox.Name = "renderTypeBox";
-			this.renderTypeBox.Size = new System.Drawing.Size(35, 21);
-			this.renderTypeBox.TabIndex = 16;
-			this.renderTypeBox.SelectedIndexChanged += new System.EventHandler(this.TypeBox_SelectedIndexChanged);
 			// 
 			// MainForm
 			// 

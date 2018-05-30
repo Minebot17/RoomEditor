@@ -39,8 +39,8 @@ namespace RoomsEditor {
 						case "downGate":
 							type = typeof(GateObject);
 							break;
-						case "text":
-							type = typeof(TextObject);
+						case "marker":
+							type = typeof(MarkerObject);
 							break;
 						default:
 							type = typeof(RoomObject);

@@ -34,6 +34,7 @@
 			this.setTypeButton = new System.Windows.Forms.Button();
 			this.infoButton = new System.Windows.Forms.Button();
 			this.selectButton = new System.Windows.Forms.Button();
+			this.testRoomButton = new System.Windows.Forms.Button();
 			this.gateDataTab.SuspendLayout();
 			this.tabPage.SuspendLayout();
 			this.tabPage2.SuspendLayout();
@@ -121,9 +122,9 @@
 			// 
 			this.setTypeButton.Location = new System.Drawing.Point(195, 7);
 			this.setTypeButton.Name = "setTypeButton";
-			this.setTypeButton.Size = new System.Drawing.Size(75, 23);
+			this.setTypeButton.Size = new System.Drawing.Size(30, 23);
 			this.setTypeButton.TabIndex = 4;
-			this.setTypeButton.Text = "Задать";
+			this.setTypeButton.Text = "ОК";
 			this.setTypeButton.UseVisualStyleBackColor = true;
 			this.setTypeButton.Click += new System.EventHandler(this.setTypeButton_Click);
 			// 
@@ -149,10 +150,21 @@
 			this.selectButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.selectButton_KeyDown);
 			this.selectButton.Leave += new System.EventHandler(this.selectButton_Leave);
 			// 
+			// testRoomButton
+			// 
+			this.testRoomButton.Location = new System.Drawing.Point(227, 7);
+			this.testRoomButton.Name = "testRoomButton";
+			this.testRoomButton.Size = new System.Drawing.Size(39, 23);
+			this.testRoomButton.TabIndex = 7;
+			this.testRoomButton.Text = "Тест";
+			this.testRoomButton.UseVisualStyleBackColor = true;
+			this.testRoomButton.Click += new System.EventHandler(this.testRoomButton_Click);
+			// 
 			// GatePanel
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.testRoomButton);
 			this.Controls.Add(this.selectButton);
 			this.Controls.Add(this.infoButton);
 			this.Controls.Add(this.setTypeButton);
@@ -183,5 +195,6 @@
 		public System.Windows.Forms.TabControl gateDataTab;
 		public System.Windows.Forms.ListBox existsList;
 		public System.Windows.Forms.ListBox unexistsList;
+		private System.Windows.Forms.Button testRoomButton;
 	}
 }

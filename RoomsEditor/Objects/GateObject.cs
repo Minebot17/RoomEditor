@@ -8,7 +8,7 @@ using RoomsEditor.Panels;
 
 namespace RoomsEditor.Objects {
 	[DataContract]
-	class GateObject : RoomObjectWithData<GatePanel> {
+	public class GateObject : RoomObjectWithData<GatePanel> {
 
 		public GateObject(ObjectRenderer render) : base(render) {
 		}
@@ -107,7 +107,7 @@ namespace RoomsEditor.Objects {
 			for (int i = index; i < data.Length; i++)
 				array2.Add(int.Parse(data[i]));
 
-			return new GatePanel(int.Parse(data[0]), array1, array2);
+			return new GatePanel(int.Parse(data[0]), array1, array2, this);
 		}
 	}
 }

@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RoomsEditor.Panels {
-	public partial class TextPanel : UserControl {
+	public partial class MarkerPanel : UserControl {
 		private string text;
 		private Color color;
 
-		public TextPanel(string text, Color color) {
+		public MarkerPanel(string text, Color color) {
 			this.text = text;
 			this.color = color;
 			InitializeComponent();

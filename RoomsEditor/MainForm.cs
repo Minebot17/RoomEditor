@@ -18,19 +18,17 @@ using Tao.Platform.Windows;
 using RoomsEditor.Tools;
 using RoomsEditor.Objects;
 using RoomsEditor.Actions;
+using RoomsEditor.Shaders;
 using static Tao.OpenGl.Gl;
 using static Tao.OpenGl.Glu;
 using static Tao.FreeGlut.Glut;
 using static Tao.DevIl.Il;
 using static RoomsEditor.Utils;
 using static RoomsEditor.InputManager;
-using static Tao.Platform.Windows.Wgl;
 
 namespace RoomsEditor {
 	public partial class MainForm : Form {
 		public const float scaleForGrid = 3;
-		public static IntPtr hdc;
-		public static IntPtr hglrc;
 		public static Random rnd = new Random();
 		public static MainForm form;
 		public RoomMatrix matrix;
@@ -61,12 +59,10 @@ namespace RoomsEditor {
 			glEnable(GL_BLEND);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-			hglrc = wglCreateContext(hdc);
-			wglMakeCurrent(hdc, hglrc);
-
 			form = this;
 			TextureManager.LoadAllTextures();
 			ObjectsManager.ReadAllObjects();
+			ShaderManager.RegisterShaders();
 			activeTool = new CreateWallTool(false);
 
 			InputManager.scaleFactor = 1;
