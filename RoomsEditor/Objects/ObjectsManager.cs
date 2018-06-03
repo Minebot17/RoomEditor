@@ -42,6 +42,9 @@ namespace RoomsEditor {
 						case "marker":
 							type = typeof(MarkerObject);
 							break;
+						case "banana":
+							type = typeof(BananaObject);
+							break;
 						default:
 							type = typeof(RoomObject);
 							break;

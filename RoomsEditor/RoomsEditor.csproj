@@ -92,6 +92,7 @@
     <Compile Include="Actions\RemoveObjectAction.cs" />
     <Compile Include="Actions\SpawnObjectAction.cs" />
     <Compile Include="Actions\SwitchSymmetryAction.cs" />
+    <Compile Include="Objects\BananaObject.cs" />
     <Compile Include="Objects\ChestObject.cs" />
     <Compile Include="Objects\GateObject.cs" />
     <Compile Include="Objects\IExtendedData.cs" />
@@ -109,6 +110,12 @@
     <Compile Include="Objects\RoomObject.cs" />
     <Compile Include="Objects\RoomObjectWithData.cs" />
     <Compile Include="Objects\TextObject.cs" />
+    <Compile Include="Panels\BananaPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\BananaPanel.Designer.cs">
+      <DependentUpon>BananaPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Panels\ChestPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -143,6 +150,9 @@
     <Compile Include="Utils.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\BananaPanel.resx">
+      <DependentUpon>BananaPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\ChestPanel.resx">
       <DependentUpon>ChestPanel.cs</DependentUpon>
