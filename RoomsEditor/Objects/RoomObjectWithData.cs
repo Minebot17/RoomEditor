@@ -50,5 +50,6 @@ namespace RoomsEditor.Objects {
 
 		public abstract T createPanelFromData(string[] data);
 		public abstract string[] createDataFromPanel(T panel);
+		public abstract string[] getDefaultData();
 	}
 }

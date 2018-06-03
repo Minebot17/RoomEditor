@@ -73,6 +73,8 @@ namespace RoomsEditor {
 
 		public static void SpawnObjectWithoutSymmetry(string name) {
 			RoomObject obj = GetObjectByRenderName(name);
+			if (obj is IExtendedData && ((IExtendedData)obj).serializeData() == null)
+				((IExtendedData)obj).deserializeData(((IExtendedData)obj).getDefaultData());
 			obj.coords = new Utils.Vec<int>(-InputManager.translate.x, -InputManager.translate.y);
 			MainForm.form.objects.Add(obj);
 			if (MainForm.form.activeTool is Tools.EditObjectsTool)
@@ -82,6 +84,8 @@ namespace RoomsEditor {
 		public static void SpawnObject(string name, bool createAction) {
 			List<RoomObject> objectsToSpawn = new List<RoomObject>();
 			RoomObject obj = GetObjectByRenderName(name);
+			if (obj is IExtendedData && ((IExtendedData)obj).serializeData() == null)
+				((IExtendedData)obj).deserializeData(((IExtendedData)obj).getDefaultData());
 			obj.coords = new Utils.Vec<int>(-InputManager.translate.x, -InputManager.translate.y);
 			MainForm.form.objects.Add(obj);
 			objectsToSpawn.Add(obj);
@@ -114,6 +118,8 @@ namespace RoomsEditor {
 
 		public static void SpawnObject(RoomObject obj, bool createAction) {
 			List<RoomObject> objectsToSpawn = new List<RoomObject>();
+			if (obj is IExtendedData && ((IExtendedData)obj).serializeData() == null)
+				((IExtendedData)obj).deserializeData(((IExtendedData)obj).getDefaultData());
 			MainForm.form.objects.Add(obj);
 			objectsToSpawn.Add(obj);
 

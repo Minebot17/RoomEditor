@@ -37,8 +37,8 @@ namespace RoomsEditor {
 				RoomObject topGate = ObjectsManager.GetObjectByRenderName("topGate");
 				downGate.coords = new Vec<int>((int)(xCenter - 33f), 0);
 				topGate.coords = new Vec<int>((int)(xCenter - 33f), 277 * height - 23);
-				MainForm.form.objects.Add(downGate);
-				MainForm.form.objects.Add(topGate);
+				RoomsEditor.ObjectsManager.SpawnObject(downGate, false);
+				RoomsEditor.ObjectsManager.SpawnObject(topGate, false);
 			}
 			for (int y = 0; y < height; y++) {
 				float yCenter = 277f * (y + 0.5f);
@@ -46,8 +46,8 @@ namespace RoomsEditor {
 				RoomObject rightGate = ObjectsManager.GetObjectByRenderName("rightGate");
 				leftGate.coords = new Vec<int>(0, (int)(yCenter - 33f));
 				rightGate.coords = new Vec<int>(495 * width - 45, (int)(yCenter - 33f));
-				MainForm.form.objects.Add(leftGate);
-				MainForm.form.objects.Add(rightGate);
+				RoomsEditor.ObjectsManager.SpawnObject(leftGate, false);
+				RoomsEditor.ObjectsManager.SpawnObject(rightGate, false);
 			}
 
 			for (int x = 0; x < matrix.GetLength(0); x++)

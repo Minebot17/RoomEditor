@@ -15,8 +15,6 @@ namespace RoomsEditor.Objects {
 		}
 
 		public override ChestPanel createPanelFromData(string[] data) {
-			if (data == null)
-				data = new string[] { "0" };
 			string[] array = new string[data.Length - 1];
 			for (int i = 1; i < data.Length; i++)
 				array[i - 1] = data[i]; 
@@ -28,6 +26,10 @@ namespace RoomsEditor.Objects {
 			result.Add(panel.getType()+"");
 			Array.ForEach<string>(panel.getIDs(), x => result.Add(x));
 			return result.ToArray();
+		}
+
+		public override string[] getDefaultData() {
+			return new string[] { "0" };
 		}
 	}
 }

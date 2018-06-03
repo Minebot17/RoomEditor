@@ -12,5 +12,6 @@ namespace RoomsEditor.Objects {
 
 		string[] serializeData();
 		void deserializeData(string[] data);
+		string[] getDefaultData();
 	}
 }

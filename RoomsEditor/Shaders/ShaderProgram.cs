@@ -25,14 +25,17 @@ namespace RoomsEditor.Shaders {
 		public ShaderProgram add(byte[] data, int shaderType) {
 			int shaderID = glCreateShaderObjectARB(shaderType);
 			string[] file = Encoding.UTF8.GetString(data).Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+			int lenght = Encoding.UTF8.GetString(data).Length + 1;
+			file[0] += '\n';
 
-			glShaderSourceARB(shaderID, 1, file, null);
+			glShaderSourceARB(shaderID, 1, file, ref lenght);
 			glCompileShaderARB(shaderID);
 
 			int param;
 			glGetObjectParameterivARB(shaderID, GL_OBJECT_COMPILE_STATUS_ARB, out param);
 			if (param == GL_FALSE) { 
 				StringBuilder builder = new StringBuilder();
+				builder.Capacity = 999999;
 				int hz;
 				glGetShaderInfoLog(shaderID, 99999, out hz, builder);
 				throw new Exception("Shader compilation error!\n" + builder.ToString());
@@ -53,6 +56,7 @@ namespace RoomsEditor.Shaders {
 				int length;
 				glGetProgramiv(programID, GL_INFO_LOG_LENGTH, out maxLength);
 				StringBuilder builder = new StringBuilder();
+				builder.Capacity = 999999;
 				glGetProgramInfoLog(programID, maxLength, out length, builder);
 				throw new Exception(builder.ToString());
 			}

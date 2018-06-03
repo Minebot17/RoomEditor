@@ -39,9 +39,11 @@ namespace RoomsEditor.Objects {
 		}
 
 		public override MarkerPanel createPanelFromData(string[] data) {
-			if (data == null)
-				return new MarkerPanel("", Color.Black);
 			return new MarkerPanel(data[0], Color.FromArgb(int.Parse(data[1])));
+		}
+
+		public override string[] getDefaultData() {
+			return new string[] { "", Color.Black.ToArgb()+"" };
 		}
 	}
 }

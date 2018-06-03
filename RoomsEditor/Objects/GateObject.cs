@@ -90,9 +90,6 @@ namespace RoomsEditor.Objects {
 		}
 
 		public override GatePanel createPanelFromData(string[] data) {
-			if (data == null)
-				data = new string[] { "0" };
-
 			List<int> array1 = new List<int>();
 			List<int> array2 = new List<int>();
 
@@ -104,10 +101,15 @@ namespace RoomsEditor.Objects {
 				}
 				array1.Add(int.Parse(data[i]));
 			}
-			for (int i = index; i < data.Length; i++)
-				array2.Add(int.Parse(data[i]));
+			if (index < data.Length)
+				for (int i = index; i < data.Length; i++)
+					array2.Add(int.Parse(data[i]));
 
 			return new GatePanel(int.Parse(data[0]), array1, array2, this);
+		}
+
+		public override string[] getDefaultData() {
+			return new string[] { "0", "splitter" };
 		}
 	}
 }
