@@ -93,6 +93,7 @@
     <Compile Include="Actions\SpawnObjectAction.cs" />
     <Compile Include="Actions\SwitchSymmetryAction.cs" />
     <Compile Include="Objects\BananaObject.cs" />
+    <Compile Include="Objects\BulavaObject.cs" />
     <Compile Include="Objects\ChestObject.cs" />
     <Compile Include="Objects\GateObject.cs" />
     <Compile Include="Objects\IExtendedData.cs" />
@@ -115,6 +116,12 @@
     </Compile>
     <Compile Include="Panels\BananaPanel.Designer.cs">
       <DependentUpon>BananaPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\BulavaPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\BulavaPanel.Designer.cs">
+      <DependentUpon>BulavaPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Panels\ChestPanel.cs">
       <SubType>UserControl</SubType>
@@ -153,6 +160,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\BananaPanel.resx">
       <DependentUpon>BananaPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\BulavaPanel.resx">
+      <DependentUpon>BulavaPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\ChestPanel.resx">
       <DependentUpon>ChestPanel.cs</DependentUpon>

@@ -11,6 +11,7 @@ namespace RoomsEditor.Objects {
 	[KnownType(typeof(GateObject))]
 	[KnownType(typeof(MarkerObject))]
 	[KnownType(typeof(BananaObject))]
+	[KnownType(typeof(BulavaObject))]
 	public class RoomObject : IRenderer {
 		public ObjectRenderer render;
 		[DataMember]
