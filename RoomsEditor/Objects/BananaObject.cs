@@ -10,7 +10,6 @@ namespace RoomsEditor.Objects {
 
 	[DataContract]
 	public class BananaObject : RoomObjectWithData<BananaPanel> {
-		private float time;
 
 		public BananaObject(ObjectRenderer render) : base(render) {
 			

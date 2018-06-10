@@ -262,5 +262,30 @@ namespace RoomsEditor {
 				matrix.CompileList();
 			}
 		}
+
+		private void тестНаВыбранномОбъектеToolStripMenuItem_Click(object sender, EventArgs e) {
+			if (!(activeTool is EditObjectsTool))
+				return;
+
+			List<RoomObject> activeObjects = ((EditObjectsTool)activeTool).activeObject;
+			if (activeObjects == null || activeObjects.Count == 0)
+				return;
+
+			const string directoryPath = "Build/Build_Data/StreamingAssets";
+			DirectoryInfo directory = new DirectoryInfo(directoryPath);
+			if (directory.Exists)
+				Directory.Delete(directoryPath, true);
+			Directory.CreateDirectory(directoryPath);
+
+			Vec<int> playerCoords = activeObjects[0].coords;
+			SaveLoader.Save(directoryPath + "/room.json");
+			File.WriteAllLines(directoryPath + "/gate.txt", new string[] {
+				playerCoords.x + 8 + "",
+				playerCoords.y + 33 + "",
+				false.ToString()
+			});
+
+			System.Diagnostics.Process.Start(Application.StartupPath + "/Build/Build.exe");
+		}
 	}
 }

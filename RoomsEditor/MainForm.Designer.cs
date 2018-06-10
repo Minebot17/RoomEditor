@@ -25,10 +25,10 @@
 		private void InitializeComponent() {
 			this.components = new System.ComponentModel.Container();
 			System.Windows.Forms.Timer DrawTimer;
-			System.Windows.Forms.ListViewGroup listViewGroup13 = new System.Windows.Forms.ListViewGroup("Объекты", System.Windows.Forms.HorizontalAlignment.Left);
-			System.Windows.Forms.ListViewGroup listViewGroup14 = new System.Windows.Forms.ListViewGroup("Декорации", System.Windows.Forms.HorizontalAlignment.Left);
-			System.Windows.Forms.ListViewGroup listViewGroup15 = new System.Windows.Forms.ListViewGroup("Инструменты", System.Windows.Forms.HorizontalAlignment.Left);
-			System.Windows.Forms.ListViewGroup listViewGroup16 = new System.Windows.Forms.ListViewGroup("Остальное", System.Windows.Forms.HorizontalAlignment.Left);
+			System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Объекты", System.Windows.Forms.HorizontalAlignment.Left);
+			System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Декорации", System.Windows.Forms.HorizontalAlignment.Left);
+			System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Инструменты", System.Windows.Forms.HorizontalAlignment.Left);
+			System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Остальное", System.Windows.Forms.HorizontalAlignment.Left);
 			this.viewPort = new Tao.Platform.Windows.SimpleOpenGlControl();
 			this.MainMenuStrip = new System.Windows.Forms.MenuStrip();
 			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,6 +77,7 @@
 			this.XYSymmetryBox = new System.Windows.Forms.CheckBox();
 			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
 			this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+			this.тестНаВыбранномОбъектеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			DrawTimer = new System.Windows.Forms.Timer(this.components);
 			this.MainMenuStrip.SuspendLayout();
 			this.objectTransformPanel.SuspendLayout();
@@ -186,7 +187,8 @@
 			// 
 			this.toolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.сброситьТрансформациюToolStripMenuItem2,
-            this.переключитьФонToolStripMenuItem});
+            this.переключитьФонToolStripMenuItem,
+            this.тестНаВыбранномОбъектеToolStripMenuItem});
 			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
 			this.toolStripMenuItem2.Size = new System.Drawing.Size(69, 20);
 			this.toolStripMenuItem2.Text = "Вьюпорт";
@@ -194,14 +196,14 @@
 			// сброситьТрансформациюToolStripMenuItem2
 			// 
 			this.сброситьТрансформациюToolStripMenuItem2.Name = "сброситьТрансформациюToolStripMenuItem2";
-			this.сброситьТрансформациюToolStripMenuItem2.Size = new System.Drawing.Size(226, 22);
+			this.сброситьТрансформациюToolStripMenuItem2.Size = new System.Drawing.Size(234, 22);
 			this.сброситьТрансформациюToolStripMenuItem2.Text = "Сбросить трансформацию";
 			this.сброситьТрансформациюToolStripMenuItem2.Click += new System.EventHandler(this.сброситьТрансформациюToolStripMenuItem_Click);
 			// 
 			// переключитьФонToolStripMenuItem
 			// 
 			this.переключитьФонToolStripMenuItem.Name = "переключитьФонToolStripMenuItem";
-			this.переключитьФонToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+			this.переключитьФонToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
 			this.переключитьФонToolStripMenuItem.Text = "Переключить фон";
 			this.переключитьФонToolStripMenuItem.Click += new System.EventHandler(this.переключитьФонToolStripMenuItem_Click);
 			// 
@@ -414,19 +416,19 @@
 			// 
 			this.ObjectsView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
-			listViewGroup13.Header = "Объекты";
-			listViewGroup13.Name = "Объекты";
-			listViewGroup14.Header = "Декорации";
-			listViewGroup14.Name = "Декорации";
-			listViewGroup15.Header = "Инструменты";
-			listViewGroup15.Name = "Инструменты";
-			listViewGroup16.Header = "Остальное";
-			listViewGroup16.Name = "Остальное";
+			listViewGroup1.Header = "Объекты";
+			listViewGroup1.Name = "Объекты";
+			listViewGroup2.Header = "Декорации";
+			listViewGroup2.Name = "Декорации";
+			listViewGroup3.Header = "Инструменты";
+			listViewGroup3.Name = "Инструменты";
+			listViewGroup4.Header = "Остальное";
+			listViewGroup4.Name = "Остальное";
 			this.ObjectsView.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup13,
-            listViewGroup14,
-            listViewGroup15,
-            listViewGroup16});
+            listViewGroup1,
+            listViewGroup2,
+            listViewGroup3,
+            listViewGroup4});
 			this.ObjectsView.Location = new System.Drawing.Point(0, 301);
 			this.ObjectsView.MultiSelect = false;
 			this.ObjectsView.Name = "ObjectsView";
@@ -530,6 +532,13 @@
 			this.saveFileDialog.Filter = "JSON files|*.json";
 			this.saveFileDialog.RestoreDirectory = true;
 			// 
+			// тестНаВыбранномОбъектеToolStripMenuItem
+			// 
+			this.тестНаВыбранномОбъектеToolStripMenuItem.Name = "тестНаВыбранномОбъектеToolStripMenuItem";
+			this.тестНаВыбранномОбъектеToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+			this.тестНаВыбранномОбъектеToolStripMenuItem.Text = "Тест на выбранном объекте";
+			this.тестНаВыбранномОбъектеToolStripMenuItem.Click += new System.EventHandler(this.тестНаВыбранномОбъектеToolStripMenuItem_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -613,6 +622,7 @@
 		private System.Windows.Forms.ToolStripMenuItem переключитьФонToolStripMenuItem;
 		public System.Windows.Forms.ComboBox renderTypeBox;
 		public System.Windows.Forms.Label renderTypeLabel;
+		private System.Windows.Forms.ToolStripMenuItem тестНаВыбранномОбъектеToolStripMenuItem;
 	}
 }
 

@@ -10,14 +10,6 @@ namespace RoomsEditor.Objects {
 
 	[DataContract]
 	public class BulavaObject : RoomObjectWithData<BulavaPanel> {
-		private int tileCount;
-		private int rotateMode;
-		private int angleSpeed;
-		private int startAngle;
-		private int motionMode;
-		private int motionSpeed;
-		private int motionDistance;
-		private int startDistance;
 
 		public BulavaObject(ObjectRenderer render) : base(render) {
 
