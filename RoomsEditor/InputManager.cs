@@ -94,7 +94,7 @@ namespace RoomsEditor {
 
 		public static void MouseMoveHandle(MouseEventArgs e) {
 			Vec<int> mousePos = new Vec<int>(e.X, MainForm.form.viewPort.Height - e.Y);
-			Vec<int> mouseWorldPos = new Vec<int>((int)Math.Round(mouseWindowPosition.x / scaleFactor - translate.x), (int)Math.Round(mouseWindowPosition.y / scaleFactor - translate.y));
+			Vec<int> mouseWorldPos = new Vec<int>((int)Math.Ceiling(mouseWindowPosition.x / scaleFactor - translate.x), (int)Math.Ceiling(mouseWindowPosition.y / scaleFactor - translate.y));
 
 			deltaWindowDistance += GetDistance(mouseWindowPosition, mousePos);
 			deltaWindowVector = UniteVectors(deltaWindowVector, GetDelta(mouseWindowPosition, mousePos));

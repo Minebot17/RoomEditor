@@ -46,7 +46,7 @@
 			this.textBox.Location = new System.Drawing.Point(58, 12);
 			this.textBox.Name = "textBox";
 			this.textBox.Size = new System.Drawing.Size(88, 20);
-			this.textBox.TabIndex = 1;
+			this.textBox.TabIndex = 0;
 			// 
 			// label2
 			// 
@@ -62,7 +62,7 @@
 			this.textButton.Location = new System.Drawing.Point(152, 10);
 			this.textButton.Name = "textButton";
 			this.textButton.Size = new System.Drawing.Size(104, 23);
-			this.textButton.TabIndex = 3;
+			this.textButton.TabIndex = 1;
 			this.textButton.Text = "Задать";
 			this.textButton.UseVisualStyleBackColor = true;
 			this.textButton.Click += new System.EventHandler(this.textButton_Click);
@@ -72,7 +72,7 @@
 			this.colorButton.Location = new System.Drawing.Point(152, 43);
 			this.colorButton.Name = "colorButton";
 			this.colorButton.Size = new System.Drawing.Size(104, 23);
-			this.colorButton.TabIndex = 4;
+			this.colorButton.TabIndex = 3;
 			this.colorButton.Text = "Выбрать";
 			this.colorButton.UseVisualStyleBackColor = true;
 			this.colorButton.Click += new System.EventHandler(this.colorButton_Click);
@@ -83,9 +83,9 @@
 			this.colorPanel.Location = new System.Drawing.Point(56, 43);
 			this.colorPanel.Name = "colorPanel";
 			this.colorPanel.Size = new System.Drawing.Size(90, 23);
-			this.colorPanel.TabIndex = 5;
+			this.colorPanel.TabIndex = 2;
 			// 
-			// TextPanel
+			// MarkerPanel
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -95,7 +95,7 @@
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.textBox);
 			this.Controls.Add(this.label1);
-			this.Name = "TextPanel";
+			this.Name = "MarkerPanel";
 			this.Size = new System.Drawing.Size(270, 170);
 			this.ResumeLayout(false);
 			this.PerformLayout();

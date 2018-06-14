@@ -24,11 +24,10 @@ namespace RoomsEditor.Shaders {
 
 		public ShaderProgram add(byte[] data, int shaderType) {
 			int shaderID = glCreateShaderObjectARB(shaderType);
-			string[] file = Encoding.UTF8.GetString(data).Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-			int lenght = Encoding.UTF8.GetString(data).Length + 1;
-			file[0] += '\n';
+			string file = Encoding.UTF8.GetString(data);
+			int lenght = Encoding.UTF8.GetString(data).Length;
 
-			glShaderSourceARB(shaderID, 1, file, ref lenght);
+			glShaderSourceARB(shaderID, 1, new string[] { file }, ref lenght);
 			glCompileShaderARB(shaderID);
 
 			int param;

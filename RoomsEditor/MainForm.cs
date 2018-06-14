@@ -187,18 +187,33 @@ namespace RoomsEditor {
 
 		private void CreateWallButton_Click(object sender, EventArgs e) {
 			SetTool(new CreateWallTool(false));
+			SetPopupButtons();
+			CreateWallButton.FlatStyle = FlatStyle.Flat;
 		}
 
 		private void CreateHideButton_Click(object sender, EventArgs e) {
 			SetTool(new CreateWallTool(true));
+			SetPopupButtons();
+			CreateHideButton.FlatStyle = FlatStyle.Flat;
 		}
 
 		private void EditObjectButton_Click(object sender, EventArgs e) {
 			SetTool(new EditObjectsTool());
+			SetPopupButtons();
+			EditObjectButton.FlatStyle = FlatStyle.Flat;
 		}
 
 		private void EditWallButton_Click(object sender, EventArgs e) {
 			SetTool(new EditWallsTool());
+			SetPopupButtons();
+			EditWallButton.FlatStyle = FlatStyle.Flat;
+		}
+
+		private void SetPopupButtons() {
+			CreateWallButton.FlatStyle = FlatStyle.Popup;
+			CreateHideButton.FlatStyle = FlatStyle.Popup;
+			EditObjectButton.FlatStyle = FlatStyle.Popup;
+			EditWallButton.FlatStyle = FlatStyle.Popup;
 		}
 
 		private void ObjectsView_MouseDoubleClick(object sender, MouseEventArgs e) {
@@ -286,6 +301,15 @@ namespace RoomsEditor {
 			});
 
 			System.Diagnostics.Process.Start(Application.StartupPath + "/Build/Build.exe");
+		}
+
+		private void BackUpTimer_Tick(object sender, EventArgs e) {
+			if (matrix != null)
+				SaveLoader.Save("backup.json");
+		}
+
+		private void backUpState_CheckedChanged(object sender, EventArgs e) {
+			BackUpTimer.Enabled = backUpState.Checked;
 		}
 	}
 }

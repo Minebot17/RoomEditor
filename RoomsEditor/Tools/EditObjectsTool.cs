@@ -13,6 +13,7 @@ namespace RoomsEditor.Tools {
 		public int panelMode;
 		public List<Vec<int>> startMovePoses;
 		public bool isMoved;
+		public List<RoomObject> copyBuffer;
 
 		public RoomObject xSymmetryObject;
 		public RoomObject ySymmetryObject;
@@ -135,6 +136,16 @@ namespace RoomsEditor.Tools {
 				ActionManager.Add(new PastAction(obj, forAction));
 				activeObject = null;
 				loadObjectPanel();
+			}
+			else if (InputManager.IsKeyDown(System.Windows.Forms.Keys.ControlKey)) {
+				if (InputManager.IsKeyDown(System.Windows.Forms.Keys.C) && activeObject != null && activeObject.Count != 0 && !activeObject.Exists(x => x.render.mustNotDelete || x.render.mustNotMove))
+					copyBuffer = activeObject.ConvertAll(x => x.Copy());
+				else if (InputManager.IsKeyDown(System.Windows.Forms.Keys.V) && copyBuffer != null && copyBuffer.Count != 0) {
+					List<RoomObject> toSpawn = copyBuffer.ConvertAll(x => x.Copy());
+					foreach (RoomObject obj in toSpawn)
+						ObjectsManager.SpawnObject(obj, false);
+					ActionManager.Add(new PastObjectsAction(toSpawn));
+				}
 			}
 		}
 

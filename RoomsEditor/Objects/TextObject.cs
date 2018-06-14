@@ -21,10 +21,10 @@ namespace RoomsEditor.Objects {
 		public override void Draw(int type) {
 			glPushMatrix();
 			glTranslatef(coords.x, coords.y, 0);
-			glColor3b(color.R, color.G, color.B);
-			//ShaderManager.whiteColored.start();
+			glColor3f(color.R/255f, color.G/255f, color.B/255f);
+			ShaderManager.whiteColored.start();
 			render.Draw(type);
-			//ShaderManager.whiteColored.stop();
+			ShaderManager.whiteColored.stop();
 			glColor3f(1, 1, 1);
 			glPopMatrix();
 		}

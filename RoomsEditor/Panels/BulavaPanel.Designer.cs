@@ -89,7 +89,7 @@
 			this.typeCombo.Location = new System.Drawing.Point(89, 36);
 			this.typeCombo.Name = "typeCombo";
 			this.typeCombo.Size = new System.Drawing.Size(178, 21);
-			this.typeCombo.TabIndex = 4;
+			this.typeCombo.TabIndex = 1;
 			this.typeCombo.Text = "Отсутствует";
 			// 
 			// countBox
@@ -97,7 +97,7 @@
 			this.countBox.Location = new System.Drawing.Point(113, 6);
 			this.countBox.Name = "countBox";
 			this.countBox.Size = new System.Drawing.Size(40, 20);
-			this.countBox.TabIndex = 5;
+			this.countBox.TabIndex = 0;
 			this.countBox.Text = "0";
 			// 
 			// speedBox
@@ -105,7 +105,7 @@
 			this.speedBox.Location = new System.Drawing.Point(138, 115);
 			this.speedBox.Name = "speedBox";
 			this.speedBox.Size = new System.Drawing.Size(40, 20);
-			this.speedBox.TabIndex = 7;
+			this.speedBox.TabIndex = 4;
 			this.speedBox.Text = "0";
 			// 
 			// angleSpeedBox
@@ -113,7 +113,7 @@
 			this.angleSpeedBox.Location = new System.Drawing.Point(183, 63);
 			this.angleSpeedBox.Name = "angleSpeedBox";
 			this.angleSpeedBox.Size = new System.Drawing.Size(40, 20);
-			this.angleSpeedBox.TabIndex = 8;
+			this.angleSpeedBox.TabIndex = 2;
 			this.angleSpeedBox.Text = "0";
 			// 
 			// label4
@@ -139,7 +139,7 @@
 			this.maxDistanceBox.Location = new System.Drawing.Point(149, 141);
 			this.maxDistanceBox.Name = "maxDistanceBox";
 			this.maxDistanceBox.Size = new System.Drawing.Size(40, 20);
-			this.maxDistanceBox.TabIndex = 11;
+			this.maxDistanceBox.TabIndex = 5;
 			this.maxDistanceBox.Text = "0";
 			// 
 			// velocityAxisCombo
@@ -152,7 +152,7 @@
 			this.velocityAxisCombo.Location = new System.Drawing.Point(89, 94);
 			this.velocityAxisCombo.Name = "velocityAxisCombo";
 			this.velocityAxisCombo.Size = new System.Drawing.Size(40, 21);
-			this.velocityAxisCombo.TabIndex = 12;
+			this.velocityAxisCombo.TabIndex = 3;
 			this.velocityAxisCombo.Text = "0";
 			// 
 			// okButton
@@ -160,7 +160,7 @@
 			this.okButton.Location = new System.Drawing.Point(192, 139);
 			this.okButton.Name = "okButton";
 			this.okButton.Size = new System.Drawing.Size(75, 23);
-			this.okButton.TabIndex = 13;
+			this.okButton.TabIndex = 8;
 			this.okButton.Text = "Задать";
 			this.okButton.UseVisualStyleBackColor = true;
 			this.okButton.Click += new System.EventHandler(this.okButton_Click);
@@ -188,7 +188,7 @@
 			this.startDistanceBox.Location = new System.Drawing.Point(192, 115);
 			this.startDistanceBox.Name = "startDistanceBox";
 			this.startDistanceBox.Size = new System.Drawing.Size(35, 20);
-			this.startDistanceBox.TabIndex = 16;
+			this.startDistanceBox.TabIndex = 6;
 			this.startDistanceBox.Text = "0";
 			// 
 			// startAngleBox
@@ -196,7 +196,7 @@
 			this.startAngleBox.Location = new System.Drawing.Point(233, 115);
 			this.startAngleBox.Name = "startAngleBox";
 			this.startAngleBox.Size = new System.Drawing.Size(34, 20);
-			this.startAngleBox.TabIndex = 17;
+			this.startAngleBox.TabIndex = 7;
 			this.startAngleBox.Text = "0";
 			// 
 			// label8

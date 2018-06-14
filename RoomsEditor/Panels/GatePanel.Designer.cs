@@ -55,7 +55,7 @@
 			this.typeBox.Location = new System.Drawing.Point(35, 7);
 			this.typeBox.Name = "typeBox";
 			this.typeBox.Size = new System.Drawing.Size(154, 21);
-			this.typeBox.TabIndex = 1;
+			this.typeBox.TabIndex = 0;
 			// 
 			// gateDataTab
 			// 
@@ -65,7 +65,7 @@
 			this.gateDataTab.Name = "gateDataTab";
 			this.gateDataTab.SelectedIndex = 0;
 			this.gateDataTab.Size = new System.Drawing.Size(261, 116);
-			this.gateDataTab.TabIndex = 2;
+			this.gateDataTab.TabIndex = 5;
 			// 
 			// tabPage
 			// 
@@ -85,7 +85,7 @@
 			this.existsList.Name = "existsList";
 			this.existsList.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
 			this.existsList.Size = new System.Drawing.Size(253, 95);
-			this.existsList.TabIndex = 0;
+			this.existsList.TabIndex = 6;
 			this.existsList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.existsList_KeyDown);
 			// 
 			// tabPage2
@@ -123,7 +123,7 @@
 			this.setTypeButton.Location = new System.Drawing.Point(195, 7);
 			this.setTypeButton.Name = "setTypeButton";
 			this.setTypeButton.Size = new System.Drawing.Size(30, 23);
-			this.setTypeButton.TabIndex = 4;
+			this.setTypeButton.TabIndex = 1;
 			this.setTypeButton.Text = "ОК";
 			this.setTypeButton.UseVisualStyleBackColor = true;
 			this.setTypeButton.Click += new System.EventHandler(this.setTypeButton_Click);
@@ -133,7 +133,7 @@
 			this.infoButton.Location = new System.Drawing.Point(244, 31);
 			this.infoButton.Name = "infoButton";
 			this.infoButton.Size = new System.Drawing.Size(26, 21);
-			this.infoButton.TabIndex = 5;
+			this.infoButton.TabIndex = 4;
 			this.infoButton.Text = "?";
 			this.infoButton.UseVisualStyleBackColor = true;
 			this.infoButton.Click += new System.EventHandler(this.infoButton_Click);
@@ -143,7 +143,7 @@
 			this.selectButton.Location = new System.Drawing.Point(183, 31);
 			this.selectButton.Name = "selectButton";
 			this.selectButton.Size = new System.Drawing.Size(61, 21);
-			this.selectButton.TabIndex = 6;
+			this.selectButton.TabIndex = 3;
 			this.selectButton.Text = "Выбрать";
 			this.selectButton.UseVisualStyleBackColor = true;
 			this.selectButton.Click += new System.EventHandler(this.selectButton_Click);
@@ -155,7 +155,7 @@
 			this.testRoomButton.Location = new System.Drawing.Point(227, 7);
 			this.testRoomButton.Name = "testRoomButton";
 			this.testRoomButton.Size = new System.Drawing.Size(39, 23);
-			this.testRoomButton.TabIndex = 7;
+			this.testRoomButton.TabIndex = 2;
 			this.testRoomButton.Text = "Тест";
 			this.testRoomButton.UseVisualStyleBackColor = true;
 			this.testRoomButton.Click += new System.EventHandler(this.testRoomButton_Click);
