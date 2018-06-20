@@ -11,17 +11,17 @@ namespace RoomsEditor.Objects {
 	[KnownType(typeof(MarkerObject))]
 	[KnownType(typeof(BananaObject))]
 	[KnownType(typeof(BulavaObject))]
-	public abstract class RoomObjectWithCustomPanel<T> : RoomObject, IExtendedData where T : Control {
+	public abstract class RoomObjectWithData<T> : RoomObject, IExtendedData where T : Control {
 		protected T panel;
 		[DataMember]
 		protected string[] data;
 
-		public RoomObjectWithCustomPanel(ObjectRenderer render) : base(render) {
+		public RoomObjectWithData(ObjectRenderer render) : base(render) {
 			
 		}
 
 		public override RoomObject Copy() {
-			RoomObjectWithCustomPanel<T> copy = (RoomObjectWithCustomPanel<T>) base.Copy();
+			RoomObjectWithData<T> copy = (RoomObjectWithData<T>) base.Copy();
 			copy.data = data;
 			return copy;
 		}

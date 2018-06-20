@@ -1,5 +1,5 @@
-﻿namespace RoomsEditor.Panels {
-	partial class ModulePanel {
+﻿namespace RoomsEditor.Panels.Modules {
+	partial class ComboModule {
 		/// <summary> 
 		/// Обязательная переменная конструктора.
 		/// </summary>
@@ -23,32 +23,45 @@
 		/// содержимое этого метода с помощью редактора кода.
 		/// </summary>
 		private void InitializeComponent() {
-			this.scrollBar = new System.Windows.Forms.VScrollBar();
+			this.label = new System.Windows.Forms.Label();
+			this.comboBox = new System.Windows.Forms.ComboBox();
 			this.SuspendLayout();
 			// 
-			// scrollBar
+			// label
 			// 
-			this.scrollBar.LargeChange = 50;
-			this.scrollBar.Location = new System.Drawing.Point(250, 0);
-			this.scrollBar.Name = "scrollBar";
-			this.scrollBar.Size = new System.Drawing.Size(20, 170);
-			this.scrollBar.SmallChange = 5;
-			this.scrollBar.TabIndex = 0;
-			this.scrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.scrollBar_Scroll);
+			this.label.AutoSize = true;
+			this.label.Location = new System.Drawing.Point(6, 8);
+			this.label.Name = "label";
+			this.label.Size = new System.Drawing.Size(9, 13);
+			this.label.TabIndex = 3;
+			this.label.Text = "l";
+			this.label.Click += new System.EventHandler(this.label_Click);
 			// 
-			// ModulePanel
+			// comboBox
+			// 
+			this.comboBox.FormattingEnabled = true;
+			this.comboBox.Location = new System.Drawing.Point(68, 5);
+			this.comboBox.Name = "comboBox";
+			this.comboBox.Size = new System.Drawing.Size(121, 21);
+			this.comboBox.TabIndex = 4;
+			this.comboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox_SelectedIndexChanged);
+			// 
+			// ComboModule
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.scrollBar);
-			this.Name = "ModulePanel";
-			this.Size = new System.Drawing.Size(270, 170);
+			this.Controls.Add(this.comboBox);
+			this.Controls.Add(this.label);
+			this.Name = "ComboModule";
+			this.Size = new System.Drawing.Size(250, 30);
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
 		#endregion
 
-		private System.Windows.Forms.VScrollBar scrollBar;
+		private System.Windows.Forms.Label label;
+		private System.Windows.Forms.ComboBox comboBox;
 	}
 }

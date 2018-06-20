@@ -8,7 +8,7 @@ using RoomsEditor.Panels;
 
 namespace RoomsEditor.Objects {
 	[DataContract]
-	public class ChestObject : RoomObjectWithCustomPanel<ChestPanel> {
+	public class ChestObject : RoomObjectWithData<ChestPanel> {
 
 		public ChestObject(ObjectRenderer render) : base(render) {
 			

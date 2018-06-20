@@ -41,6 +41,9 @@ namespace RoomsEditor.Objects.ExtendedDataSystem {
 
 		public void deserializeData(string[] data) {
 			this.data = data;
+			if (modulePanel == null)
+				createPanel();
+			modulePanel.SetupData(data);
 		}
 
 		private void createPanel() {

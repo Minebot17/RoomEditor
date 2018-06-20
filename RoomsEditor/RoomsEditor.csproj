@@ -147,6 +147,24 @@
     <Compile Include="Panels\ModulePanel.Designer.cs">
       <DependentUpon>ModulePanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Panels\Modules\ColorModule.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\Modules\ColorModule.Designer.cs">
+      <DependentUpon>ColorModule.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\Modules\ComboModule.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\Modules\ComboModule.Designer.cs">
+      <DependentUpon>ComboModule.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\Modules\TextModule.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\Modules\TextModule.Designer.cs">
+      <DependentUpon>TextModule.cs</DependentUpon>
+    </Compile>
     <Compile Include="Panels\StairPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -190,6 +208,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\ModulePanel.resx">
       <DependentUpon>ModulePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\Modules\ColorModule.resx">
+      <DependentUpon>ColorModule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\Modules\ComboModule.resx">
+      <DependentUpon>ComboModule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\Modules\TextModule.resx">
+      <DependentUpon>TextModule.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\StairPanel.resx">
       <DependentUpon>StairPanel.cs</DependentUpon>

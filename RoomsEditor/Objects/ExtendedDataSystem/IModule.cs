@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RoomsEditor.Objects.ExtendedDataSystem {
 	public interface IModule {
-		void Initialize(string data);
+		void SetData(string data);
 		string GetData();
 	}
 }
