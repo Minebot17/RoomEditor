@@ -139,6 +139,12 @@
     <Compile Include="Panels\GatePanel.Designer.cs">
       <DependentUpon>GatePanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Panels\StairPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\StairPanel.Designer.cs">
+      <DependentUpon>StairPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Panels\TextPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -173,6 +179,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\GatePanel.resx">
       <DependentUpon>GatePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\StairPanel.resx">
+      <DependentUpon>StairPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\TextPanel.resx">
       <DependentUpon>TextPanel.cs</DependentUpon>

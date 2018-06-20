@@ -269,6 +269,7 @@ namespace RoomsEditor {
 			if (result != DialogResult.Cancel) {
 				openedPath = openFileDialog.FileName;
 				сохранитьToolStripMenuItem2.Enabled = true;
+				сохранитьКакToolStripMenuItem2.Enabled = true;
 				SaveLoader.Load(openFileDialog.FileName);
 			}
 		}
