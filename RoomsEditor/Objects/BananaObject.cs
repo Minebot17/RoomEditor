@@ -4,27 +4,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RoomsEditor.Panels;
+using RoomsEditor.Objects.ExtendedDataSystem;
+using RoomsEditor.Panels.Modules;
+using System.Windows.Forms;
 
 namespace RoomsEditor.Objects {
 
 	[DataContract]
-	public class BananaObject : RoomObjectWithData<BananaPanel> {
+	public class BananaObject : RoomObjectWithModulePanel {
 
 		public BananaObject(ObjectRenderer render) : base(render) {
-			
+
 		}
 
-		public override string[] createDataFromPanel(BananaPanel panel) {
-			return new string[] { panel.GetTime()+"" };
-		}
-
-		public override BananaPanel createPanelFromData(string[] data) {
-			return new BananaPanel(float.Parse(data[0]));
-		}
-
-		public override string[] getDefaultData() {
-			return new string[] { "3" };
+		protected override Control[] GetModules() {
+			return new Control[] {
+				new TextModule("Время эффекта (сек)", "3")
+			};
 		}
 	}
 }

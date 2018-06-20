@@ -4,45 +4,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RoomsEditor.Panels;
+using RoomsEditor.Objects.ExtendedDataSystem;
+using RoomsEditor.Panels.Modules;
+using System.Windows.Forms;
 
 namespace RoomsEditor.Objects {
 
 	[DataContract]
-	public class BulavaObject : RoomObjectWithData<BulavaPanel> {
+	public class BulavaObject : RoomObjectWithModulePanel {
 
 		public BulavaObject(ObjectRenderer render) : base(render) {
 
 		}
 
-		public override string[] createDataFromPanel(BulavaPanel panel) {
-			return new string[] {
-				panel.GetTileCount()+"",
-				panel.GetRotateMode()+"",
-				panel.GetAngleSpeed()+"",
-				panel.GetStartAngle()+"",
-				panel.GetMotionMode()+"",
-				panel.GetMotionSpeed()+"",
-				panel.GetMotionDistance()+"",
-				panel.GetStartDistance()+""
+		protected override Control[] GetModules() {
+			return new Control[] {
+				new TextModule("Количество тайлов", "0"),
+				new ComboModule("Тип вращения", new []{ "Отсутствует", "Качание", "Полный оборот" }, 0),
+				new TextModule("Угловая скорость (градусы/сек)", "0"),
+				new TextModule("Начальный угол", "0"),
+				new ComboModule("Ось движения", new []{ "0", "X", "Y" }, 0),
+				new TextModule("Скорость (пиксели/сек)", "0"),
+				new TextModule("Максимальная дистанция", "0"),
+				new TextModule("Начальный путь", "0"),
 			};
-		}
-
-		public override BulavaPanel createPanelFromData(string[] data) {
-			return new BulavaPanel(
-				int.Parse(data[0]),
-				int.Parse(data[1]),
-				int.Parse(data[2]),
-				int.Parse(data[3]),
-				int.Parse(data[4]),
-				int.Parse(data[5]),
-				int.Parse(data[6]),
-				int.Parse(data[7])
-			);
-		}
-
-		public override string[] getDefaultData() {
-			return new string[] { "0", "0", "0", "0", "0", "0", "0", "0" };
 		}
 	}
 }

@@ -164,6 +164,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.Controls.Add(this.testRoomButton);
 			this.Controls.Add(this.selectButton);
 			this.Controls.Add(this.infoButton);
@@ -173,7 +174,7 @@
 			this.Controls.Add(this.typeBox);
 			this.Controls.Add(this.label1);
 			this.Name = "GatePanel";
-			this.Size = new System.Drawing.Size(270, 170);
+			this.Size = new System.Drawing.Size(268, 168);
 			this.gateDataTab.ResumeLayout(false);
 			this.tabPage.ResumeLayout(false);
 			this.tabPage2.ResumeLayout(false);

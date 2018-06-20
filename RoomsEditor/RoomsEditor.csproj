@@ -117,18 +117,6 @@
     <Compile Include="Objects\RoomObject.cs" />
     <Compile Include="Objects\ExtendedDataSystem\RoomObjectWithCustomPanel.cs" />
     <Compile Include="Objects\TextObject.cs" />
-    <Compile Include="Panels\BananaPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Panels\BananaPanel.Designer.cs">
-      <DependentUpon>BananaPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Panels\BulavaPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Panels\BulavaPanel.Designer.cs">
-      <DependentUpon>BulavaPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="Panels\ChestPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -146,6 +134,12 @@
     </Compile>
     <Compile Include="Panels\ModulePanel.Designer.cs">
       <DependentUpon>ModulePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\Modules\BoolModule.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\Modules\BoolModule.Designer.cs">
+      <DependentUpon>BoolModule.cs</DependentUpon>
     </Compile>
     <Compile Include="Panels\Modules\ColorModule.cs">
       <SubType>UserControl</SubType>
@@ -165,18 +159,6 @@
     <Compile Include="Panels\Modules\TextModule.Designer.cs">
       <DependentUpon>TextModule.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\StairPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Panels\StairPanel.Designer.cs">
-      <DependentUpon>StairPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Panels\TextPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Panels\TextPanel.Designer.cs">
-      <DependentUpon>TextPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoomMatrix.cs" />
@@ -194,12 +176,6 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\BananaPanel.resx">
-      <DependentUpon>BananaPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Panels\BulavaPanel.resx">
-      <DependentUpon>BulavaPanel.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Panels\ChestPanel.resx">
       <DependentUpon>ChestPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -209,6 +185,9 @@
     <EmbeddedResource Include="Panels\ModulePanel.resx">
       <DependentUpon>ModulePanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Panels\Modules\BoolModule.resx">
+      <DependentUpon>BoolModule.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Panels\Modules\ColorModule.resx">
       <DependentUpon>ColorModule.cs</DependentUpon>
     </EmbeddedResource>
@@ -217,12 +196,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\Modules\TextModule.resx">
       <DependentUpon>TextModule.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Panels\StairPanel.resx">
-      <DependentUpon>StairPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Panels\TextPanel.resx">
-      <DependentUpon>TextPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -8,10 +8,19 @@ using System.Runtime.Serialization;
 using RoomsEditor.Panels;
 
 namespace RoomsEditor.Objects.ExtendedDataSystem {
+
+	[DataContract]
+	[KnownType(typeof(BananaObject))]
+	[KnownType(typeof(BulavaObject))]
+	[KnownType(typeof(MarkerObject))]
 	public abstract class RoomObjectWithModulePanel : RoomObject, IExtendedData {
 		protected ModulePanel modulePanel;
 		[DataMember]
 		protected string[] data;
+
+		public RoomObjectWithModulePanel(ObjectRenderer render) : base(render) {
+
+		}
 
 		public string[] getDefaultData() {
 			if (modulePanel == null)
@@ -20,12 +29,14 @@ namespace RoomsEditor.Objects.ExtendedDataSystem {
 		}
 
 		public void markDirty() {
-			data = modulePanel.CollectData();
+			if (modulePanel != null)
+				data = modulePanel.CollectData();
 		}
 
 		public void openPanel() {
 			if (modulePanel == null)
 				createPanel();
+			modulePanel.SetupData(data);
 
 			MainForm.form.Controls.Add(modulePanel);
 		}
@@ -49,6 +60,8 @@ namespace RoomsEditor.Objects.ExtendedDataSystem {
 		private void createPanel() {
 			modulePanel = new ModulePanel(GetModules());
 			modulePanel.Location = new System.Drawing.Point(4, 65);
+			if (data != null)
+				modulePanel.SetupData(data);
 			markDirty();
 		}
 

@@ -5,20 +5,21 @@ using System.Drawing;
 using RoomsEditor.Panels;
 using RoomsEditor.Shaders;
 using static Tao.OpenGl.Gl;
+using RoomsEditor.Objects.ExtendedDataSystem;
+using RoomsEditor.Panels.Modules;
+using System.Windows.Forms;
 
 namespace RoomsEditor.Objects {
 
 	[DataContract]
-	public class MarkerObject : RoomObjectWithData<MarkerPanel> {
-		private string name;
-		private Color color;
+	public class MarkerObject : RoomObjectWithModulePanel {
 
 		public MarkerObject(ObjectRenderer render) : base(render) {
-			name = "";
-			color = Color.Black;
+			
 		}
 
 		public override void Draw(int type) {
+			Color color = Color.FromArgb(int.Parse(data[1]));
 			glPushMatrix();
 			glTranslatef(coords.x, coords.y, 0);
 			glColor3f(color.R/255f, color.G/255f, color.B/255f);
@@ -29,21 +30,11 @@ namespace RoomsEditor.Objects {
 			glPopMatrix();
 		}
 
-		public override string[] createDataFromPanel(MarkerPanel panel) {
-			name = panel.GetText();
-			color = panel.GetColor();
-			return new string[] {
-				panel.GetText(),
-				panel.GetColor().ToArgb()+""
+		protected override Control[] GetModules() {
+			return new Control[] {
+				new TextModule("Текст", "Метка"),
+				new ColorModule("Цвет", 0)
 			};
-		}
-
-		public override MarkerPanel createPanelFromData(string[] data) {
-			return new MarkerPanel(data[0], Color.FromArgb(int.Parse(data[1])));
-		}
-
-		public override string[] getDefaultData() {
-			return new string[] { "", Color.Black.ToArgb()+"" };
 		}
 	}
 }

@@ -98,6 +98,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.Controls.Add(this.okButton);
 			this.Controls.Add(this.addButton);
 			this.Controls.Add(this.label2);
@@ -106,7 +107,7 @@
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.typesBox);
 			this.Name = "ChestPanel";
-			this.Size = new System.Drawing.Size(270, 170);
+			this.Size = new System.Drawing.Size(268, 168);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

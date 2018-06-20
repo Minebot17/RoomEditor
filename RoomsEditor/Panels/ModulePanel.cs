@@ -27,7 +27,7 @@ namespace RoomsEditor.Panels {
 			if (height <= Size.Height)
 				scrollBar.Visible = false;
 			else
-				scrollBar.Maximum = height - Size.Height;
+				scrollBar.Maximum = height - Size.Height + (int)(0.1f * height);
 		}
 
 		public void SetupData(string[] data) {
@@ -40,7 +40,7 @@ namespace RoomsEditor.Panels {
 		}
 
 		private void scrollBar_Scroll(object sender, ScrollEventArgs e) {
-			controls.ToList().ForEach(x => x.Location = new Point(x.Location.X, x.Location.Y + e.NewValue - e.OldValue));
+			controls.ToList().ForEach(x => x.Location = new Point(x.Location.X, x.Location.Y - e.NewValue + e.OldValue));
 		}
 	}
 }

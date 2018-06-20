@@ -1,5 +1,5 @@
-﻿namespace RoomsEditor.Panels {
-	partial class ModulePanel {
+﻿namespace RoomsEditor.Panels.Modules {
+	partial class BoolModule {
 		/// <summary> 
 		/// Обязательная переменная конструктора.
 		/// </summary>
@@ -23,33 +23,34 @@
 		/// содержимое этого метода с помощью редактора кода.
 		/// </summary>
 		private void InitializeComponent() {
-			this.scrollBar = new System.Windows.Forms.VScrollBar();
+			this.checkBox = new System.Windows.Forms.CheckBox();
 			this.SuspendLayout();
 			// 
-			// scrollBar
+			// checkBox
 			// 
-			this.scrollBar.LargeChange = 50;
-			this.scrollBar.Location = new System.Drawing.Point(250, 0);
-			this.scrollBar.Name = "scrollBar";
-			this.scrollBar.Size = new System.Drawing.Size(20, 170);
-			this.scrollBar.SmallChange = 5;
-			this.scrollBar.TabIndex = 0;
-			this.scrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.scrollBar_Scroll);
+			this.checkBox.AutoSize = true;
+			this.checkBox.Location = new System.Drawing.Point(3, 3);
+			this.checkBox.Name = "checkBox";
+			this.checkBox.Size = new System.Drawing.Size(80, 17);
+			this.checkBox.TabIndex = 0;
+			this.checkBox.Text = "checkBox1";
+			this.checkBox.UseVisualStyleBackColor = true;
+			this.checkBox.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
 			// 
-			// ModulePanel
+			// BoolModule
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.Controls.Add(this.scrollBar);
-			this.Name = "ModulePanel";
-			this.Size = new System.Drawing.Size(268, 168);
+			this.Controls.Add(this.checkBox);
+			this.Name = "BoolModule";
+			this.Size = new System.Drawing.Size(250, 21);
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
 		#endregion
 
-		private System.Windows.Forms.VScrollBar scrollBar;
+		private System.Windows.Forms.CheckBox checkBox;
 	}
 }
