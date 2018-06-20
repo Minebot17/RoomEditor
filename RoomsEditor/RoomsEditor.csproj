@@ -99,8 +99,10 @@
     <Compile Include="Objects\BananaObject.cs" />
     <Compile Include="Objects\BulavaObject.cs" />
     <Compile Include="Objects\ChestObject.cs" />
+    <Compile Include="Objects\ExtendedDataSystem\IModule.cs" />
+    <Compile Include="Objects\ExtendedDataSystem\RoomObjectWithModulePanel.cs" />
     <Compile Include="Objects\GateObject.cs" />
-    <Compile Include="Objects\IExtendedData.cs" />
+    <Compile Include="Objects\ExtendedDataSystem\IExtendedData.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="IRenderer.cs" />
     <Compile Include="MainForm.cs">
@@ -113,7 +115,7 @@
     <Compile Include="Objects\MatrixRenderer.cs" />
     <Compile Include="Objects\RoomChunkObject.cs" />
     <Compile Include="Objects\RoomObject.cs" />
-    <Compile Include="Objects\RoomObjectWithData.cs" />
+    <Compile Include="Objects\ExtendedDataSystem\RoomObjectWithCustomPanel.cs" />
     <Compile Include="Objects\TextObject.cs" />
     <Compile Include="Panels\BananaPanel.cs">
       <SubType>UserControl</SubType>
@@ -138,6 +140,12 @@
     </Compile>
     <Compile Include="Panels\GatePanel.Designer.cs">
       <DependentUpon>GatePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\ModulePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\ModulePanel.Designer.cs">
+      <DependentUpon>ModulePanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Panels\StairPanel.cs">
       <SubType>UserControl</SubType>
@@ -179,6 +187,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\GatePanel.resx">
       <DependentUpon>GatePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\ModulePanel.resx">
+      <DependentUpon>ModulePanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\StairPanel.resx">
       <DependentUpon>StairPanel.cs</DependentUpon>

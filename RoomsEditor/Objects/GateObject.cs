@@ -8,7 +8,7 @@ using RoomsEditor.Panels;
 
 namespace RoomsEditor.Objects {
 	[DataContract]
-	public class GateObject : RoomObjectWithData<GatePanel> {
+	public class GateObject : RoomObjectWithCustomPanel<GatePanel> {
 
 		public GateObject(ObjectRenderer render) : base(render) {
 		}

@@ -9,7 +9,7 @@ using RoomsEditor.Panels;
 namespace RoomsEditor.Objects {
 
 	[DataContract]
-	public class BananaObject : RoomObjectWithData<BananaPanel> {
+	public class BananaObject : RoomObjectWithCustomPanel<BananaPanel> {
 
 		public BananaObject(ObjectRenderer render) : base(render) {
 			

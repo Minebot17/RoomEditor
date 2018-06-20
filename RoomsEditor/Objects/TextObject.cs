@@ -9,7 +9,7 @@ using static Tao.OpenGl.Gl;
 namespace RoomsEditor.Objects {
 
 	[DataContract]
-	public class MarkerObject : RoomObjectWithData<MarkerPanel> {
+	public class MarkerObject : RoomObjectWithCustomPanel<MarkerPanel> {
 		private string name;
 		private Color color;
 

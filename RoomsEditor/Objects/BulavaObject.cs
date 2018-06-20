@@ -9,7 +9,7 @@ using RoomsEditor.Panels;
 namespace RoomsEditor.Objects {
 
 	[DataContract]
-	public class BulavaObject : RoomObjectWithData<BulavaPanel> {
+	public class BulavaObject : RoomObjectWithCustomPanel<BulavaPanel> {
 
 		public BulavaObject(ObjectRenderer render) : base(render) {
 
