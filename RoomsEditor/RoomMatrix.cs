@@ -148,7 +148,7 @@ namespace RoomsEditor {
 			}
 			glEnd();
 
-			if (InputManager.scaleFactor > 3) {
+			if (InputManager.scaleFactor > MainForm.scaleForGrid) {
 				glLineWidth(1);
 				glBegin(GL_LINES);
 				glColor3f(0.7f, 0.7f, 0.7f);

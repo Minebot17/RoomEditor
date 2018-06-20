@@ -25,15 +25,20 @@
 		private void InitializeComponent() {
 			this.components = new System.ComponentModel.Container();
 			System.Windows.Forms.Timer DrawTimer;
-			System.Windows.Forms.ListViewGroup listViewGroup5 = new System.Windows.Forms.ListViewGroup("Объекты", System.Windows.Forms.HorizontalAlignment.Left);
-			System.Windows.Forms.ListViewGroup listViewGroup6 = new System.Windows.Forms.ListViewGroup("Декорации", System.Windows.Forms.HorizontalAlignment.Left);
-			System.Windows.Forms.ListViewGroup listViewGroup7 = new System.Windows.Forms.ListViewGroup("Инструменты", System.Windows.Forms.HorizontalAlignment.Left);
-			System.Windows.Forms.ListViewGroup listViewGroup8 = new System.Windows.Forms.ListViewGroup("Остальное", System.Windows.Forms.HorizontalAlignment.Left);
+			System.Windows.Forms.ListViewGroup listViewGroup8 = new System.Windows.Forms.ListViewGroup("Объекты", System.Windows.Forms.HorizontalAlignment.Left);
+			System.Windows.Forms.ListViewGroup listViewGroup9 = new System.Windows.Forms.ListViewGroup("Декорации", System.Windows.Forms.HorizontalAlignment.Left);
+			System.Windows.Forms.ListViewGroup listViewGroup10 = new System.Windows.Forms.ListViewGroup("Инструменты", System.Windows.Forms.HorizontalAlignment.Left);
+			System.Windows.Forms.ListViewGroup listViewGroup11 = new System.Windows.Forms.ListViewGroup("Остальное", System.Windows.Forms.HorizontalAlignment.Left);
+			System.Windows.Forms.ListViewGroup listViewGroup12 = new System.Windows.Forms.ListViewGroup("Катакомбы", System.Windows.Forms.HorizontalAlignment.Left);
+			System.Windows.Forms.ListViewGroup listViewGroup13 = new System.Windows.Forms.ListViewGroup("Шахты", System.Windows.Forms.HorizontalAlignment.Left);
+			System.Windows.Forms.ListViewGroup listViewGroup14 = new System.Windows.Forms.ListViewGroup("Ад", System.Windows.Forms.HorizontalAlignment.Left);
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.viewPort = new Tao.Platform.Windows.SimpleOpenGlControl();
 			this.MainMenuStrip = new System.Windows.Forms.MenuStrip();
 			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.создатьToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+			this.toolStripComboBox2 = new System.Windows.Forms.ToolStripComboBox();
 			this.оКToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.открытьToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
 			this.сохранитьToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -80,6 +85,7 @@
 			this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
 			this.backUpState = new System.Windows.Forms.CheckBox();
 			this.BackUpTimer = new System.Windows.Forms.Timer(this.components);
+			this.сохранитьКакToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
 			DrawTimer = new System.Windows.Forms.Timer(this.components);
 			this.MainMenuStrip.SuspendLayout();
 			this.objectTransformPanel.SuspendLayout();
@@ -130,7 +136,8 @@
 			this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.создатьToolStripMenuItem2,
             this.открытьToolStripMenuItem2,
-            this.сохранитьToolStripMenuItem2});
+            this.сохранитьToolStripMenuItem2,
+            this.сохранитьКакToolStripMenuItem2});
 			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
 			this.toolStripMenuItem1.Size = new System.Drawing.Size(49, 20);
 			this.toolStripMenuItem1.Text = "Файл";
@@ -139,9 +146,10 @@
 			// 
 			this.создатьToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripComboBox1,
+            this.toolStripComboBox2,
             this.оКToolStripMenuItem});
 			this.создатьToolStripMenuItem2.Name = "создатьToolStripMenuItem2";
-			this.создатьToolStripMenuItem2.Size = new System.Drawing.Size(135, 22);
+			this.создатьToolStripMenuItem2.Size = new System.Drawing.Size(157, 22);
 			this.создатьToolStripMenuItem2.Text = "Создать";
 			// 
 			// toolStripComboBox1
@@ -163,6 +171,16 @@
 			this.toolStripComboBox1.Name = "toolStripComboBox1";
 			this.toolStripComboBox1.Size = new System.Drawing.Size(121, 23);
 			// 
+			// toolStripComboBox2
+			// 
+			this.toolStripComboBox2.Items.AddRange(new object[] {
+            "Универсальная",
+            "Катакомбы",
+            "Шахты",
+            "Ад"});
+			this.toolStripComboBox2.Name = "toolStripComboBox2";
+			this.toolStripComboBox2.Size = new System.Drawing.Size(121, 23);
+			// 
 			// оКToolStripMenuItem
 			// 
 			this.оКToolStripMenuItem.Name = "оКToolStripMenuItem";
@@ -173,7 +191,7 @@
 			// открытьToolStripMenuItem2
 			// 
 			this.открытьToolStripMenuItem2.Name = "открытьToolStripMenuItem2";
-			this.открытьToolStripMenuItem2.Size = new System.Drawing.Size(135, 22);
+			this.открытьToolStripMenuItem2.Size = new System.Drawing.Size(157, 22);
 			this.открытьToolStripMenuItem2.Text = "Открыть";
 			this.открытьToolStripMenuItem2.Click += new System.EventHandler(this.открытьToolStripMenuItem2_Click);
 			// 
@@ -181,7 +199,7 @@
 			// 
 			this.сохранитьToolStripMenuItem2.Enabled = false;
 			this.сохранитьToolStripMenuItem2.Name = "сохранитьToolStripMenuItem2";
-			this.сохранитьToolStripMenuItem2.Size = new System.Drawing.Size(135, 22);
+			this.сохранитьToolStripMenuItem2.Size = new System.Drawing.Size(157, 22);
 			this.сохранитьToolStripMenuItem2.Text = "Сохранить";
 			this.сохранитьToolStripMenuItem2.Click += new System.EventHandler(this.сохранитьToolStripMenuItem2_Click);
 			// 
@@ -425,19 +443,28 @@
 			// 
 			this.ObjectsView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
-			listViewGroup5.Header = "Объекты";
-			listViewGroup5.Name = "Объекты";
-			listViewGroup6.Header = "Декорации";
-			listViewGroup6.Name = "Декорации";
-			listViewGroup7.Header = "Инструменты";
-			listViewGroup7.Name = "Инструменты";
-			listViewGroup8.Header = "Остальное";
-			listViewGroup8.Name = "Остальное";
+			listViewGroup8.Header = "Объекты";
+			listViewGroup8.Name = "Объекты";
+			listViewGroup9.Header = "Декорации";
+			listViewGroup9.Name = "Декорации";
+			listViewGroup10.Header = "Инструменты";
+			listViewGroup10.Name = "Инструменты";
+			listViewGroup11.Header = "Остальное";
+			listViewGroup11.Name = "Остальное";
+			listViewGroup12.Header = "Катакомбы";
+			listViewGroup12.Name = "Катакомбы";
+			listViewGroup13.Header = "Шахты";
+			listViewGroup13.Name = "Шахты";
+			listViewGroup14.Header = "Ад";
+			listViewGroup14.Name = "Ад";
 			this.ObjectsView.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup5,
-            listViewGroup6,
-            listViewGroup7,
-            listViewGroup8});
+            listViewGroup8,
+            listViewGroup9,
+            listViewGroup10,
+            listViewGroup11,
+            listViewGroup12,
+            listViewGroup13,
+            listViewGroup14});
 			this.ObjectsView.Location = new System.Drawing.Point(0, 301);
 			this.ObjectsView.MultiSelect = false;
 			this.ObjectsView.Name = "ObjectsView";
@@ -560,6 +587,14 @@
 			this.BackUpTimer.Interval = 30000;
 			this.BackUpTimer.Tick += new System.EventHandler(this.BackUpTimer_Tick);
 			// 
+			// сохранитьКакToolStripMenuItem2
+			// 
+			this.сохранитьКакToolStripMenuItem2.Enabled = false;
+			this.сохранитьКакToolStripMenuItem2.Name = "сохранитьКакToolStripMenuItem2";
+			this.сохранитьКакToolStripMenuItem2.Size = new System.Drawing.Size(157, 22);
+			this.сохранитьКакToolStripMenuItem2.Text = "Сохранить как";
+			this.сохранитьКакToolStripMenuItem2.Click += new System.EventHandler(this.сохранитьКакToolStripMenuItem2_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -579,10 +614,11 @@
 			this.Controls.Add(this.CreateWallButton);
 			this.Controls.Add(this.viewPort);
 			this.Controls.Add(this.MainMenuStrip);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.KeyPreview = true;
 			this.Name = "MainForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "Rooms Editor [0.1]";
+			this.Text = "Rooms Editor [1.0]";
 			this.Load += new System.EventHandler(this.MainForm_Load);
 			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
 			this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
@@ -647,6 +683,8 @@
 		private System.Windows.Forms.ToolStripMenuItem тестНаВыбранномОбъектеToolStripMenuItem;
 		private System.Windows.Forms.CheckBox backUpState;
 		private System.Windows.Forms.Timer BackUpTimer;
+		private System.Windows.Forms.ToolStripComboBox toolStripComboBox2;
+		private System.Windows.Forms.ToolStripMenuItem сохранитьКакToolStripMenuItem2;
 	}
 }
 

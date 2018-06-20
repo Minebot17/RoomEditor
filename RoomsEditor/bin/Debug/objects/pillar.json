@@ -1,5 +1,6 @@
 {
 	"texture": "decor.png",
+	"group": 1,
 	"types": [
 		{
 			"width": 50,

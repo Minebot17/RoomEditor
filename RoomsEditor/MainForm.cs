@@ -28,14 +28,16 @@ using static RoomsEditor.InputManager;
 
 namespace RoomsEditor {
 	public partial class MainForm : Form {
-		public const float scaleForGrid = 3;
+		public const float scaleForGrid = 6;
 		public static Random rnd = new Random();
 		public static MainForm form;
 		public RoomMatrix matrix;
 		public List<RoomObject> objects;
 		public Tool oldTool;
 		public Tool activeTool;
-		bool isLoaded;
+		public int location;
+		public string openedPath;
+		private bool isLoaded;
 
 		public MainForm() {
 			InitializeComponent();
@@ -172,6 +174,8 @@ namespace RoomsEditor {
 			ResetTransformation();
 		}
 
+		private List<ListViewItem> removed = new List<ListViewItem>();
+		private List<string> groupNames = new List<string>();
 		private void оКToolStripMenuItem_Click(object sender, EventArgs e) {
 			if (matrix != null)
 				matrix.Disponse();
@@ -182,7 +186,31 @@ namespace RoomsEditor {
 			objects = new List<RoomObject>();
 			matrix = new RoomMatrix(size.x, size.y);
 			ResetTransformation();
-			сохранитьToolStripMenuItem2.Enabled = true;
+			сохранитьToolStripMenuItem2.Enabled = false;
+			сохранитьКакToolStripMenuItem2.Enabled = true;
+			openedPath = null;
+
+			for (int i = 0; i < removed.Count; i++)
+				removed[i].Group = ObjectsManager.FindGroup(ObjectsView.Groups, groupNames[i]);
+			location = toolStripComboBox2.SelectedIndex;
+			ObjectsView.Items.AddRange(removed.ToArray());
+			removed = new List<ListViewItem>();
+			groupNames = new List<string>();
+			List<ListViewItem> toRemove = new List<ListViewItem>();
+			List<string> locations = new List<string>() { "Катакомбы", "Шахты", "Ад" };
+			foreach (ListViewItem item in ObjectsView.Items) {
+				List<string> localLocations = new List<string>(locations);
+				localLocations.RemoveAll(x => x.Equals(toolStripComboBox2.Text));
+				string name = item.Group == null ? "" : item.Group.Name;
+				if (name.Equals(localLocations[0]) || name.Equals(localLocations[1]))
+					toRemove.Add(item);
+			}
+
+			foreach (ListViewItem item in toRemove) {
+				groupNames.Add(item.Group.Name);
+				ObjectsView.Items.Remove(item);
+			}
+			removed = toRemove;
 		}
 
 		private void CreateWallButton_Click(object sender, EventArgs e) {
@@ -238,16 +266,26 @@ namespace RoomsEditor {
 
 		private void открытьToolStripMenuItem2_Click(object sender, EventArgs e) {
 			DialogResult result = openFileDialog.ShowDialog();
-			if (result != DialogResult.Cancel)
+			if (result != DialogResult.Cancel) {
+				openedPath = openFileDialog.FileName;
+				сохранитьToolStripMenuItem2.Enabled = true;
 				SaveLoader.Load(openFileDialog.FileName);
+			}
 		}
 
 		private void сохранитьToolStripMenuItem2_Click(object sender, EventArgs e) {
-			DialogResult result = saveFileDialog.ShowDialog();
-			if (result != DialogResult.Cancel)
-				SaveLoader.Save(saveFileDialog.FileName.Substring(saveFileDialog.FileName.Length - 5).Equals(".json") ? saveFileDialog.FileName : saveFileDialog.FileName + ".json");
+			if (openedPath != null)
+				SaveLoader.Save(openedPath.Substring(openedPath.Length - 5).Equals(".json") ? openedPath : openedPath + ".json");
 		}
 
+		private void сохранитьКакToolStripMenuItem2_Click(object sender, EventArgs e) {
+			DialogResult result = saveFileDialog.ShowDialog();
+			if (result != DialogResult.Cancel) {
+				openedPath = saveFileDialog.FileName;
+				сохранитьToolStripMenuItem2.Enabled = true;
+				SaveLoader.Save(saveFileDialog.FileName.Substring(saveFileDialog.FileName.Length - 5).Equals(".json") ? saveFileDialog.FileName : saveFileDialog.FileName + ".json");
+			}
+		}
 
 		public bool checkBoxSwitch;
 		private void XSymmetryBox_CheckedChanged(object sender, EventArgs e) {

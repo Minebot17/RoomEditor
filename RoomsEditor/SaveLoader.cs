@@ -25,7 +25,7 @@ namespace RoomsEditor {
 			}
 
 			using (FileStream stream = new FileStream(fileName, FileMode.Create)) {
-				formatter.WriteObject(stream, new SaveFile(types, MainForm.form.objects));
+				formatter.WriteObject(stream, new SaveFile(types, MainForm.form.objects, MainForm.form.location));
 			}
 		}
 
@@ -63,9 +63,12 @@ namespace RoomsEditor {
 			public MatrixType[][] matrix;
 			[DataMember]
 			public List<RoomObject> objects;
-			public SaveFile(MatrixType[][] matrix, List<RoomObject> objects) {
+			[DataMember]
+			public int location;
+			public SaveFile(MatrixType[][] matrix, List<RoomObject> objects, int location) {
 				this.matrix = matrix;
 				this.objects = objects;
+				this.location = location;
 			}
 		}
 	}

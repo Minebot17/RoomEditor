@@ -62,13 +62,16 @@ namespace RoomsEditor {
 								icon.SetPixel(x, y, original.GetPixel(obj.types[0].offset.x + x, obj.types[0].offset.y + y));
 						ListViewGroupCollection collection = MainForm.form.ObjectsView.Groups;
 						MainForm.form.ObjectsView.LargeImageList.Images.Add(obj.name, icon);
-						MainForm.form.ObjectsView.Items.Add(obj.name, obj.name).Group = FindGroup(collection, obj.group == null || FindGroup(collection, obj.group) == null ? "Остальное" : obj.group);
+						string group = obj.group;
+						if (group != null)
+							group = group.Equals("1") ? "Катакомбы" : group.Equals("2") ? "Шахты" : group.Equals("3") ? "Ад" : group;
+						MainForm.form.ObjectsView.Items.Add(obj.name, obj.name).Group = FindGroup(collection, group == null || FindGroup(collection, group) == null ? "Остальное" : group);
 					}
 					rendersList.Add(obj, type);
 				}
 		}
 
-		private static ListViewGroup FindGroup(ListViewGroupCollection collection, string group) {
+		public static ListViewGroup FindGroup(ListViewGroupCollection collection, string group) {
 			ListViewGroup result = null;
 			foreach (ListViewGroup g in collection)
 				if (g.Name.Equals(group)) {
