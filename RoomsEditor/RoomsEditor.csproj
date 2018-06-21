@@ -92,6 +92,7 @@
     <Compile Include="Actions\IAction.cs" />
     <Compile Include="Actions\MoveObjectAction.cs" />
     <Compile Include="Actions\PastAction.cs" />
+    <Compile Include="Actions\PastObjectDataAction.cs" />
     <Compile Include="Actions\PastObjectsAction.cs" />
     <Compile Include="Actions\RemoveObjectAction.cs" />
     <Compile Include="Actions\SpawnObjectAction.cs" />

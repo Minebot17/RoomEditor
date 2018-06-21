@@ -138,13 +138,29 @@ namespace RoomsEditor.Tools {
 				loadObjectPanel();
 			}
 			else if (InputManager.IsKeyDown(System.Windows.Forms.Keys.ControlKey)) {
-				if (InputManager.IsKeyDown(System.Windows.Forms.Keys.C) && activeObject != null && activeObject.Count != 0 && !activeObject.Exists(x => x.render.mustNotDelete || x.render.mustNotMove))
+				if (InputManager.IsKeyDown(System.Windows.Forms.Keys.C) && activeObject != null && activeObject.Count != 0)
 					copyBuffer = activeObject.ConvertAll(x => x.Copy());
 				else if (InputManager.IsKeyDown(System.Windows.Forms.Keys.V) && copyBuffer != null && copyBuffer.Count != 0) {
+					if (copyBuffer.Exists(x => x.render.mustNotDelete || x.render.mustNotMove))
+						return;
+
 					List<RoomObject> toSpawn = copyBuffer.ConvertAll(x => x.Copy());
 					foreach (RoomObject obj in toSpawn)
 						ObjectsManager.SpawnObject(obj, false);
 					ActionManager.Add(new PastObjectsAction(toSpawn));
+				}
+				else if (InputManager.IsKeyDown(System.Windows.Forms.Keys.B) && copyBuffer != null && copyBuffer.Count == 1 && copyBuffer[0] is IExtendedData &&
+					activeObject != null && activeObject.Count != 0) {
+					bool valid = true;
+					for (int i = 0; i < activeObject.Count; i++)
+						if (!(activeObject[i] is IExtendedData) || (!activeObject[i].prefabName.Equals(copyBuffer[0].prefabName) && !(copyBuffer[0].prefabName.Contains("Gate") ? activeObject[i].prefabName.Contains("Gate") : false)))
+							valid = false;
+
+					if (valid) {
+						ActionManager.Add(new PastObjectDataAction(activeObject, ((IExtendedData)copyBuffer[0]).serializeData()));
+						for (int i = 0; i < activeObject.Count; i++)
+							((IExtendedData)activeObject[i]).deserializeData(((IExtendedData)copyBuffer[0]).serializeData());
+					}
 				}
 			}
 		}

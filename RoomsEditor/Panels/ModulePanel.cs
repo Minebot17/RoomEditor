@@ -27,7 +27,7 @@ namespace RoomsEditor.Panels {
 			if (height <= Size.Height)
 				scrollBar.Visible = false;
 			else
-				scrollBar.Maximum = height - Size.Height + (int)(0.1f * height);
+				scrollBar.Maximum = height - Size.Height + (int)(0.2f * height);
 		}
 
 		public void SetupData(string[] data) {

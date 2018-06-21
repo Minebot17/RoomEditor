@@ -78,13 +78,13 @@ namespace RoomsEditor.Tools {
 
 			MainForm.form.infoLabel.Text = "W: " + (mouseWorldPosition.x - startPos.x) + " H: " + (mouseWorldPosition.y - startPos.y);
 			bool[] sides = new bool[4] {
-				mouseWindowPosition.x < 50,
-				mouseWindowPosition.x > MainForm.form.viewPort.Width - 50,
-				mouseWindowPosition.y < 50,
-				mouseWindowPosition.y > MainForm.form.viewPort.Height - 50
+				mouseWindowPosition.x < 10,
+				mouseWindowPosition.x > MainForm.form.viewPort.Width - 10,
+				mouseWindowPosition.y < 10,
+				mouseWindowPosition.y > MainForm.form.viewPort.Height - 10
 			};
 			if (sides[0] || sides[1] || sides[2] || sides[3])
-				TranslateMatrix(sides[0] ? (int)((mouseWindowPosition.x - 50) * -0.3f) : sides[1] ? (int)((mouseWindowPosition.x - MainForm.form.viewPort.Width + 50) * -0.3f) : 0, sides[2] ? (int)((mouseWindowPosition.y - 50) * -0.3f) : sides[3] ? (int)((mouseWindowPosition.y - MainForm.form.viewPort.Height + 50) * -0.3f) : 0);
+				TranslateMatrix(sides[0] ? (int)((mouseWindowPosition.x - 10) * -0.3f) : sides[1] ? (int)((mouseWindowPosition.x - MainForm.form.viewPort.Width + 10) * -0.3f) : 0, sides[2] ? (int)((mouseWindowPosition.y - 10) * -0.3f) : sides[3] ? (int)((mouseWindowPosition.y - MainForm.form.viewPort.Height + 10) * -0.3f) : 0);
 		}
 
 		public void FillSymmetry(Vec<int> from, Vec<int> to) {
