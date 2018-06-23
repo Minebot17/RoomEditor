@@ -13,13 +13,19 @@ namespace RoomsEditor.Objects {
 
 	[DataContract]
 	public class MarkerObject : RoomObjectWithModulePanel {
+		private Color color = Color.Black;
 
 		public MarkerObject(ObjectRenderer render) : base(render) {
 			
 		}
 
+		public override void markDirty() {
+			base.markDirty();
+			if (data != null)
+				color = Color.FromArgb(int.Parse(data[1]));
+		}
+
 		public override void Draw(int type) {
-			Color color = Color.FromArgb(int.Parse(data[1]));
 			glPushMatrix();
 			glTranslatef(coords.x, coords.y, 0);
 			glColor3f(color.R/255f, color.G/255f, color.B/255f);

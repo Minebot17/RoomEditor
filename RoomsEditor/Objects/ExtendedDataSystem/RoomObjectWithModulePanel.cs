@@ -13,6 +13,8 @@ namespace RoomsEditor.Objects.ExtendedDataSystem {
 	[KnownType(typeof(BananaObject))]
 	[KnownType(typeof(BulavaObject))]
 	[KnownType(typeof(MarkerObject))]
+	[KnownType(typeof(StairObject))]
+	[KnownType(typeof(JumpPointObject))]
 	public abstract class RoomObjectWithModulePanel : RoomObject, IExtendedData {
 		protected ModulePanel modulePanel;
 		[DataMember]
@@ -28,7 +30,7 @@ namespace RoomsEditor.Objects.ExtendedDataSystem {
 			return data;
 		}
 
-		public void markDirty() {
+		public virtual void markDirty() {
 			if (modulePanel != null)
 				data = modulePanel.CollectData();
 		}

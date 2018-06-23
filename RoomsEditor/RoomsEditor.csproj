@@ -112,11 +112,13 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Objects\JumpPointObject.cs" />
     <Compile Include="Objects\ObjectsManager.cs" />
     <Compile Include="Objects\MatrixRenderer.cs" />
     <Compile Include="Objects\RoomChunkObject.cs" />
     <Compile Include="Objects\RoomObject.cs" />
     <Compile Include="Objects\ExtendedDataSystem\RoomObjectWithCustomPanel.cs" />
+    <Compile Include="Objects\StairObject.cs" />
     <Compile Include="Objects\TextObject.cs" />
     <Compile Include="Panels\ChestPanel.cs">
       <SubType>UserControl</SubType>

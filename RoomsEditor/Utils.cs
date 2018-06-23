@@ -75,6 +75,21 @@ namespace RoomsEditor {
 			glEnable(GL_CULL_FACE);
 		}
 
+		public static void DrawTexturedQuad(Vec<int> start, Vec<int> end, Vec<float> startUV, Vec<float> endUV) {
+			glDisable(GL_CULL_FACE);
+			glBegin(GL_QUADS);
+			glTexCoord2f(startUV.x, startUV.y);
+			glVertex2i(start.x, start.y);
+			glTexCoord2f(endUV.x, startUV.y);
+			glVertex2i(end.x, start.y);
+			glTexCoord2f(endUV.x, endUV.y);
+			glVertex2i(end.x, end.y);
+			glTexCoord2f(startUV.x, endUV.y);
+			glVertex2i(start.x, end.y);
+			glEnd();
+			glEnable(GL_CULL_FACE);
+		}
+
 		public static float GetDistance(Vec<float> from, Vec<float> to) {
 			Vec<float> delta = GetDelta(from, to);
 			return GetLength(delta);

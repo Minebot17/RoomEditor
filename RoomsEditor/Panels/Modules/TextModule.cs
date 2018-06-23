@@ -35,7 +35,8 @@ namespace RoomsEditor.Panels.Modules {
 		}
 
 		private void textBox_TextChanged(object sender, EventArgs e) {
-			Tools.EditObjectsTool.MarkDirtyActiveObject();
+			if (textBox.Text != null && !textBox.Text.Equals(""))
+				Tools.EditObjectsTool.MarkDirtyActiveObject();
 		}
 	}
 }

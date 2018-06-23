@@ -12,6 +12,8 @@ namespace RoomsEditor.Objects {
 	[KnownType(typeof(MarkerObject))]
 	[KnownType(typeof(BananaObject))]
 	[KnownType(typeof(BulavaObject))]
+	[KnownType(typeof(StairObject))]
+	[KnownType(typeof(JumpPointObject))]
 	public class RoomObject : IRenderer {
 		public ObjectRenderer render;
 		[DataMember]

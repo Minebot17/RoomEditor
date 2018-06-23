@@ -49,6 +49,12 @@ namespace RoomsEditor {
 						case "bulava":
 							type = typeof(BulavaObject);
 							break;
+						case "stair":
+							type = typeof(StairObject);
+							break;
+						case "jumpPoint":
+							type = typeof(JumpPointObject);
+							break;
 						default:
 							type = typeof(RoomObject);
 							break;
