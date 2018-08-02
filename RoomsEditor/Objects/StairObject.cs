@@ -18,8 +18,8 @@ namespace RoomsEditor.Objects {
 		private int width;
 		private bool enders;
 
-		public StairObject(ObjectRenderer render) : base(render) {
-
+		public StairObject(ObjectRenderer render) : base(render.Copy()) {
+			
 		}
 
 		public override void Draw(int type) {
@@ -38,12 +38,58 @@ namespace RoomsEditor.Objects {
 			glPopMatrix();
 		}
 
+		public bool flag = false;
 		public override void markDirty() {
+			if (flag)
+				return;
 			base.markDirty();
 			if (data != null) {
 				stairType = int.Parse(data[0]);
 				width = int.Parse(data[2]);
 				enders = bool.Parse(data[3]);
+				this.render.types[0].width = width;
+
+				if ((MainForm.form.activeTool is Tools.EditObjectsTool)) {
+					StairObject xS = (StairObject)((Tools.EditObjectsTool)MainForm.form.activeTool).xSymmetryObject;
+					StairObject yS = (StairObject)((Tools.EditObjectsTool)MainForm.form.activeTool).ySymmetryObject;
+					StairObject xyS = (StairObject)((Tools.EditObjectsTool)MainForm.form.activeTool).xySymmetryObject;
+					if (xS == this || yS == this || xyS == this)
+						return;
+					flag = true;
+					if (xS != null) {
+						if (xS.modulePanel == null) {
+							xS.flag = true;
+							xS.modulePanel = new Panels.ModulePanel(xS.GetModules());
+							xS.modulePanel.Location = new System.Drawing.Point(4, 65);
+							xS.flag = false;
+						}
+						xS.coords.x += xS.width - width;
+						xS.modulePanel.SetupData(data);
+						xS.markDirty();
+					}
+					if (yS != null) {
+						if (yS.modulePanel == null) {
+							yS.flag = true;
+							yS.modulePanel = new Panels.ModulePanel(yS.GetModules());
+							yS.modulePanel.Location = new System.Drawing.Point(4, 65);
+							yS.flag = false;
+						}
+						yS.modulePanel.SetupData(data);
+						yS.markDirty();
+					}
+					if (xyS != null) {
+						if (xyS.modulePanel == null) {
+							xyS.flag = true;
+							xyS.modulePanel = new Panels.ModulePanel(xyS.GetModules());
+							xyS.modulePanel.Location = new System.Drawing.Point(4, 65);
+							xyS.flag = false;
+						}
+						xyS.coords.x += xyS.width - width;
+						xyS.modulePanel.SetupData(data);
+						xyS.markDirty();
+					}
+					flag = false;
+				}
 			}
 		}
 
@@ -54,6 +100,15 @@ namespace RoomsEditor.Objects {
 				new TextModule("Ширина", "16"),
 				new BoolModule("Наконечники", true)
 			};
+		}
+
+		public override RoomObject Copy() {
+			StairObject copy = (StairObject)base.Copy();
+			copy.stairType = stairType;
+			copy.enders = enders;
+			copy.width = width;
+			copy.render.types[0].width = width;
+			return copy;
 		}
 	}
 }

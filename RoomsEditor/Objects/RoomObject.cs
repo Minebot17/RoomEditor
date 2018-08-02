@@ -14,6 +14,7 @@ namespace RoomsEditor.Objects {
 	[KnownType(typeof(BulavaObject))]
 	[KnownType(typeof(StairObject))]
 	[KnownType(typeof(JumpPointObject))]
+	[KnownType(typeof(RoomChunkObject))]
 	public class RoomObject : IRenderer {
 		public ObjectRenderer render;
 		[DataMember]

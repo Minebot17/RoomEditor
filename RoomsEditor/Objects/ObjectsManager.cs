@@ -107,19 +107,19 @@ namespace RoomsEditor {
 			objectsToSpawn.Add(obj);
 			if (MainForm.form.XSymmetryBox.Checked) {
 				RoomObject symmetry = obj.Copy();
-				symmetry.coords = new Utils.Vec<int>(495*MainForm.form.matrix.widthRoom + InputManager.translate.x - symmetry.GetRender().width, -InputManager.translate.y);
+				symmetry.coords = new Utils.Vec<int>(495*MainForm.form.matrix.widthRoom + InputManager.translate.x - obj.GetRender().width, -InputManager.translate.y);
 				MainForm.form.objects.Add(symmetry);
 				objectsToSpawn.Add(symmetry);
 			}
 			if (MainForm.form.YSymmetryBox.Checked) {
 				RoomObject symmetry = obj.Copy();
-				symmetry.coords = new Utils.Vec<int>(-InputManager.translate.x, 277 * MainForm.form.matrix.heightRoom + InputManager.translate.y - symmetry.GetRender().height);
+				symmetry.coords = new Utils.Vec<int>(-InputManager.translate.x, 277 * MainForm.form.matrix.heightRoom + InputManager.translate.y - obj.GetRender().height);
 				MainForm.form.objects.Add(symmetry);
 				objectsToSpawn.Add(symmetry);
 			}
 			if (MainForm.form.XYSymmetryBox.Checked) {
 				RoomObject symmetry = obj.Copy();
-				symmetry.coords = new Utils.Vec<int>(495 * MainForm.form.matrix.widthRoom + InputManager.translate.x - symmetry.GetRender().width, 277 * MainForm.form.matrix.heightRoom + InputManager.translate.y - symmetry.GetRender().height);
+				symmetry.coords = new Utils.Vec<int>(495 * MainForm.form.matrix.widthRoom + InputManager.translate.x - obj.GetRender().width, 277 * MainForm.form.matrix.heightRoom + InputManager.translate.y - obj.GetRender().height);
 				MainForm.form.objects.Add(symmetry);
 				objectsToSpawn.Add(symmetry);
 			}
@@ -190,7 +190,10 @@ namespace RoomsEditor {
 
 		public static RoomObject GetObjectOverMouse() {
 			foreach (RoomObject obj in MainForm.form.objects) {
-				if (mouseWorldPosition.x > obj.coords.x && mouseWorldPosition.x < obj.coords.x + obj.GetRender().width && mouseWorldPosition.y > obj.coords.y && mouseWorldPosition.y < obj.coords.y + obj.GetRender().height)
+				Utils.Vec<int> coord = obj.coords;
+				if (obj.render.mustCenterPosition)
+					coord = new Utils.Vec<int>(coord.x - obj.render.types[obj.type].width/2, coord.y - obj.render.types[obj.type].height/2);
+				if (mouseWorldPosition.x > coord.x && mouseWorldPosition.x < coord.x + obj.GetRender().width && mouseWorldPosition.y > coord.y && mouseWorldPosition.y < coord.y + obj.GetRender().height)
 					return obj;
 			}
 			return null;

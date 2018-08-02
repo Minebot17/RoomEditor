@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Tao.OpenGl.Gl;
+using System.Runtime.Serialization;
 
 namespace RoomsEditor.Objects {
+	[DataContract]
 	public class RoomChunkObject : RoomObject {
 		public MatrixRenderer renderer;
 

@@ -76,12 +76,18 @@ namespace RoomsEditor.Tools {
 			glColor3f(1, 0, 0);
 			glLineWidth(1);
 			foreach (RoomObject obj in activeObject) {
+				if (obj.render.mustCenterPosition) {
+					glTranslatef(-obj.render.types[obj.type].width / 2, -obj.render.types[obj.type].height / 2, 0);
+				}
 				glBegin(GL_LINE_LOOP);
 				glVertex2i(obj.coords.x, obj.coords.y);
 				glVertex2i(obj.GetRender().width + obj.coords.x, obj.coords.y);
 				glVertex2i(obj.GetRender().width + obj.coords.x, obj.GetRender().height + obj.coords.y);
 				glVertex2i(obj.coords.x, obj.GetRender().height + obj.coords.y);
 				glEnd();
+				if (obj.render.mustCenterPosition) {
+					glTranslatef(obj.render.types[obj.type].width / 2, obj.render.types[obj.type].height / 2, 0);
+				}
 			}
 			glColor3f(1, 1, 1);
 		}
@@ -113,6 +119,7 @@ namespace RoomsEditor.Tools {
 					MainForm.form.objects.Remove(xySymmetryObject);
 				}
 				ActionManager.Add(new RemoveObjectAction(toAction));
+
 
 				if (activeObject.Count == 1 && activeObject[0] is IExtendedData)
 					((IExtendedData)activeObject[0]).closePanel();
@@ -147,6 +154,7 @@ namespace RoomsEditor.Tools {
 					List<RoomObject> toSpawn = copyBuffer.ConvertAll(x => x.Copy());
 					foreach (RoomObject obj in toSpawn)
 						ObjectsManager.SpawnObject(obj, false);
+					activeObject = toSpawn;
 					ActionManager.Add(new PastObjectsAction(toSpawn));
 				}
 				else if (InputManager.IsKeyDown(System.Windows.Forms.Keys.B) && copyBuffer != null && copyBuffer.Count == 1 && copyBuffer[0] is IExtendedData &&

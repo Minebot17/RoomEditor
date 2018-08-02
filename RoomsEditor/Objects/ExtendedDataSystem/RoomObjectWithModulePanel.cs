@@ -59,7 +59,7 @@ namespace RoomsEditor.Objects.ExtendedDataSystem {
 			modulePanel.SetupData(data);
 		}
 
-		private void createPanel() {
+		protected void createPanel() {
 			modulePanel = new ModulePanel(GetModules());
 			modulePanel.Location = new System.Drawing.Point(4, 65);
 			if (data != null)
