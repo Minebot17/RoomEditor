@@ -339,7 +339,7 @@ namespace RoomsEditor {
 				false.ToString()
 			});
 
-			System.Diagnostics.Process.Start(Application.StartupPath + "/Build/Build.exe");
+			System.Diagnostics.Process.Start(Application.StartupPath + "/Build/RogueLikeTest.exe");
 		}
 
 		private void BackUpTimer_Tick(object sender, EventArgs e) {

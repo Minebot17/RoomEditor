@@ -96,7 +96,8 @@ namespace RoomsEditor.Objects {
 		protected override Control[] GetModules() {
 			return new Control[] {
 				new ComboModule("Тип", new []{ "Обычная", "Исчезающая", "Ломающаяся" }, 0),
-				new TextModule("Задержка исчезновения (сек)", "0"),
+				new TextModule("Задержка до исчезновения (сек)", "2"),
+				new TextModule("Задержка до появления (сек)", "2"),
 				new TextModule("Ширина", "16"),
 				new BoolModule("Наконечники", true)
 			};

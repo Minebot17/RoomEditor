@@ -69,6 +69,7 @@ namespace RoomsEditor {
 		public static void ResetTransformation() {
 			scaleFactor = 2f/MainForm.form.matrix.scaleFactor;
 			translate = new Vec<int>();
+			MainForm.form.matrix.CompileList();
 		}
 
 		#region "Handlers"
