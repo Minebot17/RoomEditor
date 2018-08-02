@@ -18,6 +18,10 @@ namespace RoomsEditor.Objects {
 			
 		}
 
+		public virtual void applyData() {
+
+		}
+
 		public override RoomObject Copy() {
 			RoomObjectWithCustomPanel<T> copy = (RoomObjectWithCustomPanel<T>) base.Copy();
 			copy.data = data;

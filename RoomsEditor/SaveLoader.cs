@@ -45,8 +45,11 @@ namespace RoomsEditor {
 					MainForm.form.matrix = new RoomMatrix(file.matrix.Length / 495, file.matrix[0].Length / 277);
 					MainForm.form.matrix.matrix = types;
 
-					foreach (RoomObject obj in file.objects)
+					foreach (RoomObject obj in file.objects) {
 						obj.render = ObjectsManager.GetRenderByName(obj.prefabName);
+						if (obj is IExtendedData)
+							((IExtendedData)obj).applyData();
+					}
 					MainForm.form.objects = file.objects;
 					InputManager.ResetTransformation();
 					MainForm.form.сохранитьToolStripMenuItem2.Enabled = true;

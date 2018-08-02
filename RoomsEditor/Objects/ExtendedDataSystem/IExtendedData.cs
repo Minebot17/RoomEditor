@@ -9,6 +9,7 @@ namespace RoomsEditor.Objects {
 		void openPanel();
 		void closePanel();
 		void markDirty();
+		void applyData();
 
 		string[] serializeData();
 		void deserializeData(string[] data);

@@ -24,6 +24,10 @@ namespace RoomsEditor.Objects.ExtendedDataSystem {
 
 		}
 
+		public virtual void applyData() {
+
+		}
+
 		public string[] getDefaultData() {
 			if (modulePanel == null)
 				createPanel();

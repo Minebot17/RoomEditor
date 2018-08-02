@@ -38,16 +38,20 @@ namespace RoomsEditor.Objects {
 			glPopMatrix();
 		}
 
+		public override void applyData() {
+			stairType = int.Parse(data[0]);
+			width = int.Parse(data[3]);
+			enders = bool.Parse(data[4]);
+			this.render.types[0].width = width;
+		}
+
 		public bool flag = false;
 		public override void markDirty() {
 			if (flag)
 				return;
 			base.markDirty();
 			if (data != null) {
-				stairType = int.Parse(data[0]);
-				width = int.Parse(data[2]);
-				enders = bool.Parse(data[3]);
-				this.render.types[0].width = width;
+				applyData();
 
 				if ((MainForm.form.activeTool is Tools.EditObjectsTool)) {
 					StairObject xS = (StairObject)((Tools.EditObjectsTool)MainForm.form.activeTool).xSymmetryObject;
