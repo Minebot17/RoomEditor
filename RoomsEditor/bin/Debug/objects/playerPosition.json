@@ -1,0 +1,11 @@
+{
+	"texture": "player.png",
+	"group": "Инструменты",
+	"types": [
+		{
+			"width": 35,
+			"height": 55,
+			"offset": {"x": 0, "y": 0}
+		}
+	]
+}

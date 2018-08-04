@@ -1,0 +1,11 @@
+{
+	"texture": "traps.png",
+	"group": 1,
+	"types": [
+		{
+			"width": 24,
+			"height": 8,
+			"offset": {"x": 41, "y": 0}
+		}
+	]
+}

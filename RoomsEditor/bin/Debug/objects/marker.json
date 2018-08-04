@@ -1,0 +1,16 @@
+{
+	"texture": "markers.png",
+	"group": "Инструменты",
+	"types": [
+		{
+			"width": 16,
+			"height": 16,
+			"offset": {"x": 0, "y": 16}
+		},
+		{
+			"width": 32,
+			"height": 32,
+			"offset": {"x": 16, "y": 0}
+		}
+	]
+}

@@ -1,0 +1,12 @@
+{
+	"texture": "mobs.png",
+	"group": 1,
+	"types": [
+		{
+			"width": 53,
+			"height": 26,
+			"offset": {"x": 34, "y": 1}
+		}
+	],
+	"mustCenterPosition": true
+}
