@@ -325,7 +325,7 @@ namespace RoomsEditor {
 			if (activeObjects == null || activeObjects.Count == 0)
 				return;
 
-			const string directoryPath = "Build/Build_Data/StreamingAssets";
+			const string directoryPath = "Build/RogueLikeTest_Data/StreamingAssets";
 			DirectoryInfo directory = new DirectoryInfo(directoryPath);
 			if (directory.Exists)
 				Directory.Delete(directoryPath, true);

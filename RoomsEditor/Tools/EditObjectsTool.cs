@@ -14,6 +14,7 @@ namespace RoomsEditor.Tools {
 		public List<Vec<int>> startMovePoses;
 		public bool isMoved;
 		public List<RoomObject> copyBuffer;
+		public Vec<int> startPos;
 
 		public RoomObject xSymmetryObject;
 		public RoomObject ySymmetryObject;
@@ -22,10 +23,15 @@ namespace RoomsEditor.Tools {
 		public override void MouseDown() {
 			if (InputManager.IsMouseButtonDown(System.Windows.Forms.MouseButtons.Left)) {
 				RoomObject obj = ObjectsManager.GetObjectOverMouse();
-				if (InputManager.IsKeyDown(System.Windows.Forms.Keys.ShiftKey))
-					AddToSelectObject(obj);
-				else
-					SelectObjects(new List<RoomObject>() { obj });
+				if (obj != null) {
+					if (InputManager.IsKeyDown(System.Windows.Forms.Keys.ShiftKey))
+						AddToSelectObject(obj);
+					else
+						SelectObjects(new List<RoomObject>() { obj });
+				}
+				else {
+					startPos = InputManager.mouseWorldPosition;
+				}
 			}
 			else if (InputManager.IsMouseButtonDown(System.Windows.Forms.MouseButtons.Right) && activeObject != null && activeObject.Count != 0) {
 				startMovePoses = new List<Vec<int>>();
@@ -36,7 +42,7 @@ namespace RoomsEditor.Tools {
 		}
 
 		public override void MouseMove() {
-			if (!InputManager.IsMouseButtonDown(System.Windows.Forms.MouseButtons.Right) || activeObject == null)
+			if (!InputManager.IsMouseButtonDown(System.Windows.Forms.MouseButtons.Right) || activeObject == null || activeObject.Count == 0)
 				return;
 
 			Vec<int> delta = SubstractVector(InputManager.mouseWorldPosition, activeObject[0].coords);
@@ -67,9 +73,41 @@ namespace RoomsEditor.Tools {
 
 				ActionManager.Add(new MoveObjectAction(args));
 			}
+			else if (startPos.x != 0 && startPos.y != 0) {
+				Vec<int> min = new Vec<int>(
+					InputManager.mouseWorldPosition.x < startPos.x ? InputManager.mouseWorldPosition.x : startPos.x,
+					InputManager.mouseWorldPosition.y < startPos.y ? InputManager.mouseWorldPosition.y : startPos.y
+				);
+				Vec<int> max = new Vec<int>(
+					InputManager.mouseWorldPosition.x > startPos.x ? InputManager.mouseWorldPosition.x : startPos.x,
+					InputManager.mouseWorldPosition.y > startPos.y ? InputManager.mouseWorldPosition.y : startPos.y
+				);
+				SelectObjects(ObjectsManager.GetObjectsInRectangle(min, max));
+				startPos = new Vec<int>(0, 0);
+			}
 		}
 
 		public override void Draw() {
+			if (startPos.x != 0 && startPos.y != 0) {
+				glColor3f(1, 0, 0);
+				glLineWidth(2);
+				Vec<int> min = new Vec<int>(
+					InputManager.mouseWorldPosition.x < startPos.x ? InputManager.mouseWorldPosition.x : startPos.x,
+					InputManager.mouseWorldPosition.y < startPos.y ? InputManager.mouseWorldPosition.y : startPos.y
+				);
+				Vec<int> max = new Vec<int>(
+					InputManager.mouseWorldPosition.x > startPos.x ? InputManager.mouseWorldPosition.x : startPos.x,
+					InputManager.mouseWorldPosition.y > startPos.y ? InputManager.mouseWorldPosition.y : startPos.y
+				);
+				glBegin(GL_LINE_LOOP);
+				glVertex2i(min.x, min.y);
+				glVertex2i(max.x, min.y);
+				glVertex2i(max.x, max.y);
+				glVertex2i(min.x, max.y);
+				glEnd();
+				glColor3f(1, 1, 1);
+			}
+
 			if (activeObject == null)
 				return;
 
@@ -154,7 +192,7 @@ namespace RoomsEditor.Tools {
 					List<RoomObject> toSpawn = copyBuffer.ConvertAll(x => x.Copy());
 					foreach (RoomObject obj in toSpawn)
 						ObjectsManager.SpawnObject(obj, false);
-					activeObject = toSpawn;
+					SelectObjects(toSpawn);
 					ActionManager.Add(new PastObjectsAction(toSpawn));
 				}
 				else if (InputManager.IsKeyDown(System.Windows.Forms.Keys.B) && copyBuffer != null && copyBuffer.Count == 1 && copyBuffer[0] is IExtendedData &&

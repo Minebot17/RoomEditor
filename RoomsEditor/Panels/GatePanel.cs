@@ -122,7 +122,7 @@ namespace RoomsEditor.Panels {
 		}
 
 		private void testRoomButton_Click(object sender, EventArgs e) {
-			const string directoryPath = "Build/Build_Data/StreamingAssets";
+			const string directoryPath = "Build/RogueLikeTest_Data/StreamingAssets";
 			DirectoryInfo directory = new DirectoryInfo(directoryPath);
 			if (directory.Exists)
 				Directory.Delete(directoryPath, true);
@@ -140,7 +140,7 @@ namespace RoomsEditor.Panels {
 				(gate.coords.y == 0).ToString()
 			});
 
-			System.Diagnostics.Process.Start(Application.StartupPath + "/Build/Build.exe");
+			System.Diagnostics.Process.Start(Application.StartupPath + "/Build/RogueLikeTest.exe");
 		}
 	}
 }

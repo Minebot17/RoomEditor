@@ -198,5 +198,14 @@ namespace RoomsEditor {
 			}
 			return null;
 		}
+
+		public static List<RoomObject> GetObjectsInRectangle(Utils.Vec<int> min, Utils.Vec<int> max) {
+			List<RoomObject> result = new List<RoomObject>();
+			MainForm.form.objects.ForEach(obj => {
+				if (obj.coords.x > min.x && obj.coords.x + obj.GetRender().width < max.x && obj.coords.y > min.y && obj.coords.y + obj.GetRender().height < max.y)
+					result.Add(obj);
+			});
+			return result;
+		}
 	}
 }
